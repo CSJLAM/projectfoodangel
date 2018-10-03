@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { StaffInfoPage } from '../staff-info/staff-info';
-import { StaffListPage } from '../staff-list/staff-list';
+
 
 @Component({
   selector: 'page-staff-list',

@@ -10,11 +10,13 @@ import { EventCategorySettingPage } from '../event-category-setting/event-catego
   templateUrl: 'event-management.html'
 })
 export class EventManagementPage {
-
+apple = 0;
   constructor(public navCtrl: NavController) {
+  
   }
   goToNewEvent(params){
     if (!params) params = {};
+     
     this.navCtrl.push(NewEventPage);
   }goToUpdateEvent(params){
     if (!params) params = {};
