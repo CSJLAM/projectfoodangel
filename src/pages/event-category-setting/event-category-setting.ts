@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { EventCategroryListPage } from '../event-categrory-list/event-categrory-list';
-import { EventCategorySettingPage } from '../event-category-setting/event-category-setting';
+
 
 @Component({
   selector: 'page-event-category-setting',
