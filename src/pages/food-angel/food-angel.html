@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      惜食堂 Food Angel
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page1">
+  <h3 id="FoodAngel-heading1" style="color:#000000;text-align:center;">
+    是日活動
+  </h3>
+  <ion-card id="FoodAngel-card21">
+    <ion-list>
+      <ion-item color="none" on-click="goToTakeAttendance()" id="FoodAngel-list-item7">
+        A 餐
+      </ion-item>
+      <ion-item color="none" on-click="goToTakeAttendance()" id="FoodAngel-list-item9">
+        太極班
+      </ion-item>
+      <ion-item color="none" on-click="goToTakeAttendance()" id="FoodAngel-list-item8">
+        B 餐
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <h1 id="FoodAngel-heading3" style="color:#000000;"></h1>
+  <ion-card id="FoodAngel-card22">
+    <ion-list>
+      <ion-item color="none" on-click="goToMembershipManagement()" id="FoodAngel-list-item11">
+        <ion-icon name="people" item-left></ion-icon>
+        會員管理
+      </ion-item>
+      <ion-item color="none" on-click="goToEventCalendar()" id="FoodAngel-list-item10">
+        <ion-icon name="folder" item-left></ion-icon>
+        活動列表
+      </ion-item>
+      <ion-item-sliding>
+        <ion-item color="none" on-click="goToSystemManagement()" id="FoodAngel-list-item12">
+          <ion-icon name="settings" item-left></ion-icon>
+          系統管理
+        </ion-item>
+        <ion-item-options side="left">
+          <button ion-button color="positive"></button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
+</ion-content>
