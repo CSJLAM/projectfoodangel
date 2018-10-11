@@ -33,6 +33,7 @@ import { CampusListPage } from '../pages/campus-list/campus-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { NFC } from '@ionic-native/nfc';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    NFC,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
