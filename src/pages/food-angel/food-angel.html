@@ -6,23 +6,39 @@
     <ion-title>
       惜食堂 Food Angel
     </ion-title>
+    
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page1">
+    <ion-list *ngIf="isSignedIn==null">
+        <ion-item>
+          <ion-label fixed>帳號</ion-label>
+          <ion-input type="text" [(ngModel)]="Username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>密碼</ion-label>
+          <ion-input type="password" [(ngModel)]="Password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <div padding *ngIf="isSignedIn==null">
+        <button ion-button color="primary" block (click)="Login('Default_Login',Username,Password,'')" *ngIf="!isSignedIn">登入</button>
+       
+      </div>
+      <div *ngIf="isSignedIn!=null">
   <h3 id="FoodAngel-heading1" style="color:#000000;text-align:center;">
     是日活動
   </h3>
   <ion-card id="FoodAngel-card21">
     <ion-list>
-      <ion-item color="none" on-click="goToTakeAttendance()" id="FoodAngel-list-item7">
-        A 餐
+      <ion-item color="none" *ngFor="let Event of Events" on-click="goToTakeAttendance(Event,Events)" id="FoodAngel-list-item7">
+        {{Event.Event_Name}}
       </ion-item>
-      <ion-item color="none" on-click="goToTakeAttendance()" id="FoodAngel-list-item9">
+     <!-- <ion-item color="none" on-click="goToTakeAttendance()" id="FoodAngel-list-item9">
         太極班
       </ion-item>
       <ion-item color="none" on-click="goToTakeAttendance()" id="FoodAngel-list-item8">
         B 餐
-      </ion-item>
+      </ion-item>-->
     </ion-list>
   </ion-card>
   <h1 id="FoodAngel-heading3" style="color:#000000;"></h1>
@@ -47,4 +63,5 @@
       </ion-item-sliding>
     </ion-list>
   </ion-card>
+</div>
 </ion-content>
