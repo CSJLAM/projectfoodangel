@@ -4,7 +4,7 @@ import { StaffListPage } from '../staff-list/staff-list';
 import { StaffInfoPage } from '../staff-info/staff-info';
 import { StaffLevelListPage } from '../staff-level-list/staff-level-list';
 import { StaffLevelPage } from '../staff-level/staff-level';
-import { FoodAngelPage } from '../food-angel/food-angel';
+
 import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-staff-setting',
@@ -49,6 +49,7 @@ export class StaffSettingPage {
         this.Account("Hash_Login", val, "","");
       }
       else {
+        //this.navCtrl.popToRoot ();
         //  this.Login("Hash_Login","96a3be3cf272e017046d1b2674a52bd3","");
       }
     });
@@ -206,6 +207,7 @@ export class StaffSettingPage {
             buttons: ['OK']
           });
           alert.present();
+          this.navCtrl.popToRoot ();
         }
 
       }

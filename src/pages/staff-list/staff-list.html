@@ -13,14 +13,9 @@
     新增職員
   </button>
   <ion-list id="StaffList-list25">
-    <ion-item color="none" on-click="goToStaffInfo()" id="StaffList-list-item48">
-      Item 1
+    <ion-item color="none" *ngFor="let Staff of Staffs"  on-click="goToStaffInfo(Staff,Staffs)" id="StaffList-list-item48">
+      {{Staff.Name}}
     </ion-item>
-    <ion-item color="none" on-click="goToStaffInfo()" id="StaffList-list-item49">
-      Item 2
-    </ion-item>
-    <ion-item color="none" on-click="goToStaffInfo()" id="StaffList-list-item50">
-      Item 3
-    </ion-item>
+    
   </ion-list>
 </ion-content>
