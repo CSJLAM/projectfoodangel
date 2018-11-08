@@ -45,6 +45,10 @@ export class FoodAngelPage {
     //this.getEvents(1);
 
   }
+  ionViewWillLeave() {
+    console.log("Looks like I'm about to leave :(");
+    
+  }
   ionViewDidEnter() {
     this.Events = [];
     this.isSignedIn = null;

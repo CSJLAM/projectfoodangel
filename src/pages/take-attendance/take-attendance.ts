@@ -6,12 +6,13 @@ import { NFC} from '@ionic-native/nfc';
   templateUrl: 'take-attendance.html'
 })
 export class TakeAttendancePage {
+  
   granted: boolean;
   denied: boolean;
   scanned: boolean;
   tagId: string;
   constructor(public navCtrl: NavController,private nfc: NFC) {
-    this.resetScanData();
+    
   }
   resetScanData() {
     this.granted = false;
@@ -20,11 +21,16 @@ export class TakeAttendancePage {
   }
 
   ionViewDidEnter() {
+    this.resetScanData();
     this.nfc.enabled().then((resolve) => {
       this.addListenNFC();
     }).catch((reject) => {
       alert("NFC is not supported by your Device");
     });
+  }
+  ionViewWillLeave() {
+    console.log("Looks like I'm about to leave :(");
+    this.nfc=null;
   }
 
   addListenNFC() {
@@ -35,7 +41,7 @@ export class TakeAttendancePage {
         if (tagId) {
           this.tagId = tagId;
           this.scanned = true;
-          alert(tagId);
+          //alert(tagId);
           // only testing data consider to ask web api for access
           this.granted = [
             "7d3c6179"
