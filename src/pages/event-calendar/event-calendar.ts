@@ -22,7 +22,7 @@ export class EventCalendarPage {
   constructor(public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public actionsheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public platform: Platform) {
   }
   ionViewDidEnter() {
-    
+    this.Events = [];
     this.isSignedIn = null;
     this.Name= null;
     this.Staff_ID = null;
@@ -58,7 +58,28 @@ export class EventCalendarPage {
       }
     });
   }
+  transform_to_date_group(value: any, groupByKey: string) {
+    const events: any[] = [];
+    const groupedElements: any = {};
 
+    value.forEach((obj: any) => {
+      if (!(obj[groupByKey] in groupedElements)) {
+        groupedElements[obj[groupByKey]] = [];
+      }
+      groupedElements[obj[groupByKey]].push(obj);
+    });
+
+    for (let prop in groupedElements) {
+      if (groupedElements.hasOwnProperty(prop)) {
+        events.push({
+          key: prop,
+          list: groupedElements[prop]
+        });
+      }
+    }
+
+    return events;
+  }
   getEvents(location) {
     var xmlhttp = new XMLHttpRequest();
     var url = "http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php";
@@ -77,9 +98,11 @@ export class EventCalendarPage {
             var result = obj.info[i];
             //this.log(Your);
             //this.log('++');
-            this.Events.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room, "Start_Date":result.Start_Date });
+            this.Events.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Event_Location, "Start_Date":result.Start_Date });
 
           }
+          this.Events=this.transform_to_date_group(this.Events,"Start_Date");
+          console.log(this.Events);
 
 
 
