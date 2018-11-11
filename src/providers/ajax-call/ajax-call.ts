@@ -104,6 +104,7 @@ export class AjaxCallProvider {
       case "Edit_Dept":
       case "Delete_Dept":
       case "Add_Staff":
+      case "Edit_Staff":
         this.returnInfo = false;
         break;
       case "Load_Staff_Info":
@@ -131,6 +132,7 @@ export class AjaxCallProvider {
             case "Edit_Dept":
             case "Delete_Dept":
             case "Add_Staff":
+            case "Edit_Staff":
               this.returnInfo = true;
               break;
               case "Load_Staff_Info":
