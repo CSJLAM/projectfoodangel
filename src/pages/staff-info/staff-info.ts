@@ -145,15 +145,6 @@ export class StaffInfoPage {
     console.log(info);
   }
   Add_Staff(){
-    if(this.Staff['Staff_Hash']!=undefined){
-
-      let obj = { 'ID':this.Staff['ID'],'Staff_ID':this.Staff['Staff_ID'],'Staff_Hash':this.Staff['Staff_Hash'],'Username':this.Staff['Username'],'Name':this.Staff['Name'],'Password':(typeof this.Staff['Password'] === "undefined" ? "" : this.Staff['Password']),'Staff_Dept':this.Staff['Staff_Dept'],'Staff_Join':this.Staff['Staff_Join'],'Staff_End':(typeof this.Staff['Staff_End'] === "undefined" ? "" : this.Staff['Staff_End']) };
-      this.ajaxCall.Deptlisting_Call("Edit_Staff",this.Staff['Staff_Hash'],obj,this.Name).then(available => {
-        if(available){
-          this.navCtrl.pop();
-         }
-      });
-    }else 
     if(this.Staff['Password']==this.Staff['Password2']){
     let obj = { 'ID':this.Staff['ID'],'Staff_ID':this.Staff['Staff_ID'],'Staff_Hash':this.Staff['Staff_Hash'],'Username':this.Staff['Username'],'Name':this.Staff['Name'],'Password':this.Staff['Password'],'Staff_Dept':this.Staff['Staff_Dept'],'Staff_Join':this.Staff['Staff_Join'],'Staff_End':(typeof this.Staff['Staff_End'] === "undefined" ? "" : this.Staff['Staff_End']) };
     
