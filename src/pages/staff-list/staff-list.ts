@@ -75,7 +75,7 @@ export class StaffListPage {
               var result = obj.info[i];
               //this.log(Your);
               //this.log('++');
-              this.Staffs.push({ "ID": result.ID, "Staff_ID": result.Staff_ID, "Name": result.Name });
+              this.Staffs.push({ "ID": result.ID, "Staff_ID": result.Staff_ID, "Name": result.Name ,"Staff_Hash":result.Staff_Hash});
   
             }
               break;

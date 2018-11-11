@@ -12,15 +12,12 @@
   <button id="StaffLevelList-button30" ion-button color="positive" block on-click="goToStaffLevel()">
     新增職級
   </button>
+  
   <ion-list id="StaffLevelList-list26">
-    <ion-item color="none" on-click="goToStaffLevel()" id="StaffLevelList-list-item55">
-      Item 1
+    <ion-item color="none" *ngFor="let Dept of Depts"  on-click="goToStaffLevel(Dept,Depts)" id="StaffLevelList-list-item55">
+      {{Dept.Dept_Name}}
     </ion-item>
-    <ion-item color="none" on-click="goToStaffLevel()" id="StaffLevelList-list-item56">
-      Item 2
-    </ion-item>
-    <ion-item color="none" on-click="goToStaffLevel()" id="StaffLevelList-list-item68">
-      Item 3
-    </ion-item>
+    
   </ion-list>
+  
 </ion-content>

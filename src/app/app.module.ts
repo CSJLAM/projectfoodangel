@@ -35,6 +35,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NFC } from '@ionic-native/nfc';
 import { IonicStorageModule } from '@ionic/storage';
+import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     NFC,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AjaxCallProvider
   ]
 })
 export class AppModule {}

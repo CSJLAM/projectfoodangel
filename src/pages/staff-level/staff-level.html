@@ -6,18 +6,23 @@
     <ion-title>
       職級資料StaffLevel
     </ion-title>
+    <ion-buttons end *ngIf="haveData">
+      <button ion-button icon-only color="royal" (click)="openMenu()">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page25">
-  <form id="StaffLevel-form30">
+  
     <ion-item id="StaffLevel-input66">
       <ion-label>
         名稱
       </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      <ion-input type="text" [(ngModel)]="dept.Dept_Name"></ion-input>
     </ion-item>
-    <button id="StaffLevel-button22" ion-button color="positive" block on-click="goToStaffList()">
+    <button id="StaffLevel-button22" ion-button color="positive" block on-click="save()">
       儲存
     </button>
-  </form>
+  
 </ion-content>

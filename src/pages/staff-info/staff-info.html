@@ -9,39 +9,55 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page24">
-  <form id="StaffInfo-form27">
-    <ion-item id="StaffInfo-input64">
+  
+    <ion-item >
       <ion-label>
         名稱
       </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      <ion-input type="text" [(ngModel)]="Staff.Name"></ion-input>
     </ion-item>
-    <ion-item id="StaffInfo-select24">
+    <ion-item >
+      <ion-label>
+        登入名稱
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="Staff.Username"></ion-input>
+    </ion-item>
+    <ion-item >
       <ion-label>
         職位
       </ion-label>
-      <ion-select name=""></ion-select>
+      <ion-select [(ngModel)]="Staff.Staff_Dept">
+          <ion-option *ngFor="let Dept of Depts" [value] = "Dept.Dept_Hash">{{Dept.Dept_Name}}</ion-option>
+         
+        </ion-select>
     </ion-item>
-    <ion-item id="StaffInfo-select25">
-      <ion-label>
-        會址
-      </ion-label>
-      <ion-select name=""></ion-select>
-    </ion-item>
-    <ion-item id="StaffInfo-input67">
+    <ion-item>
+        <ion-label>
+          加入日期
+        </ion-label>
+        <ion-input type="date" [(ngModel)]="Staff.Staff_Join"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+            離職日期
+          </ion-label>
+          <ion-input type="date" [(ngModel)]="Staff.Staff_End"></ion-input>
+        </ion-item>
+    
+    <ion-item >
       <ion-label>
         密碼
       </ion-label>
-      <ion-input type="password" placeholder=""></ion-input>
+      <ion-input type="password" [(ngModel)]="Staff.Password"></ion-input>
     </ion-item>
-    <ion-item id="StaffInfo-input71">
+    <ion-item >
       <ion-label>
         確認密碼
       </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      <ion-input type="text" [(ngModel)]="Staff.Password2"></ion-input>
     </ion-item>
-    <button id="StaffInfo-button29" ion-button color="positive" block on-click="goToStaffList()">
+    <button  ion-button color="positive" block on-click="Add_Staff()">
       儲存
     </button>
-  </form>
+
 </ion-content>
