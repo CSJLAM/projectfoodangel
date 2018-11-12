@@ -6,6 +6,7 @@ import { EvnetInfoPage } from '../evnet-info/evnet-info';
 import { EventSuggestListPage } from '../event-suggest-list/event-suggest-list';
 import { EventAppliedListPage } from '../event-applied-list/event-applied-list';
 import { Storage } from '@ionic/storage';
+import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
 @Component({
   selector: 'page-event-calendar',
   templateUrl: 'event-calendar.html'
@@ -19,7 +20,7 @@ export class EventCalendarPage {
   public Staff_Dept: String = null;
   public Month: String = (new Date().getMonth()+1).toString();
   public counting: "";
-  constructor(public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public actionsheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public platform: Platform) {
+  constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public actionsheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public platform: Platform) {
   }
   ionViewDidEnter() {
     this.Events = [];
@@ -58,28 +59,28 @@ export class EventCalendarPage {
       }
     });
   }
-  transform_to_date_group(value: any, groupByKey: string) {
-    const events: any[] = [];
-    const groupedElements: any = {};
+  // transform_to_date_group(value: any, groupByKey: string) {
+  //   const events: any[] = [];
+  //   const groupedElements: any = {};
 
-    value.forEach((obj: any) => {
-      if (!(obj[groupByKey] in groupedElements)) {
-        groupedElements[obj[groupByKey]] = [];
-      }
-      groupedElements[obj[groupByKey]].push(obj);
-    });
+  //   value.forEach((obj: any) => {
+  //     if (!(obj[groupByKey] in groupedElements)) {
+  //       groupedElements[obj[groupByKey]] = [];
+  //     }
+  //     groupedElements[obj[groupByKey]].push(obj);
+  //   });
 
-    for (let prop in groupedElements) {
-      if (groupedElements.hasOwnProperty(prop)) {
-        events.push({
-          key: prop,
-          list: groupedElements[prop]
-        });
-      }
-    }
+  //   for (let prop in groupedElements) {
+  //     if (groupedElements.hasOwnProperty(prop)) {
+  //       events.push({
+  //         key: prop,
+  //         list: groupedElements[prop]
+  //       });
+  //     }
+  //   }
 
-    return events;
-  }
+  //   return events;
+  // }
   getEvents(location) {
     var xmlhttp = new XMLHttpRequest();
     var url = "http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php";
@@ -101,7 +102,8 @@ export class EventCalendarPage {
             this.Events.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Event_Location, "Start_Date":result.Start_Date });
 
           }
-          this.Events=this.transform_to_date_group(this.Events,"Start_Date");
+          //this.Events=this.transform_to_date_group(this.Events,"Start_Date");
+          this.Events=this.ajaxCall.transform_to_group(this.Events,"Start_Date");
           console.log(this.Events);
 
 

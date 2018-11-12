@@ -30,7 +30,10 @@
   </h3>
   <ion-card id="FoodAngel-card21">
     <ion-list>
-      <ion-item color="none" *ngFor="let Event of Events" on-click="goToTakeAttendance(Event,Events)" id="FoodAngel-list-item7">
+      <ion-item color="none" *ngFor="let Event of Perm_Events" on-click="goToTakeAttendance(Event,Perm_Events)" id="FoodAngel-list-item7">
+        {{Event.Event_Name}}
+      </ion-item>
+      <ion-item color="none" *ngFor="let Event of Today_Events" on-click="goToTakeAttendance(Event,Today_Events)" id="FoodAngel-list-item7">
         {{Event.Event_Name}}
       </ion-item>
      <!-- <ion-item color="none" on-click="goToTakeAttendance()" id="FoodAngel-list-item9">

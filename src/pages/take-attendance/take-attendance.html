@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      點名系統-活動名稱TakeAttendance
+      點名系統-活動名稱:{{temp.Event_Name}} TakeAttendance
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -19,14 +19,23 @@
     點名
   </button>
   <h1 id="TakeAttendance-heading5" style="color:#000000;">
-    活動名稱
+    活動名稱: {{temp.Event_Name}}
   </h1>
   <div id="TakeAttendance-markdown6" class="show-list-numbers-and-dots">
-    <p style="color:#000000;">
+    <!-- <p style="color:#000000;">
       內容: max PEPPLE
-    </p>
+    </p> -->
   </div>
-  <ion-list id="TakeAttendance-list6">
+
+  <div *ngFor="let list of Attend_List">
+    <ion-item-divider   color="light">
+        {{list.key}}
+      </ion-item-divider>
+<ion-item color="none"  *ngFor="let event of list.list" on-click="goToEvnetInfo()" >
+  {{event.Chinese_Name}}
+</ion-item>
+</div>
+  <!-- <ion-list id="TakeAttendance-list6">
     <ion-item-divider color="light" id="TakeAttendance-list-item-divider2">
       出席名單
     </ion-item-divider>
@@ -39,5 +48,5 @@
     <ion-item color="none" id="TakeAttendance-list-item19">
       黃大仙
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 </ion-content>

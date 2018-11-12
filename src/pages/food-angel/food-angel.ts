@@ -26,12 +26,15 @@ import { StaffLevelListPage } from '../staff-level-list/staff-level-list';
 import { StaffLevelPage } from '../staff-level/staff-level';
 
 import { Storage } from '@ionic/storage';
+import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
 @Component({
   selector: 'page-food-angel',
   templateUrl: 'food-angel.html'
 })
 export class FoodAngelPage {
-  public Events: any[] = [];
+  //public Events: any[] = [];
+  public Perm_Events: any;
+  public Today_Events: any;
   public isSignedIn: string = null;
   public Name: string = null;
   public Staff_ID: string = null;
@@ -39,7 +42,7 @@ export class FoodAngelPage {
   public Staff_Dept: String = null;
   public Username: String = "";
   public Password: string = "";
-  constructor(public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+  constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     //storage.clear();
     //this.getStroage();
     //this.getEvents(1);
@@ -50,7 +53,8 @@ export class FoodAngelPage {
     
   }
   ionViewDidEnter() {
-    this.Events = [];
+    this.Perm_Events = [];
+    this.Today_Events = [];
     this.isSignedIn = null;
     this.Name= null;
     this.Staff_ID = null;
@@ -60,9 +64,9 @@ export class FoodAngelPage {
     this.Password = "";
     this.getStroage();
   }
-  goToTakeAttendance(params) {
-    if (!params) params = {};
-    this.navCtrl.push(TakeAttendancePage, { params });
+  goToTakeAttendance(params,params2) {
+    
+    this.navCtrl.push(TakeAttendancePage, { params,params2 });
   }
   goToMembershipManagement(params) {
     if (!params) params = {};
@@ -175,7 +179,19 @@ export class FoodAngelPage {
           this.Staff_ID = obj.Staff.Staff_ID;
           this.Staff_Hash = obj.Staff.Staff_Hash;
           this.Staff_Dept = obj.Staff.Staff_Dept;
-          this.getEvents(this.Staff_Dept); // should be change not get dept
+          //this.getEvents(this.Staff_Dept); // should be change not get dept
+          this.ajaxCall.getEvents_Call(this.Staff_Dept,"HomePerm").then(available => {
+            //   console.log("available");
+            //  console.log(available);
+             this.Perm_Events=available;
+            //  console.log("available");
+          });
+          this.ajaxCall.getEvents_Call(this.Staff_Dept,"Home_Today").then(available => {
+               //console.log("available");
+              //console.log(available);
+             this.Today_Events=available;
+             //console.log("available");
+          });
           loader.dismiss().catch(() => {
             this.log('loader error---2(SignIn)');
           });
@@ -208,47 +224,47 @@ export class FoodAngelPage {
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
   }
 
-  getEvents(location) {
-    var xmlhttp = new XMLHttpRequest();
-    var url = "http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php";
-    xmlhttp.open("POST", url, true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+  // getEvents(location) {
+  //   var xmlhttp = new XMLHttpRequest();
+  //   var url = "http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php";
+  //   xmlhttp.open("POST", url, true);
+  //   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  //   xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
+  //     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-        var obj = JSON.parse(xmlhttp.responseText);
-        if (obj.result == true) {
+  //       var obj = JSON.parse(xmlhttp.responseText);
+  //       if (obj.result == true) {
 
-          console.info(obj.info);
-          //for(var i = 0, count=10; i < obj.some.length; i++)
+  //         console.info(obj.info);
+  //         //for(var i = 0, count=10; i < obj.some.length; i++)
 
-          for (var i = 0; i < obj.info.length; i++) {
-            var result = obj.info[i];
-            //this.log(Your);
-            //this.log('++');
-            this.Events.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room });
+  //         for (var i = 0; i < obj.info.length; i++) {
+  //           var result = obj.info[i];
+  //           //this.log(Your);
+  //           //this.log('++');
+  //           this.Events.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room });
 
-          }
-
-
-
-
-        } else if (obj.errorCode != null) {
-
-          this.log(obj.errorCode);
-        }
+  //         }
 
 
 
-      }
-    }
 
-    var obj = { "Passcode": "GetInfo", "Function": "HomePerm" };
-    this.log(obj);
-    xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
+  //       } else if (obj.errorCode != null) {
+
+  //         this.log(obj.errorCode);
+  //       }
 
 
-  }
+
+  //     }
+  //   }
+
+  //   var obj = { "Passcode": "GetInfo", "Function": "HomePerm" };
+  //   this.log(obj);
+  //   xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
+
+
+  // }
   log(info) {
     console.log(info);
   }
