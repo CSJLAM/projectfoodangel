@@ -4,6 +4,7 @@ import { NewEventPage } from '../new-event/new-event';
 import { UpdateEventPage } from '../update-event/update-event';
 import { EventCategroryListPage } from '../event-categrory-list/event-categrory-list';
 import { EventCategorySettingPage } from '../event-category-setting/event-category-setting';
+import { EvnetListPage } from '../evnet-list/evnet-list';
 
 @Component({
   selector: 'page-event-management',
@@ -18,13 +19,20 @@ apple = 0;
     if (!params) params = {};
      
     this.navCtrl.push(NewEventPage);
-  }goToUpdateEvent(params){
+  }
+  goToEvnetList(){
+    
+    this.navCtrl.push(EvnetListPage);
+  }
+  goToUpdateEvent(params){
     if (!params) params = {};
     this.navCtrl.push(UpdateEventPage);
-  }goToEventCategroryList(params){
+  }
+  goToEventCategroryList(params){
     if (!params) params = {};
     this.navCtrl.push(EventCategroryListPage);
-  }goToEventCategorySetting(params){
+  }
+  goToEventCategorySetting(params){
     if (!params) params = {};
     this.navCtrl.push(EventCategorySettingPage);
   }
