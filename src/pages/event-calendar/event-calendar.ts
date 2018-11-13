@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, Platform, ActionSheetController, AlertController, LoadingController,} from 'ionic-angular';
 import { MemberEventRecordPage } from '../member-event-record/member-event-record';
 import { MemberEventInfoPage } from '../member-event-info/member-event-info';
-import { EvnetInfoPage } from '../evnet-info/evnet-info';
+import { EventInfoPage } from '../event-info/event-info';
 import { EventSuggestListPage } from '../event-suggest-list/event-suggest-list';
 import { EventAppliedListPage } from '../event-applied-list/event-applied-list';
 import { Storage } from '@ionic/storage';
@@ -38,9 +38,9 @@ export class EventCalendarPage {
   }goToMemberEventInfo(params){
     if (!params) params = {};
     this.navCtrl.push(MemberEventInfoPage);
-  }goToEvnetInfo(params){
+  }goToEventInfo(params){
     if (!params) params = {};
-    this.navCtrl.push(EvnetInfoPage);
+    this.navCtrl.push(EventInfoPage);
   }goToEventSuggestList(params){
     if (!params) params = {};
     this.navCtrl.push(EventSuggestListPage);

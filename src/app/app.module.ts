@@ -13,14 +13,14 @@ import { SettlePermEventInfoPage } from '../pages/settle-perm-event-info/settle-
 import { EventCalendarPage } from '../pages/event-calendar/event-calendar';
 import { MemberEventRecordPage } from '../pages/member-event-record/member-event-record';
 import { MemberEventInfoPage } from '../pages/member-event-info/member-event-info';
-import { EvnetInfoPage } from '../pages/evnet-info/evnet-info';
+import { EventInfoPage } from '../pages/event-info/event-info';
 import { EventSuggestListPage } from '../pages/event-suggest-list/event-suggest-list';
 import { EventAppliedListPage } from '../pages/event-applied-list/event-applied-list';
 import { SystemManagementPage } from '../pages/system-management/system-management';
 import { EventManagementPage } from '../pages/event-management/event-management';
 import { NewEventPage } from '../pages/new-event/new-event';
 import { UpdateEventPage } from '../pages/update-event/update-event';
-import { EvnetListPage } from '../pages/evnet-list/evnet-list';
+import { EventListPage } from '../pages/event-list/event-list';
 import { EventCategroryListPage } from '../pages/event-categrory-list/event-categrory-list';
 import { EventCategorySettingPage } from '../pages/event-category-setting/event-category-setting';
 import { StaffSettingPage } from '../pages/staff-setting/staff-setting';
@@ -51,14 +51,14 @@ import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
     EventCalendarPage,
     MemberEventRecordPage,
     MemberEventInfoPage,
-    EvnetInfoPage,
+    EventInfoPage,
     EventSuggestListPage,
     EventAppliedListPage,
     SystemManagementPage,
     EventManagementPage,
     NewEventPage,
     UpdateEventPage,
-    EvnetListPage,
+    EventListPage,
     EventCategroryListPage,
     EventCategorySettingPage,
     StaffSettingPage,
@@ -87,14 +87,14 @@ import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
     EventCalendarPage,
     MemberEventRecordPage,
     MemberEventInfoPage,
-    EvnetInfoPage,
+    EventInfoPage,
     EventSuggestListPage,
     EventAppliedListPage,
     SystemManagementPage,
     EventManagementPage,
     NewEventPage,
     UpdateEventPage,
-    EvnetListPage,
+    EventListPage,
     EventCategroryListPage,
     EventCategorySettingPage,
     StaffSettingPage,

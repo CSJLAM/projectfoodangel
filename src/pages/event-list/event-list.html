@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      活動列表EvnetList
+      活動列表EventList
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -23,11 +23,11 @@
         </ion-segment>
       </div>
       <div [ngSwitch]="event_list">
-  <!-- <h1 id="EvnetList-heading31" style="color:#000000;">
+  <!-- <h1 id="EventList-heading31" style="color:#000000;">
     常駐活動
   </h1> -->
   <ion-list  *ngSwitchCase="'Perm'">
-    <!-- <ion-item-divider color="light" id="EvnetList-list-item-divider13">
+    <!-- <ion-item-divider color="light" id="EventList-list-item-divider13">
       Campus
     </ion-item-divider> -->
     <ion-item-divider   color="light" id="EventCalendar-list-item-divider8">
@@ -37,7 +37,7 @@
       {{List.Event_Name}}
     </ion-item>
   </ion-list>
-  <!-- <h1 id="EvnetList-heading32" style="color:#000000;">
+  <!-- <h1 id="EventList-heading32" style="color:#000000;">
     單次活動
   </h1> -->
   <ion-list *ngSwitchCase="'Single'">
@@ -50,7 +50,7 @@
   </ion-item>
 </div>
   </ion-list>
-  <!-- <h1 id="EvnetList-heading33" style="color:#000000;">
+  <!-- <h1 id="EventList-heading33" style="color:#000000;">
     過去活動
   </h1> -->
   <ion-list *ngSwitchCase="'Outdate'">

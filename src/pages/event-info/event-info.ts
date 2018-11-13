@@ -5,10 +5,10 @@ import { EventAppliedListPage } from '../event-applied-list/event-applied-list';
 import { MemberEventInfoPage } from '../member-event-info/member-event-info';
 
 @Component({
-  selector: 'page-evnet-info',
-  templateUrl: 'evnet-info.html'
+  selector: 'page-event-info',
+  templateUrl: 'event-info.html'
 })
-export class EvnetInfoPage {
+export class EventInfoPage {
 
   constructor(public navCtrl: NavController) {
   }

@@ -5,10 +5,10 @@ import { Storage } from '@ionic/storage';
 import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
 
 @Component({
-  selector: 'page-evnet-list',
-  templateUrl: 'evnet-list.html'
+  selector: 'page-event-list',
+  templateUrl: 'event-list.html'
 })
-export class EvnetListPage {
+export class EventListPage {
   event_list ="Perm";
   Perm_List:any;
   Single_List:any;

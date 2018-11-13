@@ -10,7 +10,7 @@ import { SettlePermEventInfoPage } from '../settle-perm-event-info/settle-perm-e
 import { EventCalendarPage } from '../event-calendar/event-calendar';
 import { MemberEventRecordPage } from '../member-event-record/member-event-record';
 import { MemberEventInfoPage } from '../member-event-info/member-event-info';
-import { EvnetInfoPage } from '../evnet-info/evnet-info';
+import { EventInfoPage } from '../event-info/event-info';
 import { EventSuggestListPage } from '../event-suggest-list/event-suggest-list';
 import { EventAppliedListPage } from '../event-applied-list/event-applied-list';
 import { SystemManagementPage } from '../system-management/system-management';
@@ -95,9 +95,9 @@ export class FoodAngelPage {
   } goToMemberEventInfo(params) {
     if (!params) params = {};
     this.navCtrl.push(MemberEventInfoPage);
-  } goToEvnetInfo(params) {
+  } goToEventInfo(params) {
     if (!params) params = {};
-    this.navCtrl.push(EvnetInfoPage);
+    this.navCtrl.push(EventInfoPage);
   } goToEventSuggestList(params) {
     if (!params) params = {};
     this.navCtrl.push(EventSuggestListPage);

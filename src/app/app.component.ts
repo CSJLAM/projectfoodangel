@@ -13,7 +13,7 @@ import { SettlePermEventInfoPage } from '../pages/settle-perm-event-info/settle-
 import { EventCalendarPage } from '../pages/event-calendar/event-calendar';
 import { MemberEventRecordPage } from '../pages/member-event-record/member-event-record';
 import { MemberEventInfoPage } from '../pages/member-event-info/member-event-info';
-import { EvnetInfoPage } from '../pages/evnet-info/evnet-info';
+import { EventInfoPage } from '../pages/event-info/event-info';
 import { EventSuggestListPage } from '../pages/event-suggest-list/event-suggest-list';
 import { EventAppliedListPage } from '../pages/event-applied-list/event-applied-list';
 import { SystemManagementPage } from '../pages/system-management/system-management';
@@ -81,9 +81,9 @@ export class MyApp {
   }goToMemberEventInfo(params){
     if (!params) params = {};
     this.navCtrl.setRoot(MemberEventInfoPage);
-  }goToEvnetInfo(params){
+  }goToEventInfo(params){
     if (!params) params = {};
-    this.navCtrl.setRoot(EvnetInfoPage);
+    this.navCtrl.setRoot(EventInfoPage);
   }goToEventSuggestList(params){
     if (!params) params = {};
     this.navCtrl.setRoot(EventSuggestListPage);
