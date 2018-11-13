@@ -97,29 +97,51 @@ export class AjaxCallProvider {
         if (obj.result == true) {
 
           console.info(obj.info);
-          //for(var i = 0, count=10; i < obj.some.length; i++)
+         
           this.returnInfo = [];
           switch (type) {
             case "HomePerm":
             case "Home_Today":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
-                //this.log(Your);
-                //this.log('++');
+                
                 this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room });
-
               }
               break;
             case "Load_Event_Attend":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                //this.log(Your);
+                //this.log('++');
+                this.returnInfo.push({ "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F });
+
+              }
+              break;
+            case "Load_All_Perm_Event":
+            case "Load_All_Single_Event":
+            case "Load_All_Outdated_Event":
             for (var i = 0; i < obj.info.length; i++) {
               var result = obj.info[i];
               //this.log(Your);
               //this.log('++');
-              this.returnInfo.push({ "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name,"Member_ID":result.Member_ID,"Member_ID_F": result.Member_ID_F });
-
+              this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room ,"Start_Date":result.Start_Date});
+              
             }
             break;
-
+            case "Get_Campus":
+            for (var i = 0; i < obj.info.length; i++) {
+              var result = obj.info[i];
+              this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID ,"Location":result.Location});
+            }
+            break;
+            case "Get_Event_Cate":
+            for (var i = 0; i < obj.info.length; i++) {
+              var result = obj.info[i];
+              this.returnInfo.push({ "ID": result.ID, "Name": result.Name, "Type": result.Type ,"Event_For":result.Event_For,"Cate_Name":result.Cate_Name});
+            }
+            break;
+            default:
+            break;
           }
           fn(this.returnInfo);
 
@@ -142,6 +164,60 @@ export class AjaxCallProvider {
   getEvents_Call(location, type, info = "") {
     return new Promise(resolve => {
       this.getEvents(location, type, info, resolve);
+    });
+  }
+  AddEvents(type, info,info2,info3, fn) {
+
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://101.78.175.101:8580/foodangel/Ajax_SetInfo.php";
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+        var obj = JSON.parse(xmlhttp.responseText);
+        if (obj.result == true) {
+
+          console.info(obj.info);
+         
+          this.returnInfo = [];
+          switch (type) {
+            case "HomePerm":
+            case "Home_Today":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                
+                this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room });
+              }
+              break;
+              case "Set_Event":
+              this.returnInfo=true;
+              break;
+            
+            default:
+            break;
+          }
+          fn(this.returnInfo);
+
+        } else if (obj.errorCode != null) {
+
+          this.log(obj.errorCode);
+        }
+
+
+
+      }
+    }
+
+    var obj = { "Passcode": "SetIt", "Function": type, "info": info,"info2":info2 ,"info3":info3 };
+    this.log("jsonDoc=" + JSON.stringify(obj));
+    xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
+
+
+  }
+  AddEvents_Call(type, info :any="",info2:any ="",info3:any="") {
+    return new Promise(resolve => {
+      this.AddEvents(type, info, info2, info3, resolve);
     });
   }
 

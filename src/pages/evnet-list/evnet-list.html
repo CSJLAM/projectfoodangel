@@ -9,58 +9,60 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page19">
-  <h1 id="EvnetList-heading31" style="color:#000000;">
+    <div padding>
+        <ion-segment [(ngModel)]="event_list">
+          <ion-segment-button value="Perm">
+            常駐活動
+          </ion-segment-button>
+          <ion-segment-button value="Single">
+              單次活動
+          </ion-segment-button>
+          <ion-segment-button value="Outdate">
+              過去活動
+            </ion-segment-button>
+        </ion-segment>
+      </div>
+      <div [ngSwitch]="event_list">
+  <!-- <h1 id="EvnetList-heading31" style="color:#000000;">
     常駐活動
-  </h1>
-  <ion-list id="EvnetList-list21">
-    <ion-item-divider color="light" id="EvnetList-list-item-divider13">
+  </h1> -->
+  <ion-list  *ngSwitchCase="'Perm'">
+    <!-- <ion-item-divider color="light" id="EvnetList-list-item-divider13">
       Campus
-    </ion-item-divider>
-    <ion-item color="none" on-click="goToUpdateEvent()" id="EvnetList-list-item65">
-      Item 1
-    </ion-item>
-    <ion-item color="none" on-click="goToUpdateEvent()" id="EvnetList-list-item66">
-      Item 2
-    </ion-item>
-    <ion-item-divider color="light" id="EvnetList-list-item-divider12">
-      Item
-    </ion-item-divider>
-    <ion-item color="none" on-click="goToUpdateEvent()" id="EvnetList-list-item67">
-      Item 3
+    </ion-item-divider> -->
+    <ion-item-divider   color="light" id="EventCalendar-list-item-divider8">
+        常駐活動
+      </ion-item-divider>
+    <ion-item  *ngFor="let List of Perm_List" on-click="goToUpdateEvent()" >
+      {{List.Event_Name}}
     </ion-item>
   </ion-list>
-  <h1 id="EvnetList-heading32" style="color:#000000;">
+  <!-- <h1 id="EvnetList-heading32" style="color:#000000;">
     單次活動
-  </h1>
-  <ion-list id="EvnetList-list20">
-    <ion-item-divider color="light" id="EvnetList-list-item-divider14">
-      Item
-    </ion-item-divider>
-    <ion-item color="none" on-click="goToUpdateEvent()" id="EvnetList-list-item60">
-      Item 1
-    </ion-item>
-    <ion-item-divider color="light" id="EvnetList-list-item-divider15">
-      Item
-    </ion-item-divider>
-    <ion-item color="none" id="EvnetList-list-item61">
-      Item 2
-    </ion-item>
-    <ion-item color="none" id="EvnetList-list-item62">
-      Item 3
-    </ion-item>
+  </h1> -->
+  <ion-list *ngSwitchCase="'Single'">
+    <div *ngFor="let Event of Single_List">
+      <ion-item-divider   color="light" id="EventCalendar-list-item-divider8">
+          {{Event.key}}
+        </ion-item-divider>
+  <ion-item color="none"  *ngFor="let event of Event.list" on-click="goToUpdateEvent()"  >
+    {{event.Event_Name}}
+  </ion-item>
+</div>
   </ion-list>
-  <h1 id="EvnetList-heading33" style="color:#000000;">
+  <!-- <h1 id="EvnetList-heading33" style="color:#000000;">
     過去活動
-  </h1>
-  <ion-list id="EvnetList-list22">
-    <ion-item color="none" id="EvnetList-list-item77">
-      Item 1
-    </ion-item>
-    <ion-item color="none" id="EvnetList-list-item78">
-      Item 2
-    </ion-item>
-    <ion-item color="none" id="EvnetList-list-item79">
-      Item 3
-    </ion-item>
+  </h1> -->
+  <ion-list *ngSwitchCase="'Outdate'">
+    <div *ngFor="let Event of Outdate_List">
+      <ion-item-divider   color="light" id="EventCalendar-list-item-divider8">
+          {{Event.key}}
+        </ion-item-divider>
+  <ion-item color="none"  *ngFor="let event of Event.list" on-click="goToUpdateEvent()"  >
+    {{event.Event_Name}}
+  </ion-item>
+</div>
+
   </ion-list>
+</div>
 </ion-content>

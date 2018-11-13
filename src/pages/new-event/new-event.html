@@ -11,96 +11,124 @@
 <ion-content padding id="page17">
   <ion-card id="NewEvent-card223">
     <ion-list>
-      <div style="width:100%;height:220px;margin:0px 0px;line-height:250px;background-color:#e8ebef;text-align:center;">
-        <i class="icon ion-image" style="font-size:64px;color:#888;vertical-align:middle;"></i>
-      </div>
-      <form id="NewEvent-form31">
+      
         <ion-item id="NewEvent-input68">
           <ion-label>
-            活動名稱
+            活動名稱 
           </ion-label>
-          <ion-input type="text" placeholder=""></ion-input>
+          <ion-input type="text" [(ngModel)]="Event.Event_Name"></ion-input>
         </ion-item>
-        <ion-item id="NewEvent-select15">
+        <ion-item >
           <ion-label>
-            活動類別
+            參加者類別
           </ion-label>
-          <ion-select name=""></ion-select>
+          <ion-select [(ngModel)]="Event.Event_Cate"  (ionChange)="SetCate(Event.Event_Cate)">
+              <ion-option *ngFor="let Cate of Event_Cate" [value] = "Cate.list[0].Event_For">{{Cate.key}}</ion-option> 
+         </ion-select>
+          <!-- <ion-select [(ngModel)]="Change_Cate">
+             <ion-option *ngFor="let Cate of Event_Cate" [value] = "Cate.list">
+               {{Cate.list[0].Cate_Name}}
+              </ion-option> 
+          </ion-select> -->
         </ion-item>
-        <ion-item id="NewEvent-input72">
+        <ion-item >
+            <ion-label>
+              活動類別
+            </ion-label>
+            <ion-select [(ngModel)]="Event.Event_Type" (ionChange)="Check_Perm()">
+                 <ion-option *ngFor="let Cate of Change_Cate" [value] = "Cate">{{Cate.Name}}</ion-option> 
+            </ion-select>
+          </ion-item>
+          <div *ngIf="!isPerm">
+        <ion-item >
           <ion-label>
-            日期
+            開始日期
           </ion-label>
-          <ion-input type="date" placeholder=""></ion-input>
+          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="Event.Start_Date"></ion-datetime>
+          
         </ion-item>
+        <ion-item >
+            <ion-label>
+              完結日期
+            </ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="Event.End_Date"></ion-datetime>
+            
+          </ion-item>
+        </div>
         <ion-item id="NewEvent-input73">
           <ion-label>
             開始時間
           </ion-label>
-          <ion-input type="time" placeholder=""></ion-input>
+          <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="Event.Start_Time"></ion-datetime>
         </ion-item>
         <ion-item id="NewEvent-input74">
           <ion-label>
             完結時間
           </ion-label>
-          <ion-input type="time" placeholder=""></ion-input>
+          <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="Event.End_Time"></ion-datetime>
+          
         </ion-item>
         <ion-item id="NewEvent-select18">
           <ion-label>
-            重複
+            重複 {{Event.Repeat_Week}}
           </ion-label>
-          <ion-select name="">
-            <ion-option>
+          <!-- (ionChange)="onchange1()" -->
+          <ion-select  [(ngModel)]="Event.Repeat_Week" multiple="true">
+            <ion-option value="Mon">
               星期一
             </ion-option>
-            <ion-option>
+            <ion-option value="Tue">
               星期二
             </ion-option>
-            <ion-option>
+            <ion-option value="Wed">
               星期三
             </ion-option>
-            <ion-option>
+            <ion-option value="Thu">
               星期四
             </ion-option>
-            <ion-option>
+            <ion-option value="Fri">
               星期五
             </ion-option>
-            <ion-option>
+            <ion-option value="Sat">
               星期六
             </ion-option>
-            <ion-option>
+            <ion-option value="Sun">
               星期日
             </ion-option>
           </ion-select>
         </ion-item>
-        <ion-item id="NewEvent-select16">
+        <ion-item >
           <ion-label>
             地點
           </ion-label>
-          <ion-select name=""></ion-select>
+          <ion-select [(ngModel)]="Event.Location" (ionChange)="SetCate(Event.Location)">
+              <ion-option *ngFor="let location of Campus" [value] = "location.list[0].Location">{{location.key}}</ion-option>
+          </ion-select>
         </ion-item>
-        <ion-item id="NewEvent-select17">
+        <ion-item >
           <ion-label>
             房間
           </ion-label>
-          <ion-select name=""></ion-select>
+          <ion-select [(ngModel)]="Event.Event_Location" >
+               <ion-option *ngFor="let Loca of Change_Loca" [value] = "Loca.ID">{{Loca.Room}}</ion-option> 
+          </ion-select>
         </ion-item>
         <ion-item id="NewEvent-input69">
           <ion-label>
             活動內容
           </ion-label>
-          <ion-input type="text" placeholder=""></ion-input>
+          <ion-input type="text" [(ngModel)]="Event.Event_Info"></ion-input>
         </ion-item>
         <ion-item id="NewEvent-input70">
           <ion-label>
             最大人數
           </ion-label>
-          <ion-input type="number" placeholder=""></ion-input>
+          <ion-input type="number" [(ngModel)]="Event.Event_Limit"></ion-input>
         </ion-item>
-      </form>
+      
     </ion-list>
   </ion-card>
-  <button id="NewEvent-button20" ion-button color="positive" block>
+  <button on-click="SaveEvent()" ion-button color="positive" block>
     新增
   </button>
 </ion-content>

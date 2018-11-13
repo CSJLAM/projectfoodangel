@@ -104,7 +104,7 @@ export class EventCalendarPage {
           }
           //this.Events=this.transform_to_date_group(this.Events,"Start_Date");
           this.Events=this.ajaxCall.transform_to_group(this.Events,"Start_Date");
-          console.log(this.Events);
+          //console.log(this.Events);
 
 
 
