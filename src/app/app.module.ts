@@ -13,6 +13,7 @@ import { SettlePermEventInfoPage } from '../pages/settle-perm-event-info/settle-
 import { EventCalendarPage } from '../pages/event-calendar/event-calendar';
 import { MemberEventRecordPage } from '../pages/member-event-record/member-event-record';
 import { MemberEventInfoPage } from '../pages/member-event-info/member-event-info';
+import { MemberInfoPage } from '../pages/member-info/member-info';
 import { EventInfoPage } from '../pages/event-info/event-info';
 import { EventSuggestListPage } from '../pages/event-suggest-list/event-suggest-list';
 import { EventAppliedListPage } from '../pages/event-applied-list/event-applied-list';
@@ -51,6 +52,7 @@ import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
     EventCalendarPage,
     MemberEventRecordPage,
     MemberEventInfoPage,
+    MemberInfoPage,
     EventInfoPage,
     EventSuggestListPage,
     EventAppliedListPage,
@@ -87,6 +89,7 @@ import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
     EventCalendarPage,
     MemberEventRecordPage,
     MemberEventInfoPage,
+    MemberInfoPage,
     EventInfoPage,
     EventSuggestListPage,
     EventAppliedListPage,

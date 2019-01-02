@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      會員:{{Member.Chinese_Name}}MemberInfo
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page11">
+    <ion-list >
+       
+          <ion-item-divider color="light" >
+              報名活動
+            </ion-item-divider>
+        <ion-item color="none" *ngFor="let Applyed of Applyed_List" (click)="goToMemberInfo(Applyed)" >
+          {{Applyed.Event_Name}} 
+        </ion-item>
+        <ion-item-divider color="light" >
+            過去參加活動
+          </ion-item-divider>
+          <ion-item color="none" *ngFor="let Pass of Pass_List" (click)="goToMemberInfo(Pass)" >
+              {{Pass.Event_Name}} 
+            </ion-item>
+            <ion-item-divider color="light" >
+                設定
+              </ion-item-divider>
+              <ion-item  (click)="goToMemberInfo(Member.Member_ID)" >
+                  更改資料
+                </ion-item>
+            <ion-item  (click)="goToMemberInfo(Member.Member_ID)" >
+                請假/報餐
+              </ion-item>
+      </ion-list>
+</ion-content>

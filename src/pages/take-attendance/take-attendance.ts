@@ -48,7 +48,12 @@ export class TakeAttendancePage {
     console.log("Looks like I'm about to leave :(");
     this.nfc=null;
   }
-
+docheck(){
+  this.ajaxCall.AddEvents_Call("Attened_Evnet",this.tagId).then( result =>{
+    console.log(result);
+    alert(result);
+  });
+}
   addListenNFC() {
 
     this.nfc.addTagDiscoveredListener(nfcEvent => this.sesReadNFC(nfcEvent.tag)).subscribe(data => {
@@ -57,6 +62,9 @@ export class TakeAttendancePage {
         if (tagId) {
           this.tagId = tagId;
           this.scanned = true;
+          this.docheck();
+          alert("SCANNED");
+       
           //alert(tagId);
           // only testing data consider to ask web api for access
           this.granted = [

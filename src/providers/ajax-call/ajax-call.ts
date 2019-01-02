@@ -140,6 +140,7 @@ export class AjaxCallProvider {
               this.returnInfo.push({ "ID": result.ID, "Name": result.Name, "Type": result.Type ,"Event_For":result.Event_For,"Cate_Name":result.Cate_Name});
             }
             break;
+            
             default:
             break;
           }
@@ -156,7 +157,7 @@ export class AjaxCallProvider {
     }
 
     var obj = { "Passcode": "GetInfo", "Function": type, "info": info };
-    this.log("jsonDoc=" + JSON.stringify(obj));
+    this.log("http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
@@ -193,7 +194,11 @@ export class AjaxCallProvider {
               case "Set_Event":
               this.returnInfo=true;
               break;
-            
+              case "Attened_Evnet":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "Chinese_Name": result.Chinese_Name, "Member_ID": result.Member_ID});
+              }
             default:
             break;
           }
@@ -242,6 +247,77 @@ export class AjaxCallProvider {
     }
 
     return events;
+  }
+  Member_function(type, info, info2, info3, fn) {
+    switch (type) {
+      case "List_Member_Type":
+      case "List_Member":
+      case "List_Applyed_Event":
+      case "List_Pass_Event":
+        this.returnInfo = [];
+        break;
+     
+     
+    }
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://101.78.175.101:8580/foodangel/Ajax_Member.php";
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var obj = JSON.parse(xmlhttp.responseText);
+        if (obj['result']) {
+          console.info(obj.info);
+          switch (type) {
+            case "List_Member_Type":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "ID": result.ID, "Name": result.Name });
+              }
+              break;
+              case "List_Member":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "Member_ID": result.Member_ID, "Chinese_Name": result.Chinese_Name });
+              }
+              break;
+              case "List_Applyed_Event":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "Event_ID": result.Event_ID, "Event_Name": result.Event_Name });
+              }
+              break;
+              case "List_Pass_Event":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "Event_ID": result.Event_ID, "Event_Name": result.Event_Name });
+              }
+              break;
+            default:
+              break;
+          }
+          // console.log("return info");
+          // console.log(this.returnInfo);
+          // console.log("return info");
+          fn(this.returnInfo);
+        }
+        else {
+          alert("Some ERROR");
+          this.returnInfo = "SOMEERROR";
+        }
+      }
+    }
+
+    var obj = { "Function": type, "info": info, "info2": info2, "info3": info3, "Passcode": "GetMember" };
+    this.log(obj);
+    xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
+    console.log("jsonDoc=" + JSON.stringify(obj));
+
+  }
+  Member_function_Call(type, info :any="",info2:any ="",info3:any="") {
+    return new Promise(resolve => {
+      this.Member_function(type, info, info2, info3, resolve);
+    });
   }
   log(parm) {
     console.log(parm);

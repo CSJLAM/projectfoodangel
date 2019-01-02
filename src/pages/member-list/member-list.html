@@ -8,8 +8,8 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page6">
-  <form id="MemberList-form28">
+<ion-content >
+  
     <ion-item id="MemberList-input62">
       <ion-label>
         會員名稱/拍八達通
@@ -19,32 +19,24 @@
     <button id="MemberList-button12" ion-button color="positive" block on-click="goToMembershipEdit()">
       尋找
     </button>
-    <ion-item id="MemberList-select14">
+    <ion-item>
       <ion-label>
         類別
       </ion-label>
-      <ion-select name="">
-        <ion-option>
-          長者
-        </ion-option>
-        <ion-option>
-          家庭
-        </ion-option>
+        <ion-select [(ngModel)]="Select_type" name="Select_type" (ionChange)="Mem_type_change()">
+          <ion-option *ngFor="let member_type of member_types" value="{{ member_type.ID }}">
+              {{member_type.Name}}
+            </ion-option>
       </ion-select>
     </ion-item>
-  </form>
+  
   <ion-list id="MemberList-list8">
-    <ion-item-divider color="light" id="MemberList-list-item-divider4">
+    <ion-item-divider color="light" >
       會員列表
     </ion-item-divider>
-    <ion-item color="none" on-click="goToMembershipEdit()" id="MemberList-list-item15">
-      陳大文
+    <ion-item color="none" *ngFor="let Member of Member_List" (click)="goToMemberInfo(Member)" >
+      {{Member.Chinese_Name}} 
     </ion-item>
-    <ion-item color="none" on-click="goToMembershipEdit()" id="MemberList-list-item16">
-      路人甲
-    </ion-item>
-    <ion-item color="none" on-click="goToMembershipEdit()" id="MemberList-list-item17">
-      張地球
-    </ion-item>
+    
   </ion-list>
 </ion-content>

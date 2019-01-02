@@ -24,7 +24,7 @@ export class MembershipApplyPage  {
   constructor(public navCtrl: NavController,private nfc2: NFC,public loadingCtrl: LoadingController,public alertCtrl: AlertController,) {
     
     
-    this.Member['Octopus']="999999";
+    //this.Member['Octopus']="999999";
     
     //this.EM_Contact[0]['YO']="YOYOYO";
     //this.EM_Contact[1]['YO']="YOYOYO2222";

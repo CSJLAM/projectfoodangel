@@ -9,13 +9,13 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page2">
-  <form id="TakeAttendance-form1">
+ 
     <ion-item id="TakeAttendance-input1">
       <ion-label></ion-label>
-      <ion-input type="text" placeholder="輸入會員號碼"></ion-input>
+      <ion-input type="text" [(ngModel)]="tagId" placeholder="輸入會員號碼"></ion-input>
     </ion-item>
-  </form>
-  <button id="TakeAttendance-button7" ion-button color="positive" block>
+
+  <button id="TakeAttendance-button7" on-click="docheck()" ion-button color="positive" block>
     點名
   </button>
   <h1 id="TakeAttendance-heading5" style="color:#000000;">
