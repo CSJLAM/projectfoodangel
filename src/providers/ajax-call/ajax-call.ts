@@ -248,15 +248,24 @@ export class AjaxCallProvider {
 
     return events;
   }
-  Member_function(type, info, info2, info3, fn) {
+  Member_function(type, info, info2, info3, info4, fn) {
+    var Passcode ="";
     switch (type) {
       case "List_Member_Type":
       case "List_Member":
       case "List_Applyed_Event":
       case "List_Pass_Event":
+      case "Apply_Get_Perm_Event":
+      // case "List_Member_Type_Event_Type":
+      case "List_Member_Type_Perm_Event_Type":
+      Passcode="GetMember";
         this.returnInfo = [];
         break;
-     
+     case "Apply_New_Member":
+     case "Testing":
+     Passcode="SetMember";
+     this.returnInfo="";
+     break;
      
     }
     var xmlhttp = new XMLHttpRequest();
@@ -275,6 +284,18 @@ export class AjaxCallProvider {
                 this.returnInfo.push({ "ID": result.ID, "Name": result.Name });
               }
               break;
+            // case "List_Member_Type_Event_Type":
+            // for (var i = 0; i < obj.info.length; i++) {
+            //   var result = obj.info[i];
+            //   this.returnInfo.push({ "ID": result.ID, "Name": result.Name ,"Type":result.Type,"Event_For":result.Event_For});
+            // }
+            // break;
+            case "List_Member_Type_Perm_Event_Type":
+            for (var i = 0; i < obj.info.length; i++) {
+              var result = obj.info[i];
+              this.returnInfo.push({ "ID": result.ID, "Name": result.Name ,"Type":result.Type,"Event_For":result.Event_For});
+            }
+            break;
               case "List_Member":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
@@ -282,16 +303,30 @@ export class AjaxCallProvider {
               }
               break;
               case "List_Applyed_Event":
+              this.returnInfo = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 this.returnInfo.push({ "Event_ID": result.Event_ID, "Event_Name": result.Event_Name });
               }
               break;
               case "List_Pass_Event":
+              this.returnInfo = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 this.returnInfo.push({ "Event_ID": result.Event_ID, "Event_Name": result.Event_Name });
               }
+              break;
+              case "Apply_Get_Perm_Event":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name ,"Check":false});
+              }
+              break;
+              case "Apply_New_Member":
+              this.returnInfo=true;
+              break;
+              case "Testing":
+              this.returnInfo=true;
               break;
             default:
               break;
@@ -300,6 +335,8 @@ export class AjaxCallProvider {
           // console.log(this.returnInfo);
           // console.log("return info");
           fn(this.returnInfo);
+        }else if (obj['return']) {
+          fn();
         }
         else {
           alert("Some ERROR");
@@ -308,15 +345,15 @@ export class AjaxCallProvider {
       }
     }
 
-    var obj = { "Function": type, "info": info, "info2": info2, "info3": info3, "Passcode": "GetMember" };
+    var obj = { "Function": type, "info": info, "info2": info2, "info3": info3, "info4": info4, "Passcode": Passcode };
     this.log(obj);
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
     console.log("jsonDoc=" + JSON.stringify(obj));
 
   }
-  Member_function_Call(type, info :any="",info2:any ="",info3:any="") {
+  Member_function_Call(type, info :any="",info2:any ="",info3:any="",info4:any="") {
     return new Promise(resolve => {
-      this.Member_function(type, info, info2, info3, resolve);
+      this.Member_function(type, info, info2, info3, info4, resolve);
     });
   }
   log(parm) {

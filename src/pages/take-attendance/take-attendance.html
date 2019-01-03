@@ -31,9 +31,16 @@
     <ion-item-divider   color="light">
         {{list.key}}
       </ion-item-divider>
+      <div *ngIf="list.key!='Checked'">
 <ion-item color="none"  *ngFor="let event of list.list" on-click="goToEventInfo()" >
   {{event.Chinese_Name}}
 </ion-item>
+</div>
+<div *ngIf="list.key=='Checked'">
+    <ion-item color="none"  *ngFor="let event of list.list"  >
+      {{event.Chinese_Name}}
+    </ion-item>
+    </div>
 </div>
   <!-- <ion-list id="TakeAttendance-list6">
     <ion-item-divider color="light" id="TakeAttendance-list-item-divider2">

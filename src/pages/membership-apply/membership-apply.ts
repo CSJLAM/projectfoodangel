@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController,LoadingController,  AlertController,} from 'ionic-angular';
 import { NFC} from '@ionic-native/nfc';
 import { StaffLevelPage } from '../staff-level/staff-level';
+import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
+import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'page-membership-apply',
   templateUrl: 'membership-apply.html'
@@ -15,15 +17,18 @@ export class MembershipApplyPage  {
   tagId: string;
   inputoctopus: number=-2;
   Page: number = 0;
-  Member: any[] = ['Octopus','Gender','Member_Type','Chinese_Name','English_Name','DOB','HKID',
+  member_types:any="";
+  Member: string[] = ['Octopus','Gender','Member_Type','Chinese_Name','English_Name','DOB','HKID',
                 'Occupation','Marriage','E_Num_Son','Year_In_HK','Contact_1','Contact_2',
-                'E_Life_Tgt','Address'];
+                'E_Life_Tgt','Address','Gov_CSSA','Family_Income','Elderly_Income','Old_Age_Allowance',
+                'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2'];
   EM_Contact:any[] =[{"Name":"","Relationship":"","Phone":""},{"Name":"","Relationship":"","Phone":""}];
   Family_Members: any[] = [];
+  PermEventList:any;
 
-  constructor(public navCtrl: NavController,private nfc2: NFC,public loadingCtrl: LoadingController,public alertCtrl: AlertController,) {
+  constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController,private nfc2: NFC,public loadingCtrl: LoadingController,public alertCtrl: AlertController,) {
     
-    
+    this.Fildes_Set();
     //this.Member['Octopus']="999999";
     
     //this.EM_Contact[0]['YO']="YOYOYO";
@@ -37,6 +42,13 @@ export class MembershipApplyPage  {
     console.log("Looks like I'm about to leave :(");
     
   }
+  ionViewDidEnter() {
+    this.ajaxCall.Member_function_Call("List_Member_Type").then(result =>{
+      this.member_types=result;
+      this.Member['Member_Type']=this.member_types[0].ID;
+      this.Mem_type_change();
+    });
+   }
   goToStaffLevel(params) {
     if (!params) params = {};
     this.navCtrl.push(StaffLevelPage);
@@ -138,6 +150,46 @@ export class MembershipApplyPage  {
 
   failNFC(err) {
     alert("Error while reading: Please Retry");
+  }
+  Mem_type_change(){
+    this.ajaxCall.Member_function_Call("List_Member_Type_Perm_Event_Type",this.Member['Member_Type']).then(result=>{
+      this.ajaxCall.Member_function_Call("Apply_Get_Perm_Event",result[0].ID).then(result1=>{
+        this.PermEventList=result1;
+        console.log(this.PermEventList);
+      });
+    });
+  }
+  
+  Apply(){
+    let obj_Member ={ 'Octopus':this.Member['Octopus'],'Gender':this.Member['Gender'],
+    'Member_Type':this.Member['Member_Type'],'Chinese_Name':this.Member['Chinese_Name'],
+    'English_Name':this.Member['English_Name'],'DOB':this.Member['DOB'],'HKID':this.Member['HKID'],
+    'Occupation':this.Member['Occupation'],'Marriage':this.Member['Marriage'],'E_Num_Son':this.Member['E_Num_Son'],
+    'Year_In_HK':this.Member['Year_In_HK'],'Contact_1':this.Member['Contact_1'],'Contact_2':this.Member['Contact_2'],
+    'E_Life_Tgt':this.Member['E_Life_Tgt'],'Address':this.Member['Address'],'Gov_CSSA':this.Member['Gov_CSSA'],
+    'Family_Income':this.Member['Family_Income'],'Elderly_Income':this.Member['Elderly_Income'],
+    'Old_Age_Allowance':this.Member['Old_Age_Allowance'],'Disability_Allowance':this.Member['Disability_Allowance'],
+    'Pension':this.Member['Pension'],'Family_Support':this.Member['Family_Support'],'Photo_Auth':this.Member['Photo_Auth'],
+    'Declaration_1':this.Member['Declaration_1'],'Declaration_2':this.Member['Declaration_2']};
+    console.log(obj_Member);
+    this.ajaxCall.Member_function_Call("Apply_New_Member",obj_Member,this.EM_Contact,this.Family_Members,this.PermEventList).then(result=>{
+      console.log(result);
+      if(result==true){
+        this.navCtrl.pop();
+      }
+    });
+    // console.log(JSON.stringify(this.EM_Contact));
+    // console.log(JSON.stringify(this.PermEventList));
+    // this.ajaxCall.Member_function_Call("Testing",this.PermEventList).then(result=>{
+    // });
+
+  }
+  Fildes_Set(){
+    this.Member['Octopus']="";this.Member['Gender']="";this.Member['Chinese_Name']="";this.Member['English_Name']="";this.Member['DOB']="";this.Member['HKID']="";
+    this.Member['Occupation']="";this.Member['Marriage']="";this.Member['E_Num_Son']="";this.Member['Year_In_HK']="";this.Member['Contact_1']="";this.Member['Contact_2']="";
+    this.Member['E_Life_Tgt']="";this.Member['Address']="";this.Member['Gov_CSSA']="";this.Member['Family_Income']="";this.Member['Elderly_Income']="";this.Member['Old_Age_Allowance']="";
+    this.Member['Disability_Allowance']="";this.Member['Pension']="";this.Member['Family_Support']="";
+    this.Member['Photo_Auth']=false;this.Member['Declaration_1']=false;this.Member['Declaration_2']=false;
   }
   log(info){
     console.log(info);

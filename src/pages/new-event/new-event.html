@@ -44,14 +44,14 @@
           <ion-label>
             開始日期
           </ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="Event.Start_Date"></ion-datetime>
+          <ion-datetime displayFormat="MM/DD/YYYY"  max="2050" [(ngModel)]="Event.Start_Date"></ion-datetime>
           
         </ion-item>
         <ion-item >
             <ion-label>
               完結日期
             </ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="Event.End_Date"></ion-datetime>
+            <ion-datetime displayFormat="MM/DD/YYYY" max="2050" [(ngModel)]="Event.End_Date"></ion-datetime>
             
           </ion-item>
         </div>
