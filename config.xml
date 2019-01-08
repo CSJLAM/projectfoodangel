@@ -87,4 +87,6 @@
     <plugin name="cordova-sqlite-storage" spec="~2.4.0" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="^4.5.5" />
+    <allow-navigation href="http://175.159.236.94:8101" />
+    <allow-navigation href="http://172.20.10.2:8101" />
 </widget>

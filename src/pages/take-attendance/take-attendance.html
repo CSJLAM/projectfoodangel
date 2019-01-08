@@ -22,6 +22,7 @@
     活動名稱: {{temp.Event_Name}}
   </h1>
   <div id="TakeAttendance-markdown6" class="show-list-numbers-and-dots">
+    <div *ngIf="show!=null">{{show.Chinese_Name}}</div>
     <!-- <p style="color:#000000;">
       內容: max PEPPLE
     </p> -->
@@ -32,7 +33,7 @@
         {{list.key}}
       </ion-item-divider>
       <div *ngIf="list.key!='Checked'">
-<ion-item color="none"  *ngFor="let event of list.list" on-click="goToEventInfo()" >
+<ion-item color="none"  *ngFor="let event of list.list" on-click="goToEventInfo(event,list.list)" >
   {{event.Chinese_Name}}
 </ion-item>
 </div>

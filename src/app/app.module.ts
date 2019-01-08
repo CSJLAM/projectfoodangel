@@ -24,6 +24,7 @@ import { UpdateEventPage } from '../pages/update-event/update-event';
 import { EventListPage } from '../pages/event-list/event-list';
 import { EventCategroryListPage } from '../pages/event-categrory-list/event-categrory-list';
 import { EventCategorySettingPage } from '../pages/event-category-setting/event-category-setting';
+import { ShowAttendPage } from '../pages/show-attend/show-attend';
 import { StaffSettingPage } from '../pages/staff-setting/staff-setting';
 import { StaffListPage } from '../pages/staff-list/staff-list';
 import { StaffLevelListPage } from '../pages/staff-level-list/staff-level-list';
@@ -63,6 +64,7 @@ import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
     EventListPage,
     EventCategroryListPage,
     EventCategorySettingPage,
+    ShowAttendPage,
     StaffSettingPage,
     StaffListPage,
     StaffLevelListPage,
@@ -100,6 +102,7 @@ import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
     EventListPage,
     EventCategroryListPage,
     EventCategorySettingPage,
+    ShowAttendPage,
     StaffSettingPage,
     StaffListPage,
     StaffLevelListPage,

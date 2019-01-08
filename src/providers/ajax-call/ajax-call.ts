@@ -113,7 +113,7 @@ export class AjaxCallProvider {
                 var result = obj.info[i];
                 //this.log(Your);
                 //this.log('++');
-                this.returnInfo.push({ "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F });
+                this.returnInfo.push({ "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name,"Octopus": result.Octopus ,"Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F });
 
               }
               break;
@@ -165,6 +165,55 @@ export class AjaxCallProvider {
   getEvents_Call(location, type, info = "") {
     return new Promise(resolve => {
       this.getEvents(location, type, info, resolve);
+    });
+  }
+  setEvents(location, type, info, info2, fn) {
+
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php";
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+        var obj = JSON.parse(xmlhttp.responseText);
+        if (obj.result == true) {
+
+          console.info(obj.info);
+         
+          this.returnInfo = [];
+          switch (type) {
+            
+            case "MarkAttend":
+           
+                this.returnInfo=true;
+              break;
+            
+            
+            default:
+            break;
+          }
+          fn(this.returnInfo);
+
+        } else if (obj.errorCode != null) {
+
+          this.log(obj.errorCode);
+        }
+
+
+
+      }
+    }
+
+    var obj = { "Passcode": "SetInfo", "Function": type, "info": info, "info2":info2 };
+    this.log("http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
+    xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
+
+
+  }
+  setEvents_Call(location, type, info = "", info2="") {
+    return new Promise(resolve => {
+      this.setEvents(location, type, info, info2, resolve);
     });
   }
   AddEvents(type, info,info2,info3, fn) {

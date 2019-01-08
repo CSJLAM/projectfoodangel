@@ -3,20 +3,25 @@ import { NavController,NavParams ,LoadingController } from 'ionic-angular';
 import { NFC} from '@ionic-native/nfc';
 import { AjaxCallProvider } from '../../providers/ajax-call/ajax-call'
 import { Storage } from '@ionic/storage';
+import { ShowAttendPage } from '../show-attend/show-attend';
 @Component({
   selector: 'page-take-attendance',
   templateUrl: 'take-attendance.html'
 })
 export class TakeAttendancePage {
+  nfc:NFC
+  nfc_check:boolean;
   temp: any;
   Attend_List: any;
+  Event_Member_List: any;
   granted: boolean;
   denied: boolean;
   scanned: boolean;
   tagId: string;
-  constructor(private ajaxCall: AjaxCallProvider,public navParams: NavParams, private storage: Storage,public navCtrl: NavController,private nfc: NFC) {
+  show:any;
+  constructor(private ajaxCall: AjaxCallProvider,public navParams: NavParams, private storage: Storage,public navCtrl: NavController,private nfc2: NFC) {
     this.temp = this.navParams.data.params;
-
+    this.nfc_check=false;
   }
   resetScanData() {
     this.granted = false;
@@ -30,6 +35,7 @@ export class TakeAttendancePage {
     this.ajaxCall.getEvents_Call("","Load_Event_Attend",this.temp.ID).then(available => {
       //   console.log("available");
       //  console.log(available);
+      this.Event_Member_List=available;
        this.Attend_List=available;
       this.Attend_List=this.ajaxCall.transform_to_group(this.Attend_List,"Attend");
       
@@ -37,22 +43,33 @@ export class TakeAttendancePage {
       //  console.log("available");
     });
     this.resetScanData();
+    this.nfc=this.nfc2;
+    if(this.nfc_check==false){
     this.nfc.enabled().then((resolve) => {
+      this.nfc_check=true;
       this.addListenNFC();
     }).catch((reject) => {
-      //alert("NFC is not supported by your Device");
+      alert("NFC is not supported by your Device");
     });
-    
+  }
   }
   ionViewWillLeave() {
-    console.log("Looks like I'm about to leave :(");
+    console.log("Looks like I'm about to leave :( NFC STOP");
+    
     this.nfc=null;
   }
 docheck(){
-  this.ajaxCall.AddEvents_Call("Attened_Evnet",this.tagId).then( result =>{
-    console.log(result);
-    alert(result);
-  });
+   const index = this.Event_Member_List.findIndex(member => member.Octopus === this.tagId);
+   this.show=this.Event_Member_List[index];
+   this.goToEventInfo(this.Event_Member_List[index])
+  // console.log("=======");
+  // console.log(index);
+  // console.log("--------");
+  // this.show=this.Attend_List[index];
+  // this.ajaxCall.AddEvents_Call("Attened_Evnet",this.tagId).then( result =>{
+  //   console.log(result);
+  //   alert(result);
+  // });
 }
   addListenNFC() {
 
@@ -85,5 +102,9 @@ docheck(){
   failNFC(err) {
     alert("Error while reading: Please Retry");
   }
-
+  goToEventInfo(params,params2=""){
+    let id = this.temp.ID;
+    
+    this.navCtrl.push(ShowAttendPage,{params,params2,id});
+  }
 }
