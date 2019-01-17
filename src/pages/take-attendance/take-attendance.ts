@@ -49,7 +49,7 @@ export class TakeAttendancePage {
       this.nfc_check=true;
       this.addListenNFC();
     }).catch((reject) => {
-      alert("NFC is not supported by your Device");
+      //alert("NFC is not supported by your Device");
     });
   }
   }

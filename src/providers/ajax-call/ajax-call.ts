@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AjaxCallProvider {
   returnInfo: any;
-
+  link:string="http://101.78.175.101:8580/foodangel/";
   constructor() {
     console.log('Hello AjaxCallProvider Provider');
   }
@@ -32,7 +32,7 @@ export class AjaxCallProvider {
         break;
     }
     var xmlhttp = new XMLHttpRequest();
-    var url = "http://101.78.175.101:8580/foodangel/checkUser.php";
+    var url = this.link+"checkUser.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
@@ -87,7 +87,7 @@ export class AjaxCallProvider {
   getEvents(location, type, info, fn) {
 
     var xmlhttp = new XMLHttpRequest();
-    var url = "http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php";
+    var url = this.link+"Ajax_GetInfo.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
@@ -157,7 +157,7 @@ export class AjaxCallProvider {
     }
 
     var obj = { "Passcode": "GetInfo", "Function": type, "info": info };
-    this.log("http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
+    this.log(this.link+"Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
@@ -170,7 +170,7 @@ export class AjaxCallProvider {
   setEvents(location, type, info, info2, fn) {
 
     var xmlhttp = new XMLHttpRequest();
-    var url = "http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php";
+    var url = this.link+"Ajax_GetInfo.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
@@ -206,7 +206,7 @@ export class AjaxCallProvider {
     }
 
     var obj = { "Passcode": "SetInfo", "Function": type, "info": info, "info2":info2 };
-    this.log("http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
+    this.log(this.link+"Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
@@ -219,7 +219,7 @@ export class AjaxCallProvider {
   AddEvents(type, info,info2,info3, fn) {
 
     var xmlhttp = new XMLHttpRequest();
-    var url = "http://101.78.175.101:8580/foodangel/Ajax_SetInfo.php";
+    var url = this.link+"Ajax_SetInfo.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
@@ -318,7 +318,7 @@ export class AjaxCallProvider {
      
     }
     var xmlhttp = new XMLHttpRequest();
-    var url = "http://101.78.175.101:8580/foodangel/Ajax_Member.php";
+    var url = this.link+"Ajax_Member.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.

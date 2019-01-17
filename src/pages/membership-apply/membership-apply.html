@@ -170,18 +170,21 @@
     </ion-item-group>
     <ion-item-group *ngIf="Page==3">
       <ion-item-divider color="light">第三部份 - 經濟狀況</ion-item-divider>
+      <div *ngIf="Member.Member_Type==1">
       <ion-item>
         <ion-label>
           長者生活津貼
         </ion-label>
         <ion-input type="number" [(ngModel)]="Member.Elderly_Income" placeholder="0"></ion-input>
       </ion-item>
+    </div>
       <ion-item>
         <ion-label>
           領收綜援金
         </ion-label>
         <ion-input type="number" [(ngModel)]="Member.Gov_CSSA" placeholder="0"></ion-input>
       </ion-item>
+      <div *ngIf="Member.Member_Type==1">
       <ion-item>
         <ion-label>
           生果金
@@ -206,6 +209,7 @@
         </ion-label>
         <ion-input type="text" [(ngModel)]="Member.Family_Support" placeholder="0"></ion-input>
       </ion-item>
+    </div>
       <ion-item>
           <ion-label>
               家庭每月入息
