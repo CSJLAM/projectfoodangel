@@ -1,5 +1,6 @@
 //import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+//import{ControllerProvider } from '../controller/controller';
 
 
 
@@ -13,7 +14,9 @@ import { Injectable } from '@angular/core';
 export class AjaxCallProvider {
   returnInfo: any;
   link:string="http://101.78.175.101:8580/foodangel/";
-  constructor() {
+  constructor(
+    //public Controller: ControllerProvider
+    ) {
     console.log('Hello AjaxCallProvider Provider');
   }
   Deptlisting(type, info, info2, info3, fn) {
@@ -85,14 +88,14 @@ export class AjaxCallProvider {
     });
   }
   getEvents(location, type, info, fn) {
-
+  //  this.Controller.showLoading();
     var xmlhttp = new XMLHttpRequest();
     var url = this.link+"Ajax_GetInfo.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
+    //    this.Controller.hideLoading();
         var obj = JSON.parse(xmlhttp.responseText);
         if (obj.result == true) {
 
@@ -307,8 +310,13 @@ export class AjaxCallProvider {
       case "Apply_Get_Perm_Event":
       // case "List_Member_Type_Event_Type":
       case "List_Member_Type_Perm_Event_Type":
+      case "Get_Member_Family_Info_by_ID":
       Passcode="GetMember";
         this.returnInfo = [];
+        break;
+        case "Get_Member_Info_by_ID":
+        Passcode="GetMember";
+        this.returnInfo="";
         break;
      case "Apply_New_Member":
      case "Testing":
@@ -370,6 +378,27 @@ export class AjaxCallProvider {
                 var result = obj.info[i];
                 this.returnInfo.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name ,"Check":false});
               }
+              break;
+              case "Get_Member_Info_by_ID":
+              this.returnInfo = [];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                //this.returnInfo.push({ "Event_ID": result.Event_ID, "Event_Name": result.Event_Name });
+               this.returnInfo={"ID": result.ID,"Member_ID": result.Member_ID,"Octopus": result.Octopus,"Member_Type": result.Member_Type,"Chinese_Name": result.Chinese_Name,"English_Name": result.English_Name,"Gender": result.Gender,"DOB": result.DOB,"HKID": result.HKID,
+               "Address": result.Address,"Marriage": result.Marriage,"Occupation": result.Occupation,"Year_In_HK": result.Year_In_HK,"Contact_1": result.Contact_1,"Contact_2": result.Contact_2,"Gov_CSSA": result.Gov_CSSA,
+               "Family_Income": result.Family_Income,"Elderly_Income": result.Elderly_Income,"Old_Age_Allowance": result.Old_Age_Allowance,"Disability_Allowance": result.Disability_Allowance,"Pension": result.Pension,"Family_Support": result.Family_Support,"E_Num_Son": result.E_Num_Son,
+               "E_Life_Tgt": result.E_Life_Tgt,"Photo_Auth": result.Photo_Auth,"Declaration_1": result.Declaration_1,"Declaration_2": result.Declaration_2,"End": result.End,"P_ID": result.P_ID};
+               
+              }
+              break;
+              case "Get_Member_Family_Info_by_ID":
+              let INFO:any=[];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                //this.returnInfo.push({"ID": result.ID,"Master_member": result.Master_member,"Member_SID": result.Member_SID,"Chinese_Name": result.Chinese_Name,"English_Name": result.English_Name,"Gender": result.Gender,"Relationship": result.Relationship,"Live_Together": result.Live_Together,"DOB": result.DOB,"Career": result.Career,"Income": result.Income,"Remark": result.Remark,"Octopus": result.Octopus,"P_ID": result.P_ID});
+                INFO.push({"ID": result.ID,"Master_member": result.Master_member,"Member_SID": result.Member_SID,"Chinese_Name": result.Chinese_Name,"English_Name": result.English_Name,"Gender": result.Gender,"Relationship": result.Relationship,"Live_Together": result.Live_Together,"DOB": result.DOB,"Career": result.Career,"Income": result.Income,"Remark": result.Remark,"Octopus": result.Octopus,"P_ID": result.P_ID});
+              }
+              fn(INFO);
               break;
               case "Apply_New_Member":
               this.returnInfo=true;

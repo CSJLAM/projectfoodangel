@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController ,NavParams } from 'ionic-angular';
-import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
+import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call';
+import { MembershipEditPage } from '../membership-edit/membership-edit';
 @Component({
   selector: 'page-member-info',
   templateUrl: 'member-info.html'
@@ -23,6 +24,9 @@ Pass_List:any;
     });
     
    }
-
+   goToMemberInfo(params){
+     this.navCtrl.push(MembershipEditPage,{params});
+   }
+   
   
 }

@@ -38,6 +38,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { NFC } from '@ionic-native/nfc';
 import { IonicStorageModule } from '@ionic/storage';
 import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
+import { ControllerProvider } from '../providers/controller/controller';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
     SplashScreen,
     NFC,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AjaxCallProvider
+    AjaxCallProvider,
+    ControllerProvider
   ]
 })
 export class AppModule {}

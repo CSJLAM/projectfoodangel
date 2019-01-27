@@ -8,7 +8,403 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page5">
+<ion-content padding >
+  <ion-list>
+    <ion-item-group *ngIf="Page==0">
+      <ion-item-divider color="light">第一部份-個人資料(上)</ion-item-divider>
+      <ion-item>
+        <ion-label>
+          八達通資料
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.Octopus" readonly="{{isReadonly}}"></ion-input>
+        <button ion-button item-end outline (click)="setinput(-1)" color="primary">
+          <ion-icon name="qr-scanner"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item>
+        <ion-label>會員類別</ion-label>
+        <!-- <ion-input type="text" [(ngModel)]="Member.Member_Type" readonly="{{isReadonly}}"></ion-input> -->
+        <ion-select [(ngModel)]="Member.Member_Type" name="Member.Member_Type"  (ionChange)="Mem_type_change()">
+          <ion-option *ngFor="let member_type of member_types" value="{{ member_type.ID }}">
+            {{member_type.Name}}
+          </ion-option>
+        </ion-select>
+        <!-- <ion-select [(ngModel)]="Member.Member_Type">
+          <ion-option value="Elderly">長者</ion-option>
+          <ion-option value="Family">家庭</ion-option>
+        </ion-select> -->
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          中文姓名
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.Chinese_Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          English Name
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.English_Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>性別</ion-label>
+        <ion-select [(ngModel)]="Member.Gender">
+          <ion-option value="Male">男</ion-option>
+          <ion-option value="Female">女</ion-option>
+          <ion-option value="Either">中性</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          出生日期
+        </ion-label>
+        <ion-input type="date" [(ngModel)]="Member.DOB"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          身份證號碼
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.HKID"></ion-input>
+      </ion-item>
+
+    </ion-item-group>
+    <ion-item-group *ngIf="Page==1">
+      <ion-item-divider color="light">第一部份-個人資料(下)</ion-item-divider>
+      <ion-item>
+        <ion-label>
+          職業
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.Occupation"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label> 婚姻狀況</ion-label>
+        <ion-select [(ngModel)]="Member.Marriage">
+          <ion-option value="Single">單身</ion-option>
+          <ion-option value="Married">以婚</ion-option>
+          <ion-option value="Divorce">離婚</ion-option>
+          <ion-option value="Widowed">喪偶</ion-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="Member.Member_Type==1">
+        <ion-item>
+          <ion-label>
+            子女數目 Elderly only
+          </ion-label>
+          <ion-input type="number" [(ngModel)]="Member.E_Num_Son"></ion-input>
+        </ion-item>
+      </div>
+      <ion-item>
+        <ion-label>
+          居港年數
+        </ion-label>
+        <ion-input type="number" [(ngModel)]="Member.Year_In_HK"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          家居電話
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.Contact_1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          手提電話
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.Contact_2"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          同住家庭人數
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.E_Life_Tgt"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          地址
+        </ion-label>
+        <ion-textarea [(ngModel)]="Member.Address"></ion-textarea>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group *ngIf="Page==2">
+      <ion-item-divider color="light">第二部份-緊急聯絡人</ion-item-divider>
+      <ion-list-header>
+        緊急聯絡人 -1
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          姓名
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="EM_Contact[0].Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          關係
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="EM_Contact[0].Relationship"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          電話
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="EM_Contact[0].Phone"></ion-input>
+      </ion-item>
+      <ion-list-header>
+        緊急聯絡人 -2
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          姓名
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="EM_Contact[1].Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          關係
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="EM_Contact[1].Relationship"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          電話
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="EM_Contact[1].Phone"></ion-input>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group *ngIf="Page==3">
+      <ion-item-divider color="light">第三部份 - 經濟狀況</ion-item-divider>
+      <div *ngIf="Member.Member_Type==1">
+      <ion-item>
+        <ion-label>
+          長者生活津貼
+        </ion-label>
+        <ion-input type="number" [(ngModel)]="Member.Elderly_Income" placeholder="0"></ion-input>
+      </ion-item>
+    </div>
+      <ion-item>
+        <ion-label>
+          領收綜援金
+        </ion-label>
+        <ion-input type="number" [(ngModel)]="Member.Gov_CSSA" placeholder="0"></ion-input>
+      </ion-item>
+      <div *ngIf="Member.Member_Type==1">
+      <ion-item>
+        <ion-label>
+          生果金
+        </ion-label>
+        <ion-input type="number"[(ngModel)]="Member.Old_Age_Allowance" placeholder="0"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          傷殘津貼
+        </ion-label>
+        <ion-input type="number" [(ngModel)]="Member.Disability_Allowance" placeholder="0"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          長俸
+        </ion-label>
+        <ion-input type="number" [(ngModel)]="Member.Pension" placeholder="0"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          子女供養
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="Member.Family_Support" placeholder="0"></ion-input>
+      </ion-item>
+    </div>
+      <ion-item>
+          <ion-label>
+              家庭每月入息
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="Member.Family_Income" placeholder="0"></ion-input>
+        </ion-item>
+      <!-- <ion-item>
+        <ion-label>
+          家庭每月入息
+        </ion-label>
+        <ion-select name="">
+          <ion-option>
+            $7,500 以下
+          </ion-option>
+          <ion-option>
+            $7,501 至 $15,500
+          </ion-option>
+          <ion-option>
+            $15,501 至 $21,800
+          </ion-option>
+          <ion-option>
+            $21,801 以上
+          </ion-option>
+        </ion-select>
+      </ion-item> -->
+      
+    </ion-item-group>
+    <ion-item-group *ngIf="Page==4">
+      <ion-item-divider color="light">第四部份 - 家庭成員</ion-item-divider>
+      <div *ngFor="let Family_Member of Family_Members, let i = index">
+        <ion-list-header>
+          成員-{{i+1}}
+          <button (click)="Rm_Fam(Family_Members[i].ID)" ion-button outline color="danger" item-end>
+            <ion-icon name='trash' is-active="false"></ion-icon>
+          </button>
+        </ion-list-header>
+        <div *ngIf="Member.Member_Type==2">
+          <ion-item>
+            <ion-label>
+              八達通資料 F
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="Family_Members[i].Octopus" readonly="{{isReadonly}}"></ion-input>
+            <button ion-button item-end outline (click)="setinput(i)" color="primary">
+              <ion-icon name="qr-scanner"></ion-icon>
+            </button>
+          </ion-item>
+        </div>
+        <ion-item>
+          <ion-label>
+            中文姓名
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="Family_Members[i].Chinese_Name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            英文姓名
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="Family_Members[i].English_Name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>性別</ion-label>
+          <ion-select [(ngModel)]="Family_Members[i].Gender">
+            <ion-option value="Male">男</ion-option>
+            <ion-option value="Female">女</ion-option>
+            <ion-option value="Either">中性</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>
+                <div *ngIf="Member.Member_Type==1">  出生年份E </div>  <div *ngIf="Member.Member_Type==2">出生日期 F</div>
+            </ion-label>
+          <ion-input type="date" [(ngModel)]="Family_Members[i].DOB"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>關係</ion-label>
+          <ion-select [(ngModel)]="Family_Members[i].Relationship">
+            <ion-option>父母</ion-option>
+            <ion-option>子女</ion-option>
+            <ion-option>兄弟姐妹</ion-option>
+            <ion-option>其他</ion-option>
+          </ion-select>
+        </ion-item>
+        <div *ngIf="Member.Member_Type==2">
+          <ion-item>
+            <ion-label>
+              職業 F
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="Family_Members[i].Career"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              每月入息 F
+            </ion-label>
+            <ion-input type="number" [(ngModel)]="Family_Members[i].Income"></ion-input>
+          </ion-item>
+        </div>
+        <ion-item>
+          <ion-label>
+            備註
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="Family_Members[i].Remark"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>同住</ion-label>
+          <ion-select [(ngModel)]="Family_Members[i].Live_Together">
+            <ion-option>否</ion-option>
+            <ion-option>是</ion-option>
+          </ion-select>
+        </ion-item>
+
+      </div>
+      <button (click)="Add_Fam()" ion-button color="positive" block>
+        增加
+      </button>
+    </ion-item-group>
+    <ion-item-group *ngIf="Page==5">
+      <ion-item-divider color="light">第五部份 -申請服務</ion-item-divider>
+      <ion-item *ngFor="let Event of PermEventList, let i = index">
+          <ion-label>
+              {{PermEventList[i].Event_Name}}
+          </ion-label>
+          <ion-checkbox  [(ngModel)]="PermEventList[i].Check" ></ion-checkbox>
+        </ion-item>
+      <!-- <ion-item>
+        <ion-label>
+          午餐服務
+        </ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          晚餐服務
+        </ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          領取食物包
+        </ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item> -->
+    </ion-item-group>
+    <ion-item-group *ngIf="Page==6">
+      <ion-item-divider color="light">第六部份 - 其他</ion-item-divider>
+      <ion-item>
+        <ion-label>
+          申請原因
+        </ion-label>
+        <ion-textarea></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          允許拍攝聲明
+        </ion-label>
+        <ion-checkbox [(ngModel)]="Member.Photo_Auth"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          收集個人資料聲明
+        </ion-label>
+        <ion-checkbox [(ngModel)]="Member.Declaration_1"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          申請人聲明
+        </ion-label>
+        <ion-checkbox [(ngModel)]="Member.Declaration_2"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+              備註
+          </ion-label>
+          <ion-textarea></ion-textarea>
+        </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <button ion-button color="light" (click)="Pev_Page()" *ngIf="Page>0" icon-start>
+    <ion-icon name='arrow-back'></ion-icon>
+    Back
+  </button>
+  <button ion-button color="light" (click)="Next_Page()" *ngIf="Page<6" icon-end>
+    Next
+    <ion-icon name='arrow-forward'></ion-icon>
+  </button>
+  <button ion-button color="stable" (click)="Apply()" *ngIf="Page==6">
+    更新
+  </button>
+  <button ion-button color="danger" (click)="Reset()">
+    重設
+  </button>
+</ion-content>
+<!-- <ion-content padding id="page5">
   <form id="MembershipEdit-form26">
     <h3 id="MembershipEdit-heading15" style="color:#000000;">
       第一部份-個人資料
@@ -428,4 +824,4 @@
       更改
     </button>
   </form>
-</ion-content>
+</ion-content> -->

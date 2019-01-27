@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController,LoadingController,  AlertController,} from 'ionic-angular';
 import { NFC} from '@ionic-native/nfc';
-import { StaffLevelPage } from '../staff-level/staff-level';
 import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
-import { JsonPipe } from '@angular/common';
+
 @Component({
   selector: 'page-membership-apply',
   templateUrl: 'membership-apply.html'
@@ -49,10 +48,7 @@ export class MembershipApplyPage  {
       this.Mem_type_change();
     });
    }
-  goToStaffLevel(params) {
-    if (!params) params = {};
-    this.navCtrl.push(StaffLevelPage);
-  }
+
   setinput(data){
     this.log(data);
     this.nfc=this.nfc2;
