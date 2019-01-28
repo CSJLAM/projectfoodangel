@@ -28,6 +28,7 @@ export class AjaxCallProvider {
       case "Edit_Dept":
       case "Delete_Dept":
       case "Add_Staff":
+      case "Edit_Staff":
         this.returnInfo = false;
         break;
       case "Load_Staff_Info":
@@ -55,6 +56,7 @@ export class AjaxCallProvider {
             case "Edit_Dept":
             case "Delete_Dept":
             case "Add_Staff":
+            case "Edit_Staff":
               this.returnInfo = true;
               break;
             case "Load_Staff_Info":
@@ -311,7 +313,9 @@ export class AjaxCallProvider {
       // case "List_Member_Type_Event_Type":
       case "List_Member_Type_Perm_Event_Type":
       case "Get_Member_Family_Info_by_ID":
-      Passcode="GetMember";
+      case "Get_Member_Urgent_Info_by_ID":
+      case "Get_Member_Perm_Event":
+        Passcode="GetMember";
         this.returnInfo = [];
         break;
         case "Get_Member_Info_by_ID":
@@ -400,6 +404,28 @@ export class AjaxCallProvider {
               }
               fn(INFO);
               break;
+              case "Get_Member_Urgent_Info_by_ID":
+              let Get_Member_Urgent_Info_by_ID:any=[];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                //this.returnInfo.push({"ID": result.ID,"Master_member": result.Master_member,"Member_SID": result.Member_SID,"Chinese_Name": result.Chinese_Name,"English_Name": result.English_Name,"Gender": result.Gender,"Relationship": result.Relationship,"Live_Together": result.Live_Together,"DOB": result.DOB,"Career": result.Career,"Income": result.Income,"Remark": result.Remark,"Octopus": result.Octopus,"P_ID": result.P_ID});
+                Get_Member_Urgent_Info_by_ID.push({"ID": result.ID,"Member_ID": result.Member_ID,"Name": result.Name,"Phone": result.Phone,"Relationship": result.Relationship});
+              }
+              fn(Get_Member_Urgent_Info_by_ID);
+              break;
+              case "Get_Member_Perm_Event":
+              let Get_Member_Perm_Event:any=[];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                if(result.Member_ID!=null){
+                  Get_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name ,"Check":true});  
+                }else{
+                Get_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name ,"Check":false});
+                }
+                fn(Get_Member_Perm_Event);
+
+              }
+              break;
               case "Apply_New_Member":
               this.returnInfo=true;
               break;
@@ -426,7 +452,7 @@ export class AjaxCallProvider {
     var obj = { "Function": type, "info": info, "info2": info2, "info3": info3, "info4": info4, "Passcode": Passcode };
     this.log(obj);
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
-    console.log("jsonDoc=" + JSON.stringify(obj));
+    console.log(this.link+"Ajax_Member.php?jsonDoc="+ JSON.stringify(obj));
 
   }
   Member_function_Call(type, info :any="",info2:any ="",info3:any="",info4:any="") {

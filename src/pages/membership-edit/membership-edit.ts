@@ -11,6 +11,7 @@ export class MembershipEditPage {
   data:any;
   temp:any;
   nfc:NFC;
+  delete_fam:boolean=false;
   readonly:boolean= true;
   granted: boolean;
   denied: boolean;
@@ -23,7 +24,8 @@ export class MembershipEditPage {
                 'Occupation','Marriage','E_Num_Son','Year_In_HK','Contact_1','Contact_2',
                 'E_Life_Tgt','Address','Gov_CSSA','Family_Income','Elderly_Income','Old_Age_Allowance',
                 'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2'];
-  EM_Contact:any[] =[{"Name":"","Relationship":"","Phone":""},{"Name":"","Relationship":"","Phone":""}];
+  //EM_Contact:any[] =[{"Name":"","Relationship":"","Phone":""},{"Name":"","Relationship":"","Phone":""}];
+  EM_Contact:any[] =[];
   Family_Members: any[] = [];
   PermEventList:any;
   member_types_o:any="";
@@ -31,7 +33,8 @@ export class MembershipEditPage {
                 'Occupation','Marriage','E_Num_Son','Year_In_HK','Contact_1','Contact_2',
                 'E_Life_Tgt','Address','Gov_CSSA','Family_Income','Elderly_Income','Old_Age_Allowance',
                 'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2'];
-  EM_Contact_o:any[] =[{"Name":"","Relationship":"","Phone":""},{"Name":"","Relationship":"","Phone":""}];
+  //EM_Contact_o:any[] =[{"Name":"","Relationship":"","Phone":""},{"Name":"","Relationship":"","Phone":""}];
+  EM_Contact_o:any[] = [];
   Family_Members_o: any[] = [];
   PermEventList_o:any;
 
@@ -68,13 +71,25 @@ export class MembershipEditPage {
         }
         this.Member=this.temp;
         this.Member_o=this.temp;
-        this.Mem_type_change();
+        //this.Mem_type_change();
         this.ajaxCall.Member_function_Call("Get_Member_Family_Info_by_ID",this.Member['Member_ID']).then(family=>{
+          if(this.Member['Member_Type']==2){
+            this.delete_fam=true;
+          }
           this.temp=family;
-          console.log(this.temp);
            this.Family_Members=this.temp;
-           console.log(this.Family_Members);
-          // this.Family_Members_o=this.temp;
+           this.Family_Members_o=this.temp;
+        });
+        this.ajaxCall.Member_function_Call("Get_Member_Urgent_Info_by_ID",this.Member['Member_ID']).then(urgent=>{
+          this.temp=urgent;
+          this.EM_Contact=this.temp;
+          this.EM_Contact_o=this.temp;
+        });
+        this.ajaxCall.Member_function_Call("List_Member_Type_Perm_Event_Type",this.Member['Member_Type']).then(result=>{
+          this.ajaxCall.Member_function_Call("Get_Member_Perm_Event",this.Member['Member_ID'],result[0].ID).then(service=>{
+            this.PermEventList=service;
+            this.PermEventList_o=service;
+          });
         });
       });
     });
@@ -188,23 +203,27 @@ export class MembershipEditPage {
   }
   
   Apply(){
-    let obj_Member ={ 'Octopus':this.Member['Octopus'],'Gender':this.Member['Gender'],
-    'Member_Type':this.Member['Member_Type'],'Chinese_Name':this.Member['Chinese_Name'],
-    'English_Name':this.Member['English_Name'],'DOB':this.Member['DOB'],'HKID':this.Member['HKID'],
-    'Occupation':this.Member['Occupation'],'Marriage':this.Member['Marriage'],'E_Num_Son':this.Member['E_Num_Son'],
-    'Year_In_HK':this.Member['Year_In_HK'],'Contact_1':this.Member['Contact_1'],'Contact_2':this.Member['Contact_2'],
-    'E_Life_Tgt':this.Member['E_Life_Tgt'],'Address':this.Member['Address'],'Gov_CSSA':this.Member['Gov_CSSA'],
-    'Family_Income':this.Member['Family_Income'],'Elderly_Income':this.Member['Elderly_Income'],
-    'Old_Age_Allowance':this.Member['Old_Age_Allowance'],'Disability_Allowance':this.Member['Disability_Allowance'],
-    'Pension':this.Member['Pension'],'Family_Support':this.Member['Family_Support'],'Photo_Auth':this.Member['Photo_Auth'],
-    'Declaration_1':this.Member['Declaration_1'],'Declaration_2':this.Member['Declaration_2']};
-    console.log(obj_Member);
-    this.ajaxCall.Member_function_Call("Apply_New_Member",obj_Member,this.EM_Contact,this.Family_Members,this.PermEventList).then(result=>{
-      console.log(result);
-      if(result==true){
-        this.navCtrl.pop();
-      }
-    });
+    console.log("APPLY");
+    console.log(this.PermEventList==this.PermEventList_o);
+    console.log(this.PermEventList);
+    console.log(this.PermEventList_o);
+    // let obj_Member ={ 'Octopus':this.Member['Octopus'],'Gender':this.Member['Gender'],
+    // 'Member_Type':this.Member['Member_Type'],'Chinese_Name':this.Member['Chinese_Name'],
+    // 'English_Name':this.Member['English_Name'],'DOB':this.Member['DOB'],'HKID':this.Member['HKID'],
+    // 'Occupation':this.Member['Occupation'],'Marriage':this.Member['Marriage'],'E_Num_Son':this.Member['E_Num_Son'],
+    // 'Year_In_HK':this.Member['Year_In_HK'],'Contact_1':this.Member['Contact_1'],'Contact_2':this.Member['Contact_2'],
+    // 'E_Life_Tgt':this.Member['E_Life_Tgt'],'Address':this.Member['Address'],'Gov_CSSA':this.Member['Gov_CSSA'],
+    // 'Family_Income':this.Member['Family_Income'],'Elderly_Income':this.Member['Elderly_Income'],
+    // 'Old_Age_Allowance':this.Member['Old_Age_Allowance'],'Disability_Allowance':this.Member['Disability_Allowance'],
+    // 'Pension':this.Member['Pension'],'Family_Support':this.Member['Family_Support'],'Photo_Auth':this.Member['Photo_Auth'],
+    // 'Declaration_1':this.Member['Declaration_1'],'Declaration_2':this.Member['Declaration_2']};
+    // console.log(obj_Member);
+    // this.ajaxCall.Member_function_Call("Apply_New_Member",obj_Member,this.EM_Contact,this.Family_Members,this.PermEventList).then(result=>{
+    //   console.log(result);
+    //   if(result==true){
+    //     this.navCtrl.pop();
+    //   }
+    // });
     // console.log(JSON.stringify(this.EM_Contact));
     // console.log(JSON.stringify(this.PermEventList));
     // this.ajaxCall.Member_function_Call("Testing",this.PermEventList).then(result=>{

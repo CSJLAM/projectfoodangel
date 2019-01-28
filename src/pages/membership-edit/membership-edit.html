@@ -243,9 +243,11 @@
       <div *ngFor="let Family_Member of Family_Members, let i = index">
         <ion-list-header>
           成員-{{i+1}}
-          <button (click)="Rm_Fam(Family_Members[i].ID)" ion-button outline color="danger" item-end>
+          
+          <button (click)="Rm_Fam(Family_Members[i].ID)" ion-button outline color="danger" *ngIf="i!=0||delete_fam==false" item-end>
             <ion-icon name='trash' is-active="false"></ion-icon>
           </button>
+        
         </ion-list-header>
         <div *ngIf="Member.Member_Type==2">
           <ion-item>
