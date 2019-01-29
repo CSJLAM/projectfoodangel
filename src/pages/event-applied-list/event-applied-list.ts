@@ -10,6 +10,7 @@ import { MemberEventInfoPage } from '../member-event-info/member-event-info';
 export class EventAppliedListPage {
   Event:any;
   Confirm_List:any;
+  Waiting_List:any;
   constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController,public navParams: NavParams,) {
     this.Event = this.navParams.data.params;
   }
@@ -19,10 +20,14 @@ export class EventAppliedListPage {
       console.log(result);
       this.Confirm_List=result;
     });
+    this.ajaxCall.getEvents_Call("","Get_Waiting_List",this.Event.Event_Connect).then(result=>{
+      console.log(result);
+      this.Waiting_List=result;
+    });
     
    }
   goToMemberEventInfo(params){
-    if (!params) params = {};
-    this.navCtrl.push(MemberEventInfoPage);
+    console.log(params);
+    this.navCtrl.push(MemberEventInfoPage,{params});
   }
 }

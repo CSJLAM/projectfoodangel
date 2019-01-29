@@ -158,18 +158,35 @@ export class AjaxCallProvider {
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
 
-                Get_Suggestion.push({ "ID": result.ID, "Event_ID": result.Event_ID, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Status": result.Status, "Del": result.Del,"Chinese_Name": result.Chinese_Name,"fam_member": result.fam_member, "Check": false });
+                Get_Suggestion.push({ "ID": result.ID, "Event_ID": result.Event_ID, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Status": result.Status, "Del": result.Del, "Chinese_Name": result.Chinese_Name, "fam_member": result.fam_member, "Check": false });
               }
               fn(Get_Suggestion);
               break;
-              case "Get_Confirm_List":
+            case "Get_Confirm_List":
               let Get_Confirm_List: any = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
 
-                Get_Confirm_List.push({ "ID": result.ID, "Event_ID": result.Event_ID, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Status": result.Status, "Del": result.Del,"Chinese_Name": result.Chinese_Name,"fam_member": result.fam_member, "Check": false });
+                Get_Confirm_List.push({ "ID": result.ID, "Event_ID": result.Event_ID, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Status": result.Status, "Del": result.Del, "Chinese_Name": result.Chinese_Name, "fam_member": result.fam_member, "Check": false });
               }
               fn(Get_Confirm_List);
+              break;
+            case "Get_Waiting_List":
+              let Get_Waiting_List: any = [];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+
+                Get_Waiting_List.push({ "ID": result.ID, "Event_ID": result.Event_ID, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Status": result.Status, "Del": result.Del, "Chinese_Name": result.Chinese_Name, "fam_member": result.fam_member, "Check": false });
+              }
+              fn(Get_Waiting_List);
+              break;
+            case "Load_Event_Name":
+              let Load_Event_Name: any;
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                Load_Event_Name = { "ID": result.ID, "Event_Connect": result.Event_Connect, "Event_Location": result.Event_Location, "Event_Name": result.Event_Name, "Event_Info": result.Event_Info, "Event_Limit": result.Event_Limit, "Event_Cate": result.Event_Cate, "Event_Type": result.Event_Type, "Start_Date": result.Start_Date, "End_Date": result.End_Date, "Start_Time": result.Start_Time, "End_Time": result.End_Time, "Repeat_Week": result.Repeat_Week, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Deleted": result.Deleted };
+              }
+              fn(Load_Event_Name)
               break;
             default:
               break;
@@ -216,9 +233,9 @@ export class AjaxCallProvider {
 
             case "MarkAttend":
 
-              this.returnInfo = true;
+              this.returnInfo = obj.info;
               break;
-            
+
 
             default:
               break;
@@ -278,9 +295,12 @@ export class AjaxCallProvider {
                 var result = obj.info[i];
                 this.returnInfo.push({ "Chinese_Name": result.Chinese_Name, "Member_ID": result.Member_ID });
               }
-              case "suggestion_to_confirm":
-            fn(true);
-            break
+            case "suggestion_to_confirm":
+            case "Waiting_to_confirm":
+            case "waiting_to_delete":
+            case "confirm_to_suggeestion":
+              fn(true);
+              break;
             default:
               break;
           }
@@ -297,7 +317,7 @@ export class AjaxCallProvider {
     }
 
     var obj = { "Passcode": "SetIt", "Function": type, "info": info, "info2": info2, "info3": info3 };
-    this.log("jsonDoc=" + JSON.stringify(obj));
+    this.log(url+"?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 

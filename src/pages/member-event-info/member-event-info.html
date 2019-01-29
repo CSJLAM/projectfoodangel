@@ -10,14 +10,26 @@
 </ion-header>
 <ion-content padding id="page11">
   <h1 id="MemberEventInfo-heading28" style="color:#000000;">
-    活動資料
+    活動名稱 {{Data.Event_Name}}
   </h1>
+  <h1 id="MemberEventInfo-heading28" style="color:#000000;" *ngIf="Event.fam_member!=null">
+      會員名字 {{Event.Chinese_Name}}--{{Event.fam_member}}
+    </h1>
+    <h1 id="MemberEventInfo-heading28" style="color:#000000;" *ngIf="Event.fam_member==null">
+        會員名字 {{Event.Chinese_Name}}
+      </h1>
+    
   <div id="MemberEventInfo-markdown9" class="show-list-numbers-and-dots">
     <p style="color:#000000;">
-      Event information
+      {{Data.Event_Info}}
+      <!-- Event information -->
     </p>
   </div>
-  <button id="MemberEventInfo-button16" ion-button color="positive" block>
+  
+  <button id="MemberEventInfo-button16" ion-button color="positive" (click)="Confirm()" block *ngIf="Event.Status!=0">
+      確認報名
+    </button>
+  <button id="MemberEventInfo-button16" ion-button color="danger" (click)="Cancel()" block>
     取消報名
   </button>
 </ion-content>

@@ -4,6 +4,7 @@ import { NFC} from '@ionic-native/nfc';
 import { AjaxCallProvider } from '../../providers/ajax-call/ajax-call'
 import { Storage } from '@ionic/storage';
 import { ShowAttendPage } from '../show-attend/show-attend';
+import {ControllerProvider} from '../../providers/controller/controller';
 @Component({
   selector: 'page-take-attendance',
   templateUrl: 'take-attendance.html'
@@ -19,7 +20,7 @@ export class TakeAttendancePage {
   scanned: boolean;
   tagId: string;
   show:any;
-  constructor(private ajaxCall: AjaxCallProvider,public navParams: NavParams, private storage: Storage,public navCtrl: NavController,private nfc2: NFC) {
+  constructor(private controller:ControllerProvider,private ajaxCall: AjaxCallProvider,public navParams: NavParams, private storage: Storage,public navCtrl: NavController,private nfc2: NFC) {
     this.temp = this.navParams.data.params;
     this.nfc_check=false;
   }
@@ -60,8 +61,13 @@ export class TakeAttendancePage {
   }
 docheck(){
    const index = this.Event_Member_List.findIndex(member => member.Octopus === this.tagId);
+   if(index!=-1){
    this.show=this.Event_Member_List[index];
-   this.goToEventInfo(this.Event_Member_List[index])
+   this.goToEventInfo(this.Event_Member_List[index],"",true);
+  }else{
+    this.controller.showToast("你沒有參加是次活動！");
+    
+  }
   // console.log("=======");
   // console.log(index);
   // console.log("--------");
@@ -80,7 +86,8 @@ docheck(){
           this.tagId = tagId;
           this.scanned = true;
           this.docheck();
-          alert("SCANNED");
+          //alert("SCANNED");
+         // console.log("SCANNED");
        
           //alert(tagId);
           // only testing data consider to ask web api for access
@@ -102,9 +109,9 @@ docheck(){
   failNFC(err) {
     alert("Error while reading: Please Retry");
   }
-  goToEventInfo(params,params2=""){
+  goToEventInfo(params,params2="",auto=false){
     let id = this.temp.ID;
     
-    this.navCtrl.push(ShowAttendPage,{params,params2,id});
+    this.navCtrl.push(ShowAttendPage,{params,params2,id,auto});
   }
 }

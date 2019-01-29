@@ -18,7 +18,7 @@
     </ion-item-divider>
     
     <ion-list id="EventAppliedList-list19">
-        <ion-item *ngFor="let Event of Confirm_List, let i = index" on-click="goToMemberEventInfo()">
+        <ion-item *ngFor="let Event of Confirm_List, let i = index" (click)="goToMemberEventInfo(Confirm_List[i])">
             <ion-label *ngIf="Confirm_List[i].fam_member!=null">
                 {{Confirm_List[i].Chinese_Name}}--{{Confirm_List[i].fam_member}}
             </ion-label>
@@ -41,7 +41,16 @@
       等候
     </ion-item-divider>
     <ion-list id="EventAppliedList-list18">
-      <ion-item color="none" on-click="goToMemberEventInfo()" id="EventAppliedList-list-item69">
+        <ion-item *ngFor="let Event of Waiting_List, let i = index" (click)="goToMemberEventInfo(Waiting_List[i])">
+            <ion-label *ngIf="Waiting_List[i].fam_member!=null">
+                {{Waiting_List[i].Chinese_Name}}--{{Waiting_List[i].fam_member}}
+            </ion-label>
+            <ion-label *ngIf="Waiting_List[i].fam_member==null">
+              {{Waiting_List[i].Chinese_Name}}
+          </ion-label>
+            <!-- <ion-checkbox  [(ngModel)]="List[i].Check" ></ion-checkbox> -->
+          </ion-item>
+      <!-- <ion-item color="none" on-click="goToMemberEventInfo()" id="EventAppliedList-list-item69">
         Item 1
       </ion-item>
       <ion-item color="none" on-click="goToMemberEventInfo()" id="EventAppliedList-list-item70">
@@ -49,7 +58,7 @@
       </ion-item>
       <ion-item color="none" on-click="goToMemberEventInfo()" id="EventAppliedList-list-item71">
         Item 3
-      </ion-item>
+      </ion-item> -->
     </ion-list>
   </ion-list>
 </ion-content>
