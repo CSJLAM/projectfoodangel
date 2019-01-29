@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController ,LoadingController,AlertController,} from 'ionic-angular';
-import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
+import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call';
+import {ControllerProvider} from '../../providers/controller/controller';
 import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-new-event',
@@ -20,7 +21,7 @@ export class NewEventPage {
   Campus:any;
   Event_Cate:any;
 
-  constructor(private ajaxCall: AjaxCallProvider,private storage: Storage,public loadingCtrl: LoadingController,public alertCtrl: AlertController,public navCtrl: NavController) {
+  constructor(private controller: ControllerProvider,private ajaxCall: AjaxCallProvider,private storage: Storage,public loadingCtrl: LoadingController,public alertCtrl: AlertController,public navCtrl: NavController) {
     // this.Event["Repeat_Week"]=["Tue","Wed"];
     
   }
@@ -55,7 +56,9 @@ export class NewEventPage {
     // let obj = { 'ID':this.Event['ID'],'Event_Connect':this.Event['Event_Connect'],'Event_Name':this.Event['Event_Name'],'Event_Location':this.Event['Event_Location'],'Event_Info':this.Event['Event_Info'],'Event_Limit':this.Event['Event_Limit'],'Event_Cate':this.Event['Event_Cate'],'Event_Type':this.Event['Event_Type'].ID,'Start_Date':this.Event['Start_Date'],'End_Date':this.Event['End_Date'],'Start_Time':this.Event['Start_Time'],'End_Time':this.Event['End_Time'],'Repeat_Week':(typeof this.Event['Repeat_Week'] === "undefined" ? "" : this.Event['Repeat_Week'].toString()),'Create_By':this.Name };
     let obj = { 'ID':this.Event['ID'],'Event_Connect':this.Event['Event_Connect'],'Event_Name':this.Event['Event_Name'],'Event_Location':this.Event['Event_Location'],'Event_Info':this.Event['Event_Info'],'Event_Limit':this.Event['Event_Limit'],'Event_Cate':this.Event['Event_Type'].Type,'Event_Type':this.Event['Event_Type'].ID,'Start_Date':this.Event['Start_Date'],'End_Date':this.Event['End_Date'],'Start_Time':this.Event['Start_Time'],'End_Time':this.Event['End_Time'],'Repeat_Week':(typeof this.Event['Repeat_Week'] === "undefined" ? "" : this.Event['Repeat_Week'].toString()),'Create_By':this.Name };
     console.log(obj);
+    this.controller.showLoading();
     this.ajaxCall.AddEvents_Call("Set_Event",obj,this.Name).then(available => {
+      this.controller.hideLoading();
       if(available){
         this.navCtrl.pop();
        }

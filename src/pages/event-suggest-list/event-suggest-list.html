@@ -9,8 +9,17 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page13">
-  <form id="EventSuggestList-form34">
-    <ion-item id="EventSuggestList-checkbox20">
+  <ion-item *ngFor="let Event of List, let i = index">
+    <ion-label *ngIf="List[i].fam_member!=null">
+        {{List[i].Chinese_Name}}--{{List[i].fam_member}}
+    </ion-label>
+    <ion-label *ngIf="List[i].fam_member==null">
+      {{List[i].Chinese_Name}}
+  </ion-label>
+ 
+    <ion-checkbox  [(ngModel)]="List[i].Check" ></ion-checkbox>
+  </ion-item>
+    <!-- <ion-item id="EventSuggestList-checkbox20">
       <ion-label>
         路人1
       </ion-label>
@@ -45,9 +54,9 @@
         路人6
       </ion-label>
       <ion-checkbox></ion-checkbox>
-    </ion-item>
-  </form>
-  <button id="EventSuggestList-button18" ion-button color="positive" block>
+    </ion-item> -->
+  
+  <button id="EventSuggestList-button18" on-click="submit()" ion-button color="positive" block>
     報名
   </button>
 </ion-content>

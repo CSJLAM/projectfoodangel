@@ -13,10 +13,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AjaxCallProvider {
   returnInfo: any;
-  link:string="http://101.78.175.101:8580/foodangel/";
+  link: string = "http://101.78.175.101:8580/foodangel/";
   constructor(
     //public Controller: ControllerProvider
-    ) {
+  ) {
     console.log('Hello AjaxCallProvider Provider');
   }
   Deptlisting(type, info, info2, info3, fn) {
@@ -36,7 +36,7 @@ export class AjaxCallProvider {
         break;
     }
     var xmlhttp = new XMLHttpRequest();
-    var url = this.link+"checkUser.php";
+    var url = this.link + "checkUser.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
@@ -90,26 +90,26 @@ export class AjaxCallProvider {
     });
   }
   getEvents(location, type, info, fn) {
-  //  this.Controller.showLoading();
+    //  this.Controller.showLoading();
     var xmlhttp = new XMLHttpRequest();
-    var url = this.link+"Ajax_GetInfo.php";
+    var url = this.link + "Ajax_GetInfo.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    //    this.Controller.hideLoading();
+        //    this.Controller.hideLoading();
         var obj = JSON.parse(xmlhttp.responseText);
         if (obj.result == true) {
 
           console.info(obj.info);
-         
+
           this.returnInfo = [];
           switch (type) {
             case "HomePerm":
             case "Home_Today":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
-                
+
                 this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room });
               }
               break;
@@ -118,36 +118,61 @@ export class AjaxCallProvider {
                 var result = obj.info[i];
                 //this.log(Your);
                 //this.log('++');
-                this.returnInfo.push({ "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name,"Octopus": result.Octopus ,"Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F });
+                this.returnInfo.push({ "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Octopus": result.Octopus, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F });
 
               }
               break;
             case "Load_All_Perm_Event":
             case "Load_All_Single_Event":
             case "Load_All_Outdated_Event":
-            for (var i = 0; i < obj.info.length; i++) {
-              var result = obj.info[i];
-              //this.log(Your);
-              //this.log('++');
-              this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room ,"Start_Date":result.Start_Date});
-              
-            }
-            break;
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                //this.log(Your);
+                //this.log('++');
+                this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room, "Start_Date": result.Start_Date });
+
+              }
+              break;
             case "Get_Campus":
-            for (var i = 0; i < obj.info.length; i++) {
-              var result = obj.info[i];
-              this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID ,"Location":result.Location});
-            }
-            break;
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
+              }
+              break;
             case "Get_Event_Cate":
-            for (var i = 0; i < obj.info.length; i++) {
-              var result = obj.info[i];
-              this.returnInfo.push({ "ID": result.ID, "Name": result.Name, "Type": result.Type ,"Event_For":result.Event_For,"Cate_Name":result.Cate_Name});
-            }
-            break;
-            
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "ID": result.ID, "Name": result.Name, "Type": result.Type, "Event_For": result.Event_For, "Cate_Name": result.Cate_Name });
+              }
+              break;
+            case "Get_event_info":
+              let Get_event_info: any = [];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                Get_event_info = { "ID": result.ID, "Event_Connect": result.Event_Connect, "Event_Location": result.Event_Location, "Event_Name": result.Event_Name, "Event_Info": result.Event_Info, "Event_Limit": result.Event_Limit, "Event_Cate": result.Event_Cate, "Event_Type": result.Event_Type, "Start_Date": result.Start_Date, "End_Date": result.End_Date, "Start_Time": result.Start_Time, "End_Time": result.End_Time, "Repeat_Week": result.Repeat_Week, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Deleted": result.Deleted };
+              }
+              fn(Get_event_info);
+              break;
+            case "Get_Suggestion":
+              let Get_Suggestion: any = [];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+
+                Get_Suggestion.push({ "ID": result.ID, "Event_ID": result.Event_ID, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Status": result.Status, "Del": result.Del,"Chinese_Name": result.Chinese_Name,"fam_member": result.fam_member, "Check": false });
+              }
+              fn(Get_Suggestion);
+              break;
+              case "Get_Confirm_List":
+              let Get_Confirm_List: any = [];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+
+                Get_Confirm_List.push({ "ID": result.ID, "Event_ID": result.Event_ID, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Status": result.Status, "Del": result.Del,"Chinese_Name": result.Chinese_Name,"fam_member": result.fam_member, "Check": false });
+              }
+              fn(Get_Confirm_List);
+              break;
             default:
-            break;
+              break;
           }
           fn(this.returnInfo);
 
@@ -162,7 +187,7 @@ export class AjaxCallProvider {
     }
 
     var obj = { "Passcode": "GetInfo", "Function": type, "info": info };
-    this.log(this.link+"Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
+    this.log(this.link + "Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
@@ -175,7 +200,7 @@ export class AjaxCallProvider {
   setEvents(location, type, info, info2, fn) {
 
     var xmlhttp = new XMLHttpRequest();
-    var url = this.link+"Ajax_GetInfo.php";
+    var url = this.link + "Ajax_GetInfo.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
@@ -185,18 +210,18 @@ export class AjaxCallProvider {
         if (obj.result == true) {
 
           console.info(obj.info);
-         
+
           this.returnInfo = [];
           switch (type) {
-            
+
             case "MarkAttend":
-           
-                this.returnInfo=true;
+
+              this.returnInfo = true;
               break;
             
-            
+
             default:
-            break;
+              break;
           }
           fn(this.returnInfo);
 
@@ -210,21 +235,21 @@ export class AjaxCallProvider {
       }
     }
 
-    var obj = { "Passcode": "SetInfo", "Function": type, "info": info, "info2":info2 };
-    this.log(this.link+"Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
+    var obj = { "Passcode": "SetInfo", "Function": type, "info": info, "info2": info2 };
+    this.log(this.link + "Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
   }
-  setEvents_Call(location, type, info = "", info2="") {
+  setEvents_Call(location, type, info = "", info2 = "") {
     return new Promise(resolve => {
       this.setEvents(location, type, info, info2, resolve);
     });
   }
-  AddEvents(type, info,info2,info3, fn) {
+  AddEvents(type, info, info2, info3, fn) {
 
     var xmlhttp = new XMLHttpRequest();
-    var url = this.link+"Ajax_SetInfo.php";
+    var url = this.link + "Ajax_SetInfo.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
@@ -234,27 +259,30 @@ export class AjaxCallProvider {
         if (obj.result == true) {
 
           console.info(obj.info);
-         
+
           this.returnInfo = [];
           switch (type) {
             case "HomePerm":
             case "Home_Today":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
-                
+
                 this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room });
               }
               break;
-              case "Set_Event":
-              this.returnInfo=true;
+            case "Set_Event":
+              this.returnInfo = true;
               break;
-              case "Attened_Evnet":
+            case "Attened_Evnet":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
-                this.returnInfo.push({ "Chinese_Name": result.Chinese_Name, "Member_ID": result.Member_ID});
+                this.returnInfo.push({ "Chinese_Name": result.Chinese_Name, "Member_ID": result.Member_ID });
               }
+              case "suggestion_to_confirm":
+            fn(true);
+            break
             default:
-            break;
+              break;
           }
           fn(this.returnInfo);
 
@@ -268,13 +296,13 @@ export class AjaxCallProvider {
       }
     }
 
-    var obj = { "Passcode": "SetIt", "Function": type, "info": info,"info2":info2 ,"info3":info3 };
+    var obj = { "Passcode": "SetIt", "Function": type, "info": info, "info2": info2, "info3": info3 };
     this.log("jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
   }
-  AddEvents_Call(type, info :any="",info2:any ="",info3:any="") {
+  AddEvents_Call(type, info: any = "", info2: any = "", info3: any = "") {
     return new Promise(resolve => {
       this.AddEvents(type, info, info2, info3, resolve);
     });
@@ -303,7 +331,7 @@ export class AjaxCallProvider {
     return events;
   }
   Member_function(type, info, info2, info3, info4, fn) {
-    var Passcode ="";
+    var Passcode = "";
     switch (type) {
       case "List_Member_Type":
       case "List_Member":
@@ -315,22 +343,22 @@ export class AjaxCallProvider {
       case "Get_Member_Family_Info_by_ID":
       case "Get_Member_Urgent_Info_by_ID":
       case "Get_Member_Perm_Event":
-        Passcode="GetMember";
+        Passcode = "GetMember";
         this.returnInfo = [];
         break;
-        case "Get_Member_Info_by_ID":
-        Passcode="GetMember";
-        this.returnInfo="";
+      case "Get_Member_Info_by_ID":
+        Passcode = "GetMember";
+        this.returnInfo = "";
         break;
-     case "Apply_New_Member":
-     case "Testing":
-     Passcode="SetMember";
-     this.returnInfo="";
-     break;
-     
+      case "Apply_New_Member":
+      case "Testing":
+        Passcode = "SetMember";
+        this.returnInfo = "";
+        break;
+
     }
     var xmlhttp = new XMLHttpRequest();
-    var url = this.link+"Ajax_Member.php";
+    var url = this.link + "Ajax_Member.php";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = () => { //Call a function when the state changes.
@@ -352,85 +380,87 @@ export class AjaxCallProvider {
             // }
             // break;
             case "List_Member_Type_Perm_Event_Type":
-            for (var i = 0; i < obj.info.length; i++) {
-              var result = obj.info[i];
-              this.returnInfo.push({ "ID": result.ID, "Name": result.Name ,"Type":result.Type,"Event_For":result.Event_For});
-            }
-            break;
-              case "List_Member":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                this.returnInfo.push({ "ID": result.ID, "Name": result.Name, "Type": result.Type, "Event_For": result.Event_For });
+              }
+              break;
+            case "List_Member":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 this.returnInfo.push({ "Member_ID": result.Member_ID, "Chinese_Name": result.Chinese_Name });
               }
               break;
-              case "List_Applyed_Event":
+            case "List_Applyed_Event":
               this.returnInfo = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 this.returnInfo.push({ "Event_ID": result.Event_ID, "Event_Name": result.Event_Name });
               }
               break;
-              case "List_Pass_Event":
+            case "List_Pass_Event":
               this.returnInfo = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 this.returnInfo.push({ "Event_ID": result.Event_ID, "Event_Name": result.Event_Name });
               }
               break;
-              case "Apply_Get_Perm_Event":
+            case "Apply_Get_Perm_Event":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
-                this.returnInfo.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name ,"Check":false});
+                this.returnInfo.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name, "Check": false });
               }
               break;
-              case "Get_Member_Info_by_ID":
+            case "Get_Member_Info_by_ID":
               this.returnInfo = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 //this.returnInfo.push({ "Event_ID": result.Event_ID, "Event_Name": result.Event_Name });
-               this.returnInfo={"ID": result.ID,"Member_ID": result.Member_ID,"Octopus": result.Octopus,"Member_Type": result.Member_Type,"Chinese_Name": result.Chinese_Name,"English_Name": result.English_Name,"Gender": result.Gender,"DOB": result.DOB,"HKID": result.HKID,
-               "Address": result.Address,"Marriage": result.Marriage,"Occupation": result.Occupation,"Year_In_HK": result.Year_In_HK,"Contact_1": result.Contact_1,"Contact_2": result.Contact_2,"Gov_CSSA": result.Gov_CSSA,
-               "Family_Income": result.Family_Income,"Elderly_Income": result.Elderly_Income,"Old_Age_Allowance": result.Old_Age_Allowance,"Disability_Allowance": result.Disability_Allowance,"Pension": result.Pension,"Family_Support": result.Family_Support,"E_Num_Son": result.E_Num_Son,
-               "E_Life_Tgt": result.E_Life_Tgt,"Photo_Auth": result.Photo_Auth,"Declaration_1": result.Declaration_1,"Declaration_2": result.Declaration_2,"End": result.End,"P_ID": result.P_ID};
-               
+                this.returnInfo = {
+                  "ID": result.ID, "Member_ID": result.Member_ID, "Octopus": result.Octopus, "Member_Type": result.Member_Type, "Chinese_Name": result.Chinese_Name, "English_Name": result.English_Name, "Gender": result.Gender, "DOB": result.DOB, "HKID": result.HKID,
+                  "Address": result.Address, "Marriage": result.Marriage, "Occupation": result.Occupation, "Year_In_HK": result.Year_In_HK, "Contact_1": result.Contact_1, "Contact_2": result.Contact_2, "Gov_CSSA": result.Gov_CSSA,
+                  "Family_Income": result.Family_Income, "Elderly_Income": result.Elderly_Income, "Old_Age_Allowance": result.Old_Age_Allowance, "Disability_Allowance": result.Disability_Allowance, "Pension": result.Pension, "Family_Support": result.Family_Support, "E_Num_Son": result.E_Num_Son,
+                  "E_Life_Tgt": result.E_Life_Tgt, "Photo_Auth": result.Photo_Auth, "Declaration_1": result.Declaration_1, "Declaration_2": result.Declaration_2, "End": result.End, "P_ID": result.P_ID
+                };
+
               }
               break;
-              case "Get_Member_Family_Info_by_ID":
-              let INFO:any=[];
+            case "Get_Member_Family_Info_by_ID":
+              let INFO: any = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 //this.returnInfo.push({"ID": result.ID,"Master_member": result.Master_member,"Member_SID": result.Member_SID,"Chinese_Name": result.Chinese_Name,"English_Name": result.English_Name,"Gender": result.Gender,"Relationship": result.Relationship,"Live_Together": result.Live_Together,"DOB": result.DOB,"Career": result.Career,"Income": result.Income,"Remark": result.Remark,"Octopus": result.Octopus,"P_ID": result.P_ID});
-                INFO.push({"ID": result.ID,"Master_member": result.Master_member,"Member_SID": result.Member_SID,"Chinese_Name": result.Chinese_Name,"English_Name": result.English_Name,"Gender": result.Gender,"Relationship": result.Relationship,"Live_Together": result.Live_Together,"DOB": result.DOB,"Career": result.Career,"Income": result.Income,"Remark": result.Remark,"Octopus": result.Octopus,"P_ID": result.P_ID});
+                INFO.push({ "ID": result.ID, "Master_member": result.Master_member, "Member_SID": result.Member_SID, "Chinese_Name": result.Chinese_Name, "English_Name": result.English_Name, "Gender": result.Gender, "Relationship": result.Relationship, "Live_Together": result.Live_Together, "DOB": result.DOB, "Career": result.Career, "Income": result.Income, "Remark": result.Remark, "Octopus": result.Octopus, "P_ID": result.P_ID });
               }
               fn(INFO);
               break;
-              case "Get_Member_Urgent_Info_by_ID":
-              let Get_Member_Urgent_Info_by_ID:any=[];
+            case "Get_Member_Urgent_Info_by_ID":
+              let Get_Member_Urgent_Info_by_ID: any = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 //this.returnInfo.push({"ID": result.ID,"Master_member": result.Master_member,"Member_SID": result.Member_SID,"Chinese_Name": result.Chinese_Name,"English_Name": result.English_Name,"Gender": result.Gender,"Relationship": result.Relationship,"Live_Together": result.Live_Together,"DOB": result.DOB,"Career": result.Career,"Income": result.Income,"Remark": result.Remark,"Octopus": result.Octopus,"P_ID": result.P_ID});
-                Get_Member_Urgent_Info_by_ID.push({"ID": result.ID,"Member_ID": result.Member_ID,"Name": result.Name,"Phone": result.Phone,"Relationship": result.Relationship});
+                Get_Member_Urgent_Info_by_ID.push({ "ID": result.ID, "Member_ID": result.Member_ID, "Name": result.Name, "Phone": result.Phone, "Relationship": result.Relationship });
               }
               fn(Get_Member_Urgent_Info_by_ID);
               break;
-              case "Get_Member_Perm_Event":
-              let Get_Member_Perm_Event:any=[];
+            case "Get_Member_Perm_Event":
+              let Get_Member_Perm_Event: any = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
-                if(result.Member_ID!=null){
-                  Get_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name ,"Check":true});  
-                }else{
-                Get_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name ,"Check":false});
+                if (result.Member_ID != null) {
+                  Get_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name, "Check": true });
+                } else {
+                  Get_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name, "Check": false });
                 }
                 fn(Get_Member_Perm_Event);
 
               }
               break;
-              case "Apply_New_Member":
-              this.returnInfo=true;
+            case "Apply_New_Member":
+              this.returnInfo = true;
               break;
-              case "Testing":
-              this.returnInfo=true;
+            case "Testing":
+              this.returnInfo = true;
               break;
             default:
               break;
@@ -439,7 +469,7 @@ export class AjaxCallProvider {
           // console.log(this.returnInfo);
           // console.log("return info");
           fn(this.returnInfo);
-        }else if (obj['return']) {
+        } else if (obj['return']) {
           fn();
         }
         else {
@@ -452,10 +482,10 @@ export class AjaxCallProvider {
     var obj = { "Function": type, "info": info, "info2": info2, "info3": info3, "info4": info4, "Passcode": Passcode };
     this.log(obj);
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
-    console.log(this.link+"Ajax_Member.php?jsonDoc="+ JSON.stringify(obj));
+    console.log(this.link + "Ajax_Member.php?jsonDoc=" + JSON.stringify(obj));
 
   }
-  Member_function_Call(type, info :any="",info2:any ="",info3:any="",info4:any="") {
+  Member_function_Call(type, info: any = "", info2: any = "", info3: any = "", info4: any = "") {
     return new Promise(resolve => {
       this.Member_function(type, info, info2, info3, info4, resolve);
     });

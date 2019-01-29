@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {  NavController ,NavParams } from 'ionic-angular';
+import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call';
 import { MemberEventInfoPage } from '../member-event-info/member-event-info';
 
 @Component({
@@ -7,9 +8,19 @@ import { MemberEventInfoPage } from '../member-event-info/member-event-info';
   templateUrl: 'event-applied-list.html'
 })
 export class EventAppliedListPage {
-
-  constructor(public navCtrl: NavController) {
+  Event:any;
+  Confirm_List:any;
+  constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController,public navParams: NavParams,) {
+    this.Event = this.navParams.data.params;
   }
+  ionViewDidEnter() {
+    
+    this.ajaxCall.getEvents_Call("","Get_Confirm_List",this.Event.Event_Connect).then(result=>{
+      console.log(result);
+      this.Confirm_List=result;
+    });
+    
+   }
   goToMemberEventInfo(params){
     if (!params) params = {};
     this.navCtrl.push(MemberEventInfoPage);

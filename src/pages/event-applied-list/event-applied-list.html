@@ -16,8 +16,18 @@
     <ion-item-divider color="light" id="EventAppliedList-list-item-divider10">
       確認
     </ion-item-divider>
+    
     <ion-list id="EventAppliedList-list19">
-      <ion-item color="none" on-click="goToMemberEventInfo()" id="EventAppliedList-list-item72">
+        <ion-item *ngFor="let Event of Confirm_List, let i = index" on-click="goToMemberEventInfo()">
+            <ion-label *ngIf="Confirm_List[i].fam_member!=null">
+                {{Confirm_List[i].Chinese_Name}}--{{Confirm_List[i].fam_member}}
+            </ion-label>
+            <ion-label *ngIf="Confirm_List[i].fam_member==null">
+              {{Confirm_List[i].Chinese_Name}}
+          </ion-label>
+            <!-- <ion-checkbox  [(ngModel)]="List[i].Check" ></ion-checkbox> -->
+          </ion-item>
+      <!-- <ion-item color="none" on-click="goToMemberEventInfo()" id="EventAppliedList-list-item72">
         Item 1
       </ion-item>
       <ion-item color="none" on-click="goToMemberEventInfo()" id="EventAppliedList-list-item73">
@@ -25,7 +35,7 @@
       </ion-item>
       <ion-item color="none" on-click="goToMemberEventInfo()" id="EventAppliedList-list-item74">
         Item 3
-      </ion-item>
+      </ion-item> -->
     </ion-list>
     <ion-item-divider color="light" id="EventAppliedList-list-item-divider11">
       等候

@@ -42,7 +42,7 @@
           <div *ngIf="!isPerm">
         <ion-item >
           <ion-label>
-            開始日期
+            開始日期 {{Event.Start_Date}}
           </ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY"  max="2050" [(ngModel)]="Event.Start_Date"></ion-datetime>
           

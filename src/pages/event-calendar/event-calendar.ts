@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, ActionSheetController, AlertController, LoadingController,} from 'ionic-angular';
+import { NavController, Platform, ActionSheetController, AlertController, LoadingController, } from 'ionic-angular';
 import { MemberEventRecordPage } from '../member-event-record/member-event-record';
 import { MemberEventInfoPage } from '../member-event-info/member-event-info';
 import { EventInfoPage } from '../event-info/event-info';
 import { EventSuggestListPage } from '../event-suggest-list/event-suggest-list';
 import { EventAppliedListPage } from '../event-applied-list/event-applied-list';
 import { Storage } from '@ionic/storage';
-import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
+import { AjaxCallProvider } from '../../providers/ajax-call/ajax-call'
 @Component({
   selector: 'page-event-calendar',
   templateUrl: 'event-calendar.html'
@@ -18,33 +18,37 @@ export class EventCalendarPage {
   public Staff_ID: string = null;
   public Staff_Hash: String = null;
   public Staff_Dept: String = null;
-  public Month: String = (new Date().getMonth()+1).toString();
+  public Month: String = (new Date().getMonth() + 1).toString();
   public counting: "";
-  constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public actionsheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public platform: Platform) {
+  constructor(private ajaxCall: AjaxCallProvider, public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public actionsheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public platform: Platform) {
   }
   ionViewDidEnter() {
     this.Events = [];
     this.isSignedIn = null;
-    this.Name= null;
+    this.Name = null;
     this.Staff_ID = null;
     this.Staff_Hash = null;
     this.Staff_Dept = null;
     this.getStroage();
-    
+
   }
-  goToMemberEventRecord(params){
+  goToMemberEventRecord(params) {
     if (!params) params = {};
     this.navCtrl.push(MemberEventRecordPage);
-  }goToMemberEventInfo(params){
+  }
+  goToMemberEventInfo(params) {
     if (!params) params = {};
     this.navCtrl.push(MemberEventInfoPage);
-  }goToEventInfo(params){
-    if (!params) params = {};
-    this.navCtrl.push(EventInfoPage);
-  }goToEventSuggestList(params){
+  } 
+  goToEventInfo(params) {
+    console.log(params);
+    this.navCtrl.push(EventInfoPage, { params });
+  } 
+  goToEventSuggestList(params) {
     if (!params) params = {};
     this.navCtrl.push(EventSuggestListPage);
-  }goToEventAppliedList(params){
+  } 
+  goToEventAppliedList(params) {
     if (!params) params = {};
     this.navCtrl.push(EventAppliedListPage);
   }
@@ -52,7 +56,7 @@ export class EventCalendarPage {
     this.storage.get('Login').then((val) => {
       this.log("my login hash" + val);
       if (val != null) {
-        this.Account("Hash_Login", val, "","");
+        this.Account("Hash_Login", val, "", "");
       }
       else {
         //  this.Login("Hash_Login","96a3be3cf272e017046d1b2674a52bd3","");
@@ -99,11 +103,11 @@ export class EventCalendarPage {
             var result = obj.info[i];
             //this.log(Your);
             //this.log('++');
-            this.Events.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Event_Location, "Start_Date":result.Start_Date });
+            this.Events.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Event_Location, "Start_Date": result.Start_Date });
 
           }
           //this.Events=this.transform_to_date_group(this.Events,"Start_Date");
-          this.Events=this.ajaxCall.transform_to_group(this.Events,"Start_Date");
+          this.Events = this.ajaxCall.transform_to_group(this.Events, "Start_Date");
           //console.log(this.Events);
 
 

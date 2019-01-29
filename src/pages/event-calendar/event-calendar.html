@@ -29,7 +29,7 @@
         <ion-item-divider   color="light" id="EventCalendar-list-item-divider8">
             {{Event.key}}
           </ion-item-divider>
-    <ion-item color="none"  *ngFor="let event of Event.list" on-click="goToEventInfo()" id="EventCalendar-list-item33">
+    <ion-item color="none"  *ngFor="let event of Event.list" on-click="goToEventInfo(event)" id="EventCalendar-list-item33">
       {{event.Event_Name}}
     </ion-item>
   </div>
