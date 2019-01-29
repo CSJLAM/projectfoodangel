@@ -42,6 +42,7 @@ export class ShowAttendPage {
       }else{
         this.controller.showToast("你以有出席記錄! ");
         this.navCtrl.pop();
+        alert("你以有出席記錄! ");
       }
     });
   }

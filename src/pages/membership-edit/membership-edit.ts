@@ -23,7 +23,7 @@ export class MembershipEditPage {
   Member: string[] = ['Octopus','Gender','Member_Type','Chinese_Name','English_Name','DOB','HKID',
                 'Occupation','Marriage','E_Num_Son','Year_In_HK','Contact_1','Contact_2',
                 'E_Life_Tgt','Address','Gov_CSSA','Family_Income','Elderly_Income','Old_Age_Allowance',
-                'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2'];
+                'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2','Remark','Reason'];
   //EM_Contact:any[] =[{"Name":"","Relationship":"","Phone":""},{"Name":"","Relationship":"","Phone":""}];
   EM_Contact:any[] =[];
   Family_Members: any[] = [];
@@ -32,7 +32,7 @@ export class MembershipEditPage {
   Member_o: string[] = ['Octopus','Gender','Member_Type','Chinese_Name','English_Name','DOB','HKID',
                 'Occupation','Marriage','E_Num_Son','Year_In_HK','Contact_1','Contact_2',
                 'E_Life_Tgt','Address','Gov_CSSA','Family_Income','Elderly_Income','Old_Age_Allowance',
-                'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2'];
+                'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2','Remark','Reason'];
   //EM_Contact_o:any[] =[{"Name":"","Relationship":"","Phone":""},{"Name":"","Relationship":"","Phone":""}];
   EM_Contact_o:any[] = [];
   Family_Members_o: any[] = [];

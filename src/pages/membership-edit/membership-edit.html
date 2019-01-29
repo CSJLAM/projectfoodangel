@@ -362,7 +362,7 @@
         <ion-label>
           申請原因
         </ion-label>
-        <ion-textarea></ion-textarea>
+        <ion-textarea [(ngModel)]="Member.Reason"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>
@@ -386,7 +386,7 @@
           <ion-label>
               備註
           </ion-label>
-          <ion-textarea></ion-textarea>
+          <ion-textarea  [(ngModel)]="Member.Remark"></ion-textarea>
         </ion-item>
     </ion-item-group>
   </ion-list>

@@ -20,7 +20,7 @@ export class MembershipApplyPage  {
   Member: string[] = ['Octopus','Gender','Member_Type','Chinese_Name','English_Name','DOB','HKID',
                 'Occupation','Marriage','E_Num_Son','Year_In_HK','Contact_1','Contact_2',
                 'E_Life_Tgt','Address','Gov_CSSA','Family_Income','Elderly_Income','Old_Age_Allowance',
-                'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2'];
+                'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2','Remark','Reason'];
   EM_Contact:any[] =[{"Name":"","Relationship":"","Phone":""},{"Name":"","Relationship":"","Phone":""}];
   Family_Members: any[] = [];
   PermEventList:any;
@@ -166,7 +166,7 @@ export class MembershipApplyPage  {
     'Family_Income':this.Member['Family_Income'],'Elderly_Income':this.Member['Elderly_Income'],
     'Old_Age_Allowance':this.Member['Old_Age_Allowance'],'Disability_Allowance':this.Member['Disability_Allowance'],
     'Pension':this.Member['Pension'],'Family_Support':this.Member['Family_Support'],'Photo_Auth':this.Member['Photo_Auth'],
-    'Declaration_1':this.Member['Declaration_1'],'Declaration_2':this.Member['Declaration_2']};
+    'Declaration_1':this.Member['Declaration_1'],'Declaration_2':this.Member['Declaration_2'],'Remark':this.Member['Remark'],'Reason':this.Member['Reason']};
     console.log(obj_Member);
     this.ajaxCall.Member_function_Call("Apply_New_Member",obj_Member,this.EM_Contact,this.Family_Members,this.PermEventList).then(result=>{
       console.log(result);
@@ -185,7 +185,7 @@ export class MembershipApplyPage  {
     this.Member['Occupation']="";this.Member['Marriage']="";this.Member['E_Num_Son']="";this.Member['Year_In_HK']="";this.Member['Contact_1']="";this.Member['Contact_2']="";
     this.Member['E_Life_Tgt']="";this.Member['Address']="";this.Member['Gov_CSSA']="";this.Member['Family_Income']="";this.Member['Elderly_Income']="";this.Member['Old_Age_Allowance']="";
     this.Member['Disability_Allowance']="";this.Member['Pension']="";this.Member['Family_Support']="";
-    this.Member['Photo_Auth']=false;this.Member['Declaration_1']=false;this.Member['Declaration_2']=false;
+    this.Member['Photo_Auth']=false;this.Member['Declaration_1']=false;this.Member['Declaration_2']=false;this.Member['Reason']="";this.Member['Remark']="";
   }
   log(info){
     console.log(info);
