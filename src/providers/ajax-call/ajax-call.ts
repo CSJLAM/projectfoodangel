@@ -105,6 +105,12 @@ export class AjaxCallProvider {
 
           this.returnInfo = [];
           switch (type) {
+            case "VER":
+            for (var i = 0; i < obj.info.length; i++) {
+              var result = obj.info[i];
+              fn(result.ver);
+            }
+            break;
             case "HomePerm":
             case "Home_Today":
               for (var i = 0; i < obj.info.length; i++) {

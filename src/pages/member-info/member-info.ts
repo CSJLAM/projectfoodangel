@@ -29,6 +29,7 @@ Pass_List:any;
      this.navCtrl.push(MembershipEditPage,{params});
    }
    goToSettle(params){
+     //console.log(params);
     this.navCtrl.push(SettlePermEventListPage,{params});
   }
    

@@ -24,6 +24,7 @@ import { StaffListPage } from '../staff-list/staff-list';
 import { StaffInfoPage } from '../staff-info/staff-info';
 import { StaffLevelListPage } from '../staff-level-list/staff-level-list';
 import { StaffLevelPage } from '../staff-level/staff-level';
+import { UpdateVersionPage } from '../update-version/update-version';
 
 import { Storage } from '@ionic/storage';
 import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
@@ -42,11 +43,22 @@ export class FoodAngelPage {
   public Staff_Dept: String = null;
   public Username: String = "";
   public Password: string = "";
+  version= 1;
+  cango=false;
   constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     //storage.clear();
     //this.getStroage();
     //this.getEvents(1);
-
+    this.ajaxCall.getEvents_Call("","VER").then(result=>{
+      if(this.version>=result){
+        this.cango=true;
+        alert(result);
+        }else{
+        alert("update version");
+        this.navCtrl.setRoot(UpdateVersionPage);
+        this.navCtrl.popToRoot();
+      }
+    });
   }
   ionViewWillLeave() {
     console.log("Looks like I'm about to leave :(");

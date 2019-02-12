@@ -13,7 +13,12 @@
     <ion-item-divider color="light" id="SettlePermEventList-list-item-divider5">
       會員:{{MemberID}}的常駐活動
     </ion-item-divider>
-    <ion-item color="none" on-click="goToSettlePermEventInfo()" id="SettlePermEventList-list-item27">
+    
+    <ion-item color="none"  *ngFor="let Event of PermEventList" on-click="goToSettlePermEventInfo(MemberID,Event.Event_ID)" id="SettlePermEventList-list-item27">
+      {{Event.Event_Name}}
+    </ion-item>
+    
+    <!-- <ion-item color="none" on-click="goToSettlePermEventInfo()" id="SettlePermEventList-list-item27">
       午餐A
     </ion-item>
     <ion-item color="none" on-click="goToSettlePermEventInfo()" id="SettlePermEventList-list-item28">
@@ -21,6 +26,6 @@
     </ion-item>
     <ion-item color="none" on-click="goToSettlePermEventInfo()" id="SettlePermEventList-list-item29">
       晚餐
-    </ion-item>
+    </ion-item> -->
   </ion-list>
 </ion-content>
