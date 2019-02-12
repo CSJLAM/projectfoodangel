@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      更改會員資料MembershipEdit
+      {{Member.Member_ID}}更改會員資料MembershipEdit
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -24,7 +24,7 @@
       <ion-item>
         <ion-label>會員類別</ion-label>
         <!-- <ion-input type="text" [(ngModel)]="Member.Member_Type" readonly="{{isReadonly}}"></ion-input> -->
-        <ion-select [(ngModel)]="Member.Member_Type" name="Member.Member_Type"  (ionChange)="Mem_type_change()">
+        <ion-select [(ngModel)]="Member.Member_Type" name="Member.Member_Type" disabled="{{isReadonly}}" (ionChange)="Mem_type_change()">
           <ion-option *ngFor="let member_type of member_types" value="{{ member_type.ID }}">
             {{member_type.Name}}
           </ion-option>

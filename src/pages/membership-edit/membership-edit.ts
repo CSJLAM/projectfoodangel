@@ -20,7 +20,7 @@ export class MembershipEditPage {
   inputoctopus: number=-2;
   Page: number = 0;
   member_types:any="";
-  Member: string[] = ['Octopus','Gender','Member_Type','Chinese_Name','English_Name','DOB','HKID',
+  Member: string[] = ['Member_ID','Octopus','Gender','Member_Type','Chinese_Name','English_Name','DOB','HKID',
                 'Occupation','Marriage','E_Num_Son','Year_In_HK','Contact_1','Contact_2',
                 'E_Life_Tgt','Address','Gov_CSSA','Family_Income','Elderly_Income','Old_Age_Allowance',
                 'Disability_Allowance','Pension','Family_Support','Photo_Auth','Declaration_1','Declaration_2','Remark','Reason'];
@@ -204,9 +204,15 @@ export class MembershipEditPage {
   
   Apply(){
     console.log("APPLY");
-    console.log(this.PermEventList==this.PermEventList_o);
-    console.log(this.PermEventList);
-    console.log(this.PermEventList_o);
+    this.ajaxCall.Member_function_Call("Update_Member",this.Member,this.EM_Contact,this.Family_Members,this.PermEventList).then(result=>{
+        console.log(result);
+        if(result==true){
+          this.navCtrl.pop();
+        }
+      });
+    // console.log(this.PermEventList==this.PermEventList_o);
+    // console.log(this.PermEventList);
+    // console.log(this.PermEventList_o);
     // let obj_Member ={ 'Octopus':this.Member['Octopus'],'Gender':this.Member['Gender'],
     // 'Member_Type':this.Member['Member_Type'],'Chinese_Name':this.Member['Chinese_Name'],
     // 'English_Name':this.Member['English_Name'],'DOB':this.Member['DOB'],'HKID':this.Member['HKID'],
@@ -230,12 +236,16 @@ export class MembershipEditPage {
     // });
 
   }
+  Reset(){
+    this.Fildes_Set();
+    this.ionViewDidEnter();
+  }
   Fildes_Set(){
     this.Member['Octopus']="";this.Member['Gender']="";this.Member['Chinese_Name']="";this.Member['English_Name']="";this.Member['DOB']="";this.Member['HKID']="";
     this.Member['Occupation']="";this.Member['Marriage']="";this.Member['E_Num_Son']="";this.Member['Year_In_HK']="";this.Member['Contact_1']="";this.Member['Contact_2']="";
     this.Member['E_Life_Tgt']="";this.Member['Address']="";this.Member['Gov_CSSA']="";this.Member['Family_Income']="";this.Member['Elderly_Income']="";this.Member['Old_Age_Allowance']="";
     this.Member['Disability_Allowance']="";this.Member['Pension']="";this.Member['Family_Support']="";
-    this.Member['Photo_Auth']=false;this.Member['Declaration_1']=false;this.Member['Declaration_2']=false;
+    this.Member['Photo_Auth']=false;this.Member['Declaration_1']=false;this.Member['Declaration_2']=false;this.Member['Reason']="";this.Member['Remark']="";
   }
   log(info){
     console.log(info);

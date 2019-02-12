@@ -376,6 +376,7 @@ export class AjaxCallProvider {
         this.returnInfo = "";
         break;
       case "Apply_New_Member":
+      case "Update_Member":
       case "Testing":
         Passcode = "SetMember";
         this.returnInfo = "";
@@ -492,6 +493,9 @@ export class AjaxCallProvider {
               break;
             case "Apply_New_Member":
               this.returnInfo = true;
+              break;
+              case "Update_Member":
+              fn(true);
               break;
             case "Testing":
               this.returnInfo = true;
