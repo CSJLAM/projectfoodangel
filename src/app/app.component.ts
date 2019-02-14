@@ -27,7 +27,7 @@ import { StaffListPage } from '../pages/staff-list/staff-list';
 import { StaffInfoPage } from '../pages/staff-info/staff-info';
 import { StaffLevelListPage } from '../pages/staff-level-list/staff-level-list';
 import { StaffLevelPage } from '../pages/staff-level/staff-level';
-
+import { UpdateVersionPage } from '../pages/update-version/update-version';
 
 import { FoodAngelPage } from '../pages/food-angel/food-angel';
 
@@ -123,5 +123,8 @@ export class MyApp {
   }goToStaffLevel(params){
     if (!params) params = {};
     this.navCtrl.setRoot(StaffLevelPage);
+  }goToUpdateVersionPage(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(UpdateVersionPage);
   }
 }

@@ -31,11 +31,12 @@ import { StaffLevelListPage } from '../pages/staff-level-list/staff-level-list';
 import { StaffInfoPage } from '../pages/staff-info/staff-info';
 import { StaffLevelPage } from '../pages/staff-level/staff-level';
 import { CampusListPage } from '../pages/campus-list/campus-list';
-
+import { UpdateVersionPage } from '../pages/update-version/update-version';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NFC } from '@ionic-native/nfc';
+//import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { IonicStorageModule } from '@ionic/storage';
 import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
 import { ControllerProvider } from '../providers/controller/controller';
@@ -71,7 +72,8 @@ import { ControllerProvider } from '../providers/controller/controller';
     StaffLevelListPage,
     StaffInfoPage,
     StaffLevelPage,
-    CampusListPage
+    CampusListPage,
+    UpdateVersionPage
   ],
   imports: [
     BrowserModule,
@@ -109,15 +111,18 @@ import { ControllerProvider } from '../providers/controller/controller';
     StaffLevelListPage,
     StaffInfoPage,
     StaffLevelPage,
-    CampusListPage
+    CampusListPage,
+    UpdateVersionPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     NFC,
+    
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AjaxCallProvider,
-    ControllerProvider
+    ControllerProvider,
+    
   ]
 })
 export class AppModule {}

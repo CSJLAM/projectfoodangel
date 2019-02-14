@@ -54,9 +54,10 @@ export class FoodAngelPage {
         this.cango=true;
         alert(result);
         }else{
-        alert("update version");
+        
         this.navCtrl.setRoot(UpdateVersionPage);
-        this.navCtrl.popToRoot();
+        alert("update version");
+        //this.navCtrl.popToRoot();
       }
     });
   }
