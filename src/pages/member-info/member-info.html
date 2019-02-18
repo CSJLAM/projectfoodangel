@@ -15,14 +15,14 @@
       報名活動
     </ion-item-divider>
     <!-- <ion-item color="none" *ngFor="let Applyed of Applyed_List" (click)="goToMemberInfo(Applyed)" > -->
-    <ion-item color="none" *ngFor="let Applyed of Applyed_List" (click)="goToMemberInfo(Applyed)">
+    <ion-item color="none" *ngFor="let Applyed of Applyed_List" >
       {{Applyed.Event_Name}}
     </ion-item>
     <ion-item-divider color="light">
       過去參加活動
     </ion-item-divider>
     <!-- <ion-item color="none" *ngFor="let Pass of Pass_List" (click)="goToMemberInfo(Pass)" > -->
-    <ion-item color="none" *ngFor="let Pass of Pass_List" (click)="goToMemberInfo(Pass)">
+    <ion-item color="none" *ngFor="let Pass of Pass_List" >
       {{Pass.Event_Name}}
     </ion-item>
     <ion-item-divider color="light">

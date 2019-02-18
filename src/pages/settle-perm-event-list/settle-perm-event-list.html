@@ -14,7 +14,7 @@
       會員:{{MemberID}}的常駐活動
     </ion-item-divider>
     
-    <ion-item color="none"  *ngFor="let Event of PermEventList" on-click="goToSettlePermEventInfo(MemberID,Event.Event_ID)" id="SettlePermEventList-list-item27">
+    <ion-item color="none"  *ngFor="let Event of PermEventList" on-click="goToSettlePermEventInfo(MemberID,Event)" id="SettlePermEventList-list-item27">
       {{Event.Event_Name}}
     </ion-item>
     

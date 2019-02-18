@@ -473,6 +473,9 @@ export class AjaxCallProvider {
 
               }
               break;
+            case "Get_Fam_Info_by_Octopus":
+            
+            break;
             case "Get_Member_Family_Info_by_ID":
               let INFO: any = [];
               for (var i = 0; i < obj.info.length; i++) {
@@ -508,7 +511,7 @@ export class AjaxCallProvider {
               let Get_Appled_Member_Perm_Event: any = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
-                Get_Appled_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name, "EID": result.EID, "Member_ID": result.Member_ID });
+                Get_Appled_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name, "Repeat_Week":result.Repeat_Week, "EID": result.EID, "Member_ID": result.Member_ID });
                 fn(Get_Appled_Member_Perm_Event);
               }
               break;
