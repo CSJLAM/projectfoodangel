@@ -131,18 +131,31 @@ export class AjaxCallProvider {
             case "Load_All_Perm_Event":
             case "Load_All_Single_Event":
             case "Load_All_Outdated_Event":
+            var Edata:any=[];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 //this.log(Your);
                 //this.log('++');
-                this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room, "Start_Date": result.Start_Date });
-
+                //this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room, "Start_Date": result.Start_Date });
+                Edata.push({"Create_By": result.Create_By , "Create_Date": result.Create_Date , "Deleted": result.Deleted , "End_Date": result.End_Date , 
+                "End_Time": result.End_Time , "Event_Cate": result.Event_Cate , "Event_Connect": result.Event_Connect , "Event_Info": result.Event_Info ,
+                "Event_Limit": result.Event_Limit , "Event_Location": result.Event_Location , "Event_Name": result.Event_Name , "Event_Type": result.Event_Type , 
+                "ID": result.ID , "Repeat_Week": result.Repeat_Week , "Room": result.Room , "Start_Date": result.Start_Date , "Start_Time": result.Start_Time});
               }
+              fn(Edata);
               break;
             case "Get_Campus":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
+              }
+              break;
+              case "Get_Event_For":
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                //this.returnInfo.push({ "ID": result.ID, "Name": result.Name, "Type": result.Type, "Event_For": result.Event_For, "Cate_Name": result.Cate_Name });
+                console.log("6666666666---"+result.Event_For);
+                fn(result.Event_For);
               }
               break;
             case "Get_Event_Cate":
@@ -294,6 +307,8 @@ export class AjaxCallProvider {
               }
               break;
             case "Set_Event":
+            case "Update_Event":
+            case "Delete_Event":
               this.returnInfo = true;
               break;
               case "Apply_Event":

@@ -43,7 +43,7 @@ export class FoodAngelPage {
   public Staff_Dept: String = null;
   public Username: String = "";
   public Password: string = "";
-  version= 1;
+  version= 2;
   cango=false;
   constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     //storage.clear();
@@ -52,11 +52,11 @@ export class FoodAngelPage {
     this.ajaxCall.getEvents_Call("","VER").then(result=>{
       if(this.version>=result){
         this.cango=true;
-        alert(result);
+        //alert(result);
         }else{
         
         this.navCtrl.setRoot(UpdateVersionPage);
-        alert("update version");
+        //alert("update version");
         //this.navCtrl.popToRoot();
       }
     });

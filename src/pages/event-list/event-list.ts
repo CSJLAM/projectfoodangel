@@ -33,6 +33,7 @@ export class EventListPage {
     this.ajaxCall.getEvents_Call("","Load_All_Single_Event").then(eventlist =>{
       this.Single_List=eventlist;
       this.Single_List=this.ajaxCall.transform_to_group(this.Single_List,"Start_Date");
+      console.log(this.Single_List);
     });
     this.ajaxCall.getEvents_Call("","Load_All_Outdated_Event").then(eventlist =>{
       this.Controller.hideLoading();
@@ -41,7 +42,7 @@ export class EventListPage {
     });
   }
   goToUpdateEvent(params){
-    if (!params) params = {};
-    this.navCtrl.push(UpdateEventPage);
+    
+    this.navCtrl.push(UpdateEventPage,{params});
   }
 }

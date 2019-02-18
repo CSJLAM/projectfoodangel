@@ -46,13 +46,22 @@ export class TakeAttendancePage {
     this.resetScanData();
     this.nfc = this.nfc2;
     if (this.nfc_check == false) {
-      this.nfc.enabled().then((resolve) => {
-        this.nfc_check = true;
-        this.addListenNFC();
-      }).catch((reject) => {
-        //alert("NFC is not supported by your Device");
-      });
+      this.scandata();
+      // this.nfc.enabled().then((resolve) => {
+      //   this.nfc_check = true;
+      //   this.addListenNFC();
+      // }).catch((reject) => {
+      //   //alert("NFC is not supported by your Device");
+      // });
     }
+  }
+  scandata(){
+    this.nfc.enabled().then((resolve) => {
+      this.addListenNFC();
+      this.nfc_check = true;
+    }).catch((reject) => {
+      alert("NFC is not supported by your Device");
+    });
   }
   ionViewWillLeave() {
     console.log("Looks like I'm about to leave :( NFC STOP");
@@ -60,6 +69,7 @@ export class TakeAttendancePage {
     this.nfc = null;
   }
   docheck() {
+    //this.nfc=null;
     const index = this.Event_Member_List.findIndex(member => member.Octopus === this.tagId);
     if (index != -1) {
       this.show = this.Event_Member_List[index];
@@ -68,6 +78,8 @@ export class TakeAttendancePage {
       this.controller.showToast("你沒有參加是次活動！");
       alert("你沒有參加是次活動！");
     }
+    //this.nfc=this.nfc2;
+    //this.scandata();
     // console.log("=======");
     // console.log(index);
     // console.log("--------");

@@ -33,7 +33,7 @@
     <ion-item-divider   color="light" id="EventCalendar-list-item-divider8">
         常駐活動
       </ion-item-divider>
-    <ion-item  *ngFor="let List of Perm_List" on-click="goToUpdateEvent()" >
+    <ion-item  *ngFor="let List of Perm_List" (click)="goToUpdateEvent(List)" >
       {{List.Event_Name}}
     </ion-item>
   </ion-list>
@@ -45,7 +45,7 @@
       <ion-item-divider   color="light" id="EventCalendar-list-item-divider8">
           {{Event.key}}
         </ion-item-divider>
-  <ion-item color="none"  *ngFor="let event of Event.list" on-click="goToUpdateEvent()"  >
+  <ion-item color="none"  *ngFor="let event of Event.list" (click)="goToUpdateEvent(event)"  >
     {{event.Event_Name}}
   </ion-item>
 </div>
@@ -58,7 +58,7 @@
       <ion-item-divider   color="light" id="EventCalendar-list-item-divider8">
           {{Event.key}}
         </ion-item-divider>
-  <ion-item color="none"  *ngFor="let event of Event.list" on-click="goToUpdateEvent()"  >
+  <ion-item color="none"  *ngFor="let event of Event.list" (click)="goToUpdateEvent(event)"  >
     {{event.Event_Name}}
   </ion-item>
 </div>
