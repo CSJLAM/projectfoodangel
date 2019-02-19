@@ -32,6 +32,7 @@ import { StaffInfoPage } from '../pages/staff-info/staff-info';
 import { StaffLevelPage } from '../pages/staff-level/staff-level';
 import { CampusListPage } from '../pages/campus-list/campus-list';
 import { UpdateVersionPage } from '../pages/update-version/update-version';
+import { MemberPreferencePage } from '../pages/member-preference/member-preference';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -73,7 +74,8 @@ import { ControllerProvider } from '../providers/controller/controller';
     StaffInfoPage,
     StaffLevelPage,
     CampusListPage,
-    UpdateVersionPage
+    UpdateVersionPage,
+    MemberPreferencePage
   ],
   imports: [
     BrowserModule,
@@ -112,7 +114,8 @@ import { ControllerProvider } from '../providers/controller/controller';
     StaffInfoPage,
     StaffLevelPage,
     CampusListPage,
-    UpdateVersionPage
+    UpdateVersionPage,
+    MemberPreferencePage
   ],
   providers: [
     StatusBar,

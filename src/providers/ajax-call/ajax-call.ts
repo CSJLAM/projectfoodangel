@@ -89,7 +89,7 @@ export class AjaxCallProvider {
       this.Deptlisting(type, info, info2, info3, resolve);
     });
   }
-  getEvents(location, type, info, fn) {
+  getEvents(location, type, info, info2, fn) {
     //  this.Controller.showLoading();
     var xmlhttp = new XMLHttpRequest();
     var url = this.link + "Ajax_GetInfo.php";
@@ -143,6 +143,17 @@ export class AjaxCallProvider {
                 "ID": result.ID , "Repeat_Week": result.Repeat_Week , "Room": result.Room , "Start_Date": result.Start_Date , "Start_Time": result.Start_Time});
               }
               fn(Edata);
+              break;
+              case "Load_Weekly_Perm_Setting":
+              var Load_Weekly_Perm_Setting:any=[];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                //this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
+                Load_Weekly_Perm_Setting.push({"Attend_Date": result.Attend_Date , "Event_ID": result.Event_ID ,"ID": result.ID , "Member_ID": result.Member_ID , "Member_ID_F": result.Member_ID_F , "Status": result.Status});
+
+              }
+              fn(Load_Weekly_Perm_Setting);
+              
               break;
             case "Get_Campus":
               for (var i = 0; i < obj.info.length; i++) {
@@ -222,18 +233,18 @@ export class AjaxCallProvider {
       }
     }
 
-    var obj = { "Passcode": "GetInfo", "Function": type, "info": info };
+    var obj = { "Passcode": "GetInfo", "Function": type, "info": info ,"info2":info2};
     this.log(this.link + "Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
   }
-  getEvents_Call(location, type, info = "") {
+  getEvents_Call(location, type, info = "",info2="") {
     return new Promise(resolve => {
-      this.getEvents(location, type, info, resolve);
+      this.getEvents(location, type, info, info2,resolve);
     });
   }
-  setEvents(location, type, info, info2, fn) {
+  setEvents(location, type, info, info2, info3,fn) {
 
     var xmlhttp = new XMLHttpRequest();
     var url = this.link + "Ajax_GetInfo.php";
@@ -254,7 +265,9 @@ export class AjaxCallProvider {
 
               this.returnInfo = obj.info;
               break;
-
+            case "Set_Perm_leave":
+            fn(true);
+            break;
 
             default:
               break;
@@ -271,15 +284,15 @@ export class AjaxCallProvider {
       }
     }
 
-    var obj = { "Passcode": "SetInfo", "Function": type, "info": info, "info2": info2 };
+    var obj = { "Passcode": "SetInfo", "Function": type, "info": info, "info2": info2 ,"info3":info3};
     this.log(this.link + "Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
   }
-  setEvents_Call(location, type, info = "", info2 = "") {
+  setEvents_Call(location, type, info = "", info2 = "" ,info3="") {
     return new Promise(resolve => {
-      this.setEvents(location, type, info, info2, resolve);
+      this.setEvents(location, type, info, info2, info3 ,resolve);
     });
   }
   AddEvents(type, info, info2, info3, fn) {

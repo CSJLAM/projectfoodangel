@@ -6,56 +6,26 @@
     <ion-title>
       活動：{{Event.Event_Name}}-出席日子SettlePermEventInfo
     </ion-title>
+    <ion-buttons end >
+        <button ion-button icon-only color="royal" (click)="gotopreference(MemberID,Event)">
+            <ion-icon name="settings"></ion-icon>
+          </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page8">
-  
+    
     <ion-item-divider color="light" id="SettlePermEventInfo-list-item-divider6">
-      出席日子 1類
+      出席日子 1類 
     </ion-item-divider>
-    <ion-item id="SettlePermEventInfo-checkbox12">
+    <ion-item *ngFor="let Day of Week , let i = index" >
       <ion-label>
-        星期一
+        {{Week[i].Words}}   {{Week[i].Day}}
       </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox [(ngModel)]="Week[i].Checked"  ></ion-checkbox>
     </ion-item>
-    <ion-item id="SettlePermEventInfo-checkbox14">
-      <ion-label>
-        星期二
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item id="SettlePermEventInfo-checkbox16">
-      <ion-label>
-        星期三
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item id="SettlePermEventInfo-checkbox15">
-      <ion-label>
-        星期四
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item id="SettlePermEventInfo-checkbox13">
-      <ion-label>
-        星期五
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item id="SettlePermEventInfo-checkbox17">
-      <ion-label>
-        星期六
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <ion-item id="SettlePermEventInfo-checkbox18">
-      <ion-label>
-        星期日
-      </ion-label>
-      <ion-checkbox></ion-checkbox>
-    </ion-item>
-    <button id="SettlePermEventInfo-button13" ion-button color="positive" block>
+    
+    <button id="SettlePermEventInfo-button13" ion-button color="positive" (click)="Submit()" block>
       遞交
     </button>
 <!--     
