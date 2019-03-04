@@ -7,12 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>member_preference</ion-title>
+    <ion-title>member_preference{{Member}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <ion-item-divider color="light" id="SettlePermEventInfo-list-item-divider6">
+  出席日子 1類 
+</ion-item-divider>
+<ion-item *ngFor="let Day of Week , let i = index" >
+  <ion-label>
+    {{Week[i].Words}}   {{Week[i].Day}}
+  </ion-label>
+  <ion-checkbox [(ngModel)]="Week[i].Checked"  ></ion-checkbox>
+</ion-item>
 
+<button id="SettlePermEventInfo-button13" ion-button color="positive" (click)="Submit()" block>
+  遞交
+</button>
 </ion-content>

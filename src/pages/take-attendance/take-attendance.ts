@@ -60,7 +60,7 @@ export class TakeAttendancePage {
       this.addListenNFC();
       this.nfc_check = true;
     }).catch((reject) => {
-      alert("NFC is not supported by your Device");
+      //alert("NFC is not supported by your Device");
     });
   }
   ionViewWillLeave() {
@@ -70,7 +70,14 @@ export class TakeAttendancePage {
   }
   docheck() {
     //this.nfc=null;
-    const index = this.Event_Member_List.findIndex(member => member.Octopus === this.tagId);
+    //const index = this.Event_Member_List.findIndex(member => member.Octopus === this.tagId);
+    var index = this.Event_Member_List.findIndex(member => member.Octopus === this.tagId);
+    if(index==-1){
+     index = this.Event_Member_List.findIndex(member => member.Member_ID === this.tagId);
+    }
+    if(index==-1){
+      index = this.Event_Member_List.findIndex(member => member.Chinese_Name === this.tagId);
+    }
     if (index != -1) {
       this.show = this.Event_Member_List[index];
       this.goToEventInfo(this.Event_Member_List[index], "", true);
@@ -78,6 +85,7 @@ export class TakeAttendancePage {
       this.controller.showToast("你沒有參加是次活動！");
       alert("你沒有參加是次活動！");
     }
+    
     //this.nfc=this.nfc2;
     //this.scandata();
     // console.log("=======");
@@ -89,6 +97,7 @@ export class TakeAttendancePage {
     //   alert(result);
     // });
   }
+  
   addListenNFC() {
 
     this.nfc.addTagDiscoveredListener(nfcEvent => this.sesReadNFC(nfcEvent.tag)).subscribe(data => {

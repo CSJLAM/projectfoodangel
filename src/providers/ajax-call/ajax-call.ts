@@ -146,13 +146,31 @@ export class AjaxCallProvider {
               break;
               case "Load_Weekly_Perm_Setting":
               var Load_Weekly_Perm_Setting:any=[];
+              if(obj.info !=undefined){
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 //this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
                 Load_Weekly_Perm_Setting.push({"Attend_Date": result.Attend_Date , "Event_ID": result.Event_ID ,"ID": result.ID , "Member_ID": result.Member_ID , "Member_ID_F": result.Member_ID_F , "Status": result.Status});
 
               }
+            }else{
+              Load_Weekly_Perm_Setting.push({"Attend_Date": "" , "Event_ID": "" ,"ID": "" , "Member_ID": "" , "Member_ID_F": "" , "Status": ""});
+            }
               fn(Load_Weekly_Perm_Setting);
+              
+              break;
+              case "Load_Event_Preference":
+              var Load_Event_Preference:any=[];
+              if(obj.info !=undefined){
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                //this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
+                Load_Event_Preference.push({"ID": result.ID,"Event_ID": result.Event_ID,"Member_ID": result.Member_ID,"Week": result.Week,"Deleted": result.Deleted});
+
+              }}else{
+                Load_Event_Preference.push({"ID": "","Event_ID": "","Member_ID": "","Week": "","Deleted": ""});
+              }
+              fn(Load_Event_Preference);
               
               break;
             case "Get_Campus":
