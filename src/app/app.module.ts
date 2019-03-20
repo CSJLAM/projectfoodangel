@@ -33,7 +33,8 @@ import { StaffLevelPage } from '../pages/staff-level/staff-level';
 import { CampusListPage } from '../pages/campus-list/campus-list';
 import { UpdateVersionPage } from '../pages/update-version/update-version';
 import { MemberPreferencePage } from '../pages/member-preference/member-preference';
-
+import { EventMultiApplyPage } from '../pages/event-multi-apply/event-multi-apply';
+import { PermissionPage } from '../pages/permission/permission';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NFC } from '@ionic-native/nfc';
@@ -75,7 +76,9 @@ import { ControllerProvider } from '../providers/controller/controller';
     StaffLevelPage,
     CampusListPage,
     UpdateVersionPage,
-    MemberPreferencePage
+    MemberPreferencePage,
+    EventMultiApplyPage,
+    PermissionPage
   ],
   imports: [
     BrowserModule,
@@ -115,7 +118,9 @@ import { ControllerProvider } from '../providers/controller/controller';
     StaffLevelPage,
     CampusListPage,
     UpdateVersionPage,
-    MemberPreferencePage
+    MemberPreferencePage,
+    EventMultiApplyPage,
+    PermissionPage
   ],
   providers: [
     StatusBar,

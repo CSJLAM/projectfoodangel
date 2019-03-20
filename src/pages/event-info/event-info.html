@@ -18,15 +18,16 @@
       <!-- Event information -->
     </p>
   </div>
-  <form id="EventInfo-form33">
+  
     <ion-item id="EventInfo-input65">
       <ion-label>
-        會員資料/拍八達通
+        <!-- 會員資料/拍八達通 -->
       </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      <ion-input type="text" [(ngModel)]="tagId" placeholder="輸入會員號碼"></ion-input>
     </ion-item>
-  </form>
-  <button id="EventInfo-button17" ion-button color="positive" block>
+  
+  <!-- <button id="EventInfo-button17" ion-button color="positive" block> -->
+      <button id="TakeAttendance-button7" on-click="docheck()" ion-button color="positive" block>
     報名
   </button>
   <ion-list id="EventInfo-list16">

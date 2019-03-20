@@ -124,8 +124,11 @@ export class AjaxCallProvider {
                 var result = obj.info[i];
                 //this.log(Your);
                 //this.log('++');
-                this.returnInfo.push({ "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Octopus": result.Octopus, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F });
-
+                if(result.Attend=="Checked"){
+                this.returnInfo.push({"Checked":true, "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Octopus": result.Octopus, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Fam_Chinese_Name": result.Fam_Chinese_Name });
+                }else{
+                  this.returnInfo.push({"Checked":false, "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Octopus": result.Octopus, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Fam_Chinese_Name": result.Fam_Chinese_Name });
+                }
               }
               break;
             case "Load_All_Perm_Event":
@@ -283,6 +286,10 @@ export class AjaxCallProvider {
 
               this.returnInfo = obj.info;
               break;
+              case "MarkAttends":
+
+              this.returnInfo = obj.info;
+              break;
             case "Set_Perm_leave":
             fn(true);
             break;
@@ -343,6 +350,7 @@ export class AjaxCallProvider {
               this.returnInfo = true;
               break;
               case "Apply_Event":
+              case "Apply_Events":
               this.returnInfo = true;
               break;
             case "Attened_Evnet":
@@ -386,23 +394,26 @@ export class AjaxCallProvider {
   transform_to_group(value: any, groupByKey: string) {
     const events: any[] = [];
     const groupedElements: any = {};
-
+    //console.log("----Grouping------");
     value.forEach((obj: any) => {
       if (!(obj[groupByKey] in groupedElements)) {
         groupedElements[obj[groupByKey]] = [];
+        //console.log(groupedElements);
       }
       groupedElements[obj[groupByKey]].push(obj);
+      //console.log(groupedElements);
     });
-
+    //console.log("------Firstpart------");
     for (let prop in groupedElements) {
       if (groupedElements.hasOwnProperty(prop)) {
         events.push({
           key: prop,
           list: groupedElements[prop]
         });
+        //console.log(events);
       }
     }
-
+    //console.log("------End---------");
     return events;
   }
   Member_function(type, info, info2, info3, info4, fn) {
@@ -416,6 +427,7 @@ export class AjaxCallProvider {
       // case "List_Member_Type_Event_Type":
       case "List_Member_Type_Perm_Event_Type":
       case "Get_Member_Family_Info_by_ID":
+      case "Get_Member_Family_Info_by_Octopus":
       case "Get_Member_Urgent_Info_by_ID":
       case "Get_Member_Perm_Event":
       case "Get_Appled_Member_Perm_Event":
@@ -508,6 +520,7 @@ export class AjaxCallProvider {
             
             break;
             case "Get_Member_Family_Info_by_ID":
+            case "Get_Member_Family_Info_by_Octopus":
               let INFO: any = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];

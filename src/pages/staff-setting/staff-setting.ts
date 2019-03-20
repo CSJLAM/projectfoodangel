@@ -6,6 +6,7 @@ import { StaffLevelListPage } from '../staff-level-list/staff-level-list';
 import { StaffLevelPage } from '../staff-level/staff-level';
 
 import { Storage } from '@ionic/storage';
+import { PermissionPage } from '../permission/permission';
 @Component({
   selector: 'page-staff-setting',
   templateUrl: 'staff-setting.html'
@@ -41,6 +42,9 @@ export class StaffSettingPage {
   } goToStaffLevel(params) {
     if (!params) params = {};
     this.navCtrl.push(StaffLevelPage);
+  }
+  goToPermission(){
+    this.navCtrl.push(PermissionPage);
   }
   getStroage() {
     this.storage.get('Login').then((val) => {

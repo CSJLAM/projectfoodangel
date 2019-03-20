@@ -20,6 +20,8 @@
   </button>
   <h1 id="TakeAttendance-heading5" style="color:#000000;">
     活動名稱: {{temp.Event_Name}}
+    <br>
+    人數：{{all}}
   </h1>
   <div id="TakeAttendance-markdown6" class="show-list-numbers-and-dots">
     <div *ngIf="show!=null">{{show.Chinese_Name}}</div>
@@ -28,21 +30,48 @@
     </p> -->
   </div>
 
-  <div *ngFor="let list of Attend_List">
-    <ion-item-divider   color="light">
-        {{list.key}}
+  <div *ngFor="let list of Attend_List , let i = index">
+    <ion-item-divider *ngIf="list.key=='Unchecked'" color="light">
+       未出席名單 人數{{unch}}
       </ion-item-divider>
+      <ion-item-divider *ngIf="list.key=='Leave'"  color="light">
+        缺席名單 人數{{lev}}
+      </ion-item-divider>
+      <ion-item-divider *ngIf="list.key=='Checked'"  color="light">
+        出席名單 人數{{che}}
+      </ion-item-divider>
+      <!-- <ion-item-divider   color="light">
+        {{list.key}}
+      </ion-item-divider> -->
       <div *ngIf="list.key!='Checked'">
-<ion-item color="none"  *ngFor="let event of list.list" on-click="goToEventInfo(event,list.list)" >
-  {{event.Chinese_Name}}
+<!-- <ion-item color="none"  *ngFor="let event of list.list" on-click="goToEventInfo(event.list[0],event.list)" >
+  {{event.list[0].Chinese_Name}}
+</ion-item> -->
+<ion-item color="none"  *ngFor="let event of list.list" (click)="Click_DO(event.list[0].Member_ID)" >
+  {{event.list[0].Member_ID_F}}{{event.list[0].Chinese_Name}}
 </ion-item>
 </div>
 <div *ngIf="list.key=='Checked'">
-    <ion-item color="none"  *ngFor="let event of list.list"  >
-      {{event.Chinese_Name}}
+    <ion-item color="none"  *ngFor="let event of list.list"  (click)="Click_DO(event.list[0].Member_ID)">
+      {{event.list[0].Member_ID_F}}{{event.list[0].Chinese_Name}}
     </ion-item>
     </div>
 </div>
+<!-- <div *ngFor="let list of Attend_List">
+  <ion-item-divider   color="light">
+      {{list.key}}
+    </ion-item-divider>
+    <div *ngIf="list.key!='Checked'">
+<ion-item color="none"  *ngFor="let event of list.list" on-click="goToEventInfo(event,list.list)" >
+{{event.Chinese_Name}}
+</ion-item>
+</div>
+<div *ngIf="list.key=='Checked'">
+  <ion-item color="none"  *ngFor="let event of list.list"  >
+    {{event.Chinese_Name}}
+  </ion-item>
+  </div>
+</div> -->
   <!-- <ion-list id="TakeAttendance-list6">
     <ion-item-divider color="light" id="TakeAttendance-list-item-divider2">
       出席名單

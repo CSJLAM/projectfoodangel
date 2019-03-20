@@ -43,7 +43,7 @@ export class FoodAngelPage {
   public Staff_Dept: String = null;
   public Username: String = "";
   public Password: string = "";
-  version= 2;
+  version= 3;
   cango=false;
   constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     //storage.clear();

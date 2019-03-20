@@ -6,6 +6,7 @@ import { MemberEventInfoPage } from '../member-event-info/member-event-info';
 import { AjaxCallProvider } from '../../providers/ajax-call/ajax-call';
 import { NFC } from '@ionic-native/nfc';
 import { ControllerProvider } from '../../providers/controller/controller';
+import { EventMultiApplyPage } from '../event-multi-apply/event-multi-apply';
 
 
 @Component({
@@ -83,40 +84,50 @@ export class EventInfoPage {
   docheck() {
     this.ajaxCall.Member_function_Call("Get_Member_Info_by_Octopus", this.tagId).then(result => {
       this.Member_data = result;
-      if (this.Member_data['Member_Type'] == 1) {
-        const msg = "會員：" + this.Member_data['Chinese_Name'];
-        //alert(this.Member_data['Member_ID']);
-        let prompt = this.alertCtrl.create({
-          title: '報名活動?',
-          message: msg,
+      if (this.Member_data != undefined) {
+        if (this.Member_data['Member_Type'] == 1) {
+          const msg = "會員：" + this.Member_data['Chinese_Name'];
+          //alert(this.Member_data['Member_ID']);
+          let prompt = this.alertCtrl.create({
+            title: '報名活動?',
+            message: msg,
 
-          buttons: [
-            {
-              text: '取消',
-              handler: data => {
+            buttons: [
+              {
+                text: '取消',
+                handler: data => {
 
+                }
+              },
+              {
+                text: '確認',
+                handler: data => {
+                  this.ajaxCall.AddEvents_Call("Apply_Event", this.EventsInfo, this.Member_data).then(result1 => {
+
+                  });
+                  //this.ajaxCall.AddEvents_Call("Waiting_to_confirm",this.Event.ID).then(result=>{
+
+                  // });
+                }
               }
-            },
-            {
-              text: '確認',
-              handler: data => {
-                this.ajaxCall.AddEvents_Call("Apply_Event", this.EventsInfo, this.Member_data).then(result1 => {
-
-                });
-                //this.ajaxCall.AddEvents_Call("Waiting_to_confirm",this.Event.ID).then(result=>{
-
-                // });
-              }
-            }
-          ]
-        });
-        prompt.present();
-      }else{
-        
+            ]
+          });
+          prompt.present();
+        }
       }
       //fam ver
       //this.ajaxCall.Member_function_Call("Get_Fam_Info_by_Octopus",this.tagId).then(result=>{});
     });
+    this.ajaxCall.Member_function_Call("Get_Member_Family_Info_by_Octopus", this.tagId).then(result3 => {
+      this.Member_data = result3;
+      //alert(this.Member_data[0]);
+      if (this.Member_data[0] != null) {
+        this.goToMultiApply(this.Member_data, this.EventsInfo);
+      }
+    });
+
+
+
   }
   sesReadNFC(data): void {
 
@@ -136,5 +147,8 @@ export class EventInfoPage {
   goToMemberEventInfo(params) {
     if (!params) params = {};
     this.navCtrl.push(MemberEventInfoPage);
+  }
+  goToMultiApply(params, params2) {
+    this.navCtrl.push(EventMultiApplyPage, { params, params2 });
   }
 }

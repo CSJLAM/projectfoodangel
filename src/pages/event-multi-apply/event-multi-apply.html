@@ -1,0 +1,31 @@
+<!--
+  Generated template for the EventMultiApplyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Event_Multi_Apply</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-item-divider color="light" id="SettlePermEventInfo-list-item-divider6">
+  出席日子 1類 
+</ion-item-divider>
+<ion-item *ngFor="let mem of members , let i = index" >
+  <ion-label>
+    {{members[i].Chinese_Name}} 
+  </ion-label>
+  <ion-checkbox [(ngModel)]="members[i].Checked"  ></ion-checkbox>
+</ion-item>
+
+<button id="SettlePermEventInfo-button13" ion-button color="positive" (click)="Submit()" block>
+  遞交
+</button>
+</ion-content>

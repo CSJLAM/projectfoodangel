@@ -15,7 +15,24 @@
 
 <ion-content padding>
   
-    <button  (click)="attend()" ion-button color="positive" block>
+    <button *ngIf="S_member" (click)="attend()" ion-button color="positive" block>
         {{member.Chinese_Name}} 出席
       </button>
+<div *ngIf="S_members">
+      <ion-item-divider color="light" >
+        出席 
+      </ion-item-divider>
+      <ion-item *ngFor="let mem of members , let i = index" >
+        <ion-label>
+          {{members[i].Fam_Chinese_Name}}  
+        </ion-label>
+        <!-- <ion-checkbox disabled="{{members[i].Attend=='Checked'}}"  [(ngModel)]="members[i].Checked"></ion-checkbox> -->
+        <!-- <ion-checkbox   [(ngModel)]="members[i].Checked"></ion-checkbox> -->
+        <!-- <ion-checkbox   [(ngModel)]="members[i].Checked" disabled="{{members[i].Attend=='Checked'}}"></ion-checkbox> -->
+        <ion-checkbox   [(ngModel)]="members[i].Checked" ></ion-checkbox>
+      </ion-item>
+      <button (click)="attends()" ion-button color="positive" block>
+        {{member.Chinese_Name}} 出席
+      </button>
+    </div>
 </ion-content>

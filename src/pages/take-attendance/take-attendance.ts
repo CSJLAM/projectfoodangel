@@ -20,6 +20,12 @@ export class TakeAttendancePage {
   scanned: boolean;
   tagId: string;
   show: any;
+  all:number;
+  unch:number;
+  che:number;
+  lev:number;
+
+  
   constructor(private controller: ControllerProvider, private ajaxCall: AjaxCallProvider, public navParams: NavParams, private storage: Storage, public navCtrl: NavController, private nfc2: NFC) {
     this.temp = this.navParams.data.params;
     this.nfc_check = false;
@@ -37,8 +43,27 @@ export class TakeAttendancePage {
       //   console.log("available");
       //  console.log(available);
       this.Event_Member_List = available;
+      this.all=this.Event_Member_List.length;
       this.Attend_List = available;
       this.Attend_List = this.ajaxCall.transform_to_group(this.Attend_List, "Attend");
+      //if(available[0].Member_ID.substring(0,1)=="F"){
+        for(var a = 0; a<this.Attend_List.length;a++){
+        console.log(this.Attend_List[a].list);
+        switch(this.Attend_List[a].key){
+          case "Checked":
+          this.che=this.Attend_List[a].list.length;
+          break;
+          case "Leave":
+          this.lev=this.Attend_List[a].list.length;
+          break;
+          case "Unchecked":
+          this.unch=this.Attend_List[a].list.length;
+          break;
+        }
+        this.Attend_List[a].list = this.ajaxCall.transform_to_group(this.Attend_List[a].list,"Member_ID_F");
+        console.log(this.Attend_List[a].list);
+        }
+      //}
 
       console.log(this.Attend_List);
       //  console.log("available");
@@ -68,7 +93,11 @@ export class TakeAttendancePage {
 
     this.nfc = null;
   }
-  docheck() {
+  Click_DO(work){
+    this.tagId=work;
+    this.docheck();
+  }
+  docheck(auto=false) {
     //this.nfc=null;
     //const index = this.Event_Member_List.findIndex(member => member.Octopus === this.tagId);
     var index = this.Event_Member_List.findIndex(member => member.Octopus === this.tagId);
@@ -78,9 +107,14 @@ export class TakeAttendancePage {
     if(index==-1){
       index = this.Event_Member_List.findIndex(member => member.Chinese_Name === this.tagId);
     }
-    if (index != -1) {
+    if(index != -1 && this.Event_Member_List[index].Member_ID_F.substring(0,1)=="F"){
+      var result = this.Event_Member_List.filter(member => member.Member_ID_F ==this.Event_Member_List[index].Member_ID_F);
+      console.log(result);
+      this.goToEventInfo(this.Event_Member_List[index],result,false);
+    }else if (index != -1) {
       this.show = this.Event_Member_List[index];
-      this.goToEventInfo(this.Event_Member_List[index], "", true);
+      var result = this.Event_Member_List.filter(member => member.Member_ID_F ==this.Event_Member_List[index].Member_ID_F);
+      this.goToEventInfo(this.Event_Member_List[index], result, auto);
     } else {
       this.controller.showToast("你沒有參加是次活動！");
       alert("你沒有參加是次活動！");
@@ -106,7 +140,7 @@ export class TakeAttendancePage {
           if (tagId) {
             this.tagId = tagId;
             this.scanned = true;
-            this.docheck();
+            this.docheck(true);
             //alert("SCANNED");
             // console.log("SCANNED");
 
@@ -132,6 +166,7 @@ export class TakeAttendancePage {
     alert("Error while reading: Please Retry");
   }
   goToEventInfo(params, params2 = "", auto = false) {
+    this.nfc=null;
     let id = this.temp.ID;
 
     this.navCtrl.push(ShowAttendPage, { params, params2, id, auto });
