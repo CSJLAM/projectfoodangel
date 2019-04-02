@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
   Generated class for the AjaxCallProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
+  101.78.175.101:8580
   and Angular DI.
 */
 @Injectable()
