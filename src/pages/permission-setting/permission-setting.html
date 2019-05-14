@@ -1,0 +1,57 @@
+<!--
+  Generated template for the PermissionSettingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ChiName}} permission_setting</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- <button id="CampusList-button31" ion-button color="positive" block>
+    新增
+  </button> -->
+  <!-- <ion-item-divider color="light">
+       會員管理權限
+      </ion-item-divider> -->
+
+  <ion-list>
+    <!-- <ion-item color="none" *ngFor="let Event of Confirm_List" (click)="goToMemberEventInfo(Confirm_List[i])"> -->
+        <ion-item-divider color="light">
+            授權用戶
+          </ion-item-divider>
+          <ion-item-sliding  *ngFor="let List_of_u of List_of_user">
+
+    <ion-item color="none" >
+      {{List_of_u.Name}}
+    </ion-item>
+    <ion-item-options side="right">
+        <button ion-button color="danger" (click)="delete(List_of_u)">
+          <ion-icon name="trash"></ion-icon>
+          刪除
+        </button>
+       
+      </ion-item-options>
+  </ion-item-sliding>
+    <ion-item-divider color="light">
+        未授權職級
+      </ion-item-divider>
+      <ion-item color="none" *ngFor="let List_of_u of List_of_un_Dept" (click)="Add(List_of_u)">
+          {{List_of_u.Name}}
+        </ion-item>
+      <ion-item-divider color="light">
+          未授權用戶
+        </ion-item-divider>
+        <ion-item color="none" *ngFor="let List_of_u of List_of_un_user" (click)="Add(List_of_u)">
+            {{List_of_u.Name}}
+          </ion-item>
+  </ion-list>
+
+
+</ion-content>

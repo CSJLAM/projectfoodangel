@@ -7,18 +7,25 @@ import { StaffLevelPage } from '../staff-level/staff-level';
 
 import { Storage } from '@ionic/storage';
 import { PermissionPage } from '../permission/permission';
+import { AjaxCallProvider } from '../../providers/ajax-call/ajax-call';
 @Component({
   selector: 'page-staff-setting',
   templateUrl: 'staff-setting.html'
 })
 export class StaffSettingPage {
+  //permission
+   Permission_List:any;
+  UserAccount=false;
+  UserLevel=false;
+  PermissionSetting=false;
+  //
   public isSignedIn: string = null;
   public Name: string = null;
   public Staff_ID: string = null;
   public Staff_Hash: String = null;
   public Staff_Dept: String = null;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public actionsheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public platform: Platform) {
+  constructor(private ajaxCall: AjaxCallProvider,public navCtrl: NavController, private storage: Storage, public alertCtrl: AlertController, public actionsheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public platform: Platform) {
   }
   ionViewDidEnter() {
     
@@ -29,6 +36,27 @@ export class StaffSettingPage {
     this.Staff_Dept = null;
     
     this.getStroage();
+  }
+  Check_Permission(){
+    this.ajaxCall.getEvents_Call("","Check_Permission",this.Staff_Dept.toString(),this.Staff_Hash.toString()).then(result =>{
+      this.Permission_List=result;
+      var UserAccount= this.Permission_List.findIndex(work => work.Page === "UserAccount");
+      if(UserAccount!=-1){
+        this.UserAccount=true;
+       }
+       //this.log("~"+UserAccount);
+       var UserLevel = this.Permission_List.findIndex(work => work.Page === "UserLevel");
+      if(UserLevel!=-1){
+        this.UserLevel=true;
+       }
+       //this.log("~"+UserLevel);
+       var PermissionSetting = this.Permission_List.findIndex(work => work.Page === "PermissionSetting");
+      if(PermissionSetting!=-1){
+        this.PermissionSetting=true;
+       }
+       //this.log("~"+PermissionSetting);
+       
+    });
   }
   goToStaffList(params) {
     if (!params) params = {};
@@ -192,6 +220,7 @@ export class StaffSettingPage {
               this.Staff_ID = obj.Staff.Staff_ID;
               this.Staff_Hash = obj.Staff.Staff_Hash;
               this.Staff_Dept = obj.Staff.Staff_Dept;
+              this.Check_Permission();
               break;
           }
 

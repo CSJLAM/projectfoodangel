@@ -48,29 +48,34 @@ showAlert(msg: string) : void {
   alert.present();
 }
 
-showConfirm(msg: string, title: string) : boolean {
+showConfirm(msg: string, title: string, fn){ //: boolean {
   const confirm = this.alertCtrl.create({
     title: title,
     message: msg,
     buttons: [
       {
-        text: 'Disagree',
+        text: '取消',
         handler: () => {
           confirm.dismiss();
           console.log('Disagree clicked');
-          return false;
+          return fn(false);
         }
       },
       {
-        text: 'Agree',
+        text: '確定',
         handler: () => {
           console.log('Agree clicked');
-          return true;
+          return fn(true);
         }
       }
     ]
   });
   confirm.present();
-  return false;
+ // return false;
+}
+showConfirm_Call(msg: string, title: string) {
+  return new Promise(resolve => {
+    this.showConfirm(msg, title,resolve);
+  });
 }
 }

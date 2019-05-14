@@ -28,7 +28,7 @@
     <ion-item-divider color="light">
       設定
     </ion-item-divider>
-    <ion-item (click)="goToMemberInfo(Member.Member_ID)">
+    <ion-item *ngIf="NewAndEditMember" (click)="goToMemberInfo(Member.Member_ID)">
       更改資料
     </ion-item>
     <ion-item (click)="goToSettle(Member.Member_ID)">

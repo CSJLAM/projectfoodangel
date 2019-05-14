@@ -2,12 +2,19 @@ import { Component } from '@angular/core';
 import { NavController,LoadingController,  AlertController,NavParams} from 'ionic-angular';
 import { NFC} from '@ionic-native/nfc';
 import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-membership-edit',
   templateUrl: 'membership-edit.html'
 })
 export class MembershipEditPage {
+   //permission
+   Permission_List: any;
+  SpecialInfoMember=false;
+  public Staff_Hash: string = null;
+  public Staff_Dept: string = null;
+  //
   data:any;
   temp:any;
   nfc:NFC;
@@ -40,10 +47,20 @@ export class MembershipEditPage {
 
 
   constructor(
-    private ajaxCall: AjaxCallProvider,public navCtrl: NavController,private nfc2: NFC,public loadingCtrl: LoadingController,public alertCtrl: AlertController,public navParams: NavParams,
+    private storage: Storage,private ajaxCall: AjaxCallProvider,public navCtrl: NavController,private nfc2: NFC,public loadingCtrl: LoadingController,public alertCtrl: AlertController,public navParams: NavParams,
   ) {
     this.data = this.navParams.data.params;
-   
+    this.storage.get('Staff_Hash').then((val) => {
+      if (val != null) {
+        this.Staff_Hash=val;
+      }
+      this.storage.get('Staff_Dept').then((val) => {
+        if(val!=null){
+          this.Staff_Dept=val;
+        }
+        this.Check_Permission();
+      });
+    });
     
     // this.Family_Members.push({"ID":"D"+Date.now(),"Octopus":"","Chinese_Name":"","English_Name":"","Gender":"","Relationship":"","Live_Together":"","DOB":"","Career":"","Income":"","Remark":""});
     // this.log(this.Family_Members);
@@ -246,6 +263,27 @@ export class MembershipEditPage {
     this.Member['E_Life_Tgt']="";this.Member['Address']="";this.Member['Gov_CSSA']="";this.Member['Family_Income']="";this.Member['Elderly_Income']="";this.Member['Old_Age_Allowance']="";
     this.Member['Disability_Allowance']="";this.Member['Pension']="";this.Member['Family_Support']="";
     this.Member['Photo_Auth']=false;this.Member['Declaration_1']=false;this.Member['Declaration_2']=false;this.Member['Reason']="";this.Member['Remark']="";
+  }
+  Check_Permission(){
+    this.ajaxCall.getEvents_Call("","Check_Permission",this.Staff_Dept,this.Staff_Hash).then(result =>{
+      this.Permission_List=result;
+      var SpecialInfoMember= this.Permission_List.findIndex(work => work.Page === "SpecialInfoMember");
+      if(SpecialInfoMember!=-1){
+        this.SpecialInfoMember=true;
+       }
+        console.log("~"+SpecialInfoMember);
+      //  var MemberList = this.Permission_List.findIndex(work => work.Page === "MemberList");
+      // if(MemberList!=-1){
+      //   this.MemberList=true;
+      //  }
+      //  //this.log("~"+UserLevel);
+      //  var ListEvent = this.Permission_List.findIndex(work => work.Page === "ListEvent");
+      // if(ListEvent!=-1){
+      //   this.ListEvent=true;
+      //  }
+      //  //this.log("~"+PermissionSetting);
+       
+    });
   }
   log(info){
     console.log(info);

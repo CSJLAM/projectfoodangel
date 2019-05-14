@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content padding id="page3">
   <ion-list id="MembershipManagement-list7">
-    <ion-item color="none" on-click="goToMembershipApply()" id="MembershipManagement-list-item23">
+    <ion-item color="none" *ngIf="NewAndEditMember" on-click="goToMembershipApply()" id="MembershipManagement-list-item23">
       新會員
     </ion-item>
     <!-- <ion-item color="none" on-click="goToMembershipEdit()" id="MembershipManagement-list-item24">

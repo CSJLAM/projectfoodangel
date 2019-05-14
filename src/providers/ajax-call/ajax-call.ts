@@ -107,11 +107,12 @@ export class AjaxCallProvider {
           this.returnInfo = [];
           switch (type) {
             case "VER":
-            for (var i = 0; i < obj.info.length; i++) {
-              var result = obj.info[i];
-              fn(result.ver);
-            }
-            break;
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                fn(result.ver);
+              }
+              break;
+           
             case "HomePerm":
             case "Home_Today":
               for (var i = 0; i < obj.info.length; i++) {
@@ -125,57 +126,60 @@ export class AjaxCallProvider {
                 var result = obj.info[i];
                 //this.log(Your);
                 //this.log('++');
-                if(result.Attend=="Checked"){
-                this.returnInfo.push({"Checked":true, "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Octopus": result.Octopus, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Fam_Chinese_Name": result.Fam_Chinese_Name });
-                }else{
-                  this.returnInfo.push({"Checked":false, "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Octopus": result.Octopus, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Fam_Chinese_Name": result.Fam_Chinese_Name });
+                if (result.Attend == "Checked") {
+                  this.returnInfo.push({ "Checked": true, "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Octopus": result.Octopus, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Fam_Chinese_Name": result.Fam_Chinese_Name });
+                } else {
+                  this.returnInfo.push({ "Checked": false, "Attend": result.Attend, "Event_ID": result.Event_ID, "Chinese_Name": result.Chinese_Name, "Octopus": result.Octopus, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Fam_Chinese_Name": result.Fam_Chinese_Name });
                 }
               }
               break;
             case "Load_All_Perm_Event":
             case "Load_All_Single_Event":
             case "Load_All_Outdated_Event":
-            var Edata:any=[];
+              var Edata: any = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 //this.log(Your);
                 //this.log('++');
                 //this.returnInfo.push({ "ID": result.ID, "Event_Name": result.Event_Name, "Room": result.Room, "Start_Date": result.Start_Date });
-                Edata.push({"Create_By": result.Create_By , "Create_Date": result.Create_Date , "Deleted": result.Deleted , "End_Date": result.End_Date , 
-                "End_Time": result.End_Time , "Event_Cate": result.Event_Cate , "Event_Connect": result.Event_Connect , "Event_Info": result.Event_Info ,
-                "Event_Limit": result.Event_Limit , "Event_Location": result.Event_Location , "Event_Name": result.Event_Name , "Event_Type": result.Event_Type , 
-                "ID": result.ID , "Repeat_Week": result.Repeat_Week , "Room": result.Room , "Start_Date": result.Start_Date , "Start_Time": result.Start_Time});
+                Edata.push({
+                  "Create_By": result.Create_By, "Create_Date": result.Create_Date, "Deleted": result.Deleted, "End_Date": result.End_Date,
+                  "End_Time": result.End_Time, "Event_Cate": result.Event_Cate, "Event_Connect": result.Event_Connect, "Event_Info": result.Event_Info,
+                  "Event_Limit": result.Event_Limit, "Event_Location": result.Event_Location, "Event_Name": result.Event_Name, "Event_Type": result.Event_Type,
+                  "ID": result.ID, "Repeat_Week": result.Repeat_Week, "Room": result.Room, "Start_Date": result.Start_Date, "Start_Time": result.Start_Time
+                });
               }
               fn(Edata);
               break;
-              case "Load_Weekly_Perm_Setting":
-              var Load_Weekly_Perm_Setting:any=[];
-              if(obj.info !=undefined){
-              for (var i = 0; i < obj.info.length; i++) {
-                var result = obj.info[i];
-                //this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
-                Load_Weekly_Perm_Setting.push({"Attend_Date": result.Attend_Date , "Event_ID": result.Event_ID ,"ID": result.ID , "Member_ID": result.Member_ID , "Member_ID_F": result.Member_ID_F , "Status": result.Status});
+            case "Load_Weekly_Perm_Setting":
+              var Load_Weekly_Perm_Setting: any = [];
+              if (obj.info != undefined) {
+                for (var i = 0; i < obj.info.length; i++) {
+                  var result = obj.info[i];
+                  //this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
+                  Load_Weekly_Perm_Setting.push({ "Attend_Date": result.Attend_Date, "Event_ID": result.Event_ID, "ID": result.ID, "Member_ID": result.Member_ID, "Member_ID_F": result.Member_ID_F, "Status": result.Status });
 
+                }
+              } else {
+                Load_Weekly_Perm_Setting.push({ "Attend_Date": "", "Event_ID": "", "ID": "", "Member_ID": "", "Member_ID_F": "", "Status": "" });
               }
-            }else{
-              Load_Weekly_Perm_Setting.push({"Attend_Date": "" , "Event_ID": "" ,"ID": "" , "Member_ID": "" , "Member_ID_F": "" , "Status": ""});
-            }
               fn(Load_Weekly_Perm_Setting);
-              
-              break;
-              case "Load_Event_Preference":
-              var Load_Event_Preference:any=[];
-              if(obj.info !=undefined){
-              for (var i = 0; i < obj.info.length; i++) {
-                var result = obj.info[i];
-                //this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
-                Load_Event_Preference.push({"ID": result.ID,"Event_ID": result.Event_ID,"Member_ID": result.Member_ID,"Week": result.Week,"Deleted": result.Deleted});
 
-              }}else{
-                Load_Event_Preference.push({"ID": "","Event_ID": "","Member_ID": "","Week": "","Deleted": ""});
+              break;
+            case "Load_Event_Preference":
+              var Load_Event_Preference: any = [];
+              if (obj.info != undefined) {
+                for (var i = 0; i < obj.info.length; i++) {
+                  var result = obj.info[i];
+                  //this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
+                  Load_Event_Preference.push({ "ID": result.ID, "Event_ID": result.Event_ID, "Member_ID": result.Member_ID, "Week": result.Week, "Deleted": result.Deleted });
+
+                }
+              } else {
+                Load_Event_Preference.push({ "ID": "", "Event_ID": "", "Member_ID": "", "Week": "", "Deleted": "" });
               }
               fn(Load_Event_Preference);
-              
+
               break;
             case "Get_Campus":
               for (var i = 0; i < obj.info.length; i++) {
@@ -183,11 +187,11 @@ export class AjaxCallProvider {
                 this.returnInfo.push({ "ID": result.ID, "Room": result.Room, "Campus_ID": result.Campus_ID, "Location": result.Location });
               }
               break;
-              case "Get_Event_For":
+            case "Get_Event_For":
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
                 //this.returnInfo.push({ "ID": result.ID, "Name": result.Name, "Type": result.Type, "Event_For": result.Event_For, "Cate_Name": result.Cate_Name });
-                console.log("6666666666---"+result.Event_For);
+                console.log("6666666666---" + result.Event_For);
                 fn(result.Event_For);
               }
               break;
@@ -238,7 +242,44 @@ export class AjaxCallProvider {
                 var result = obj.info[i];
                 Load_Event_Name = { "ID": result.ID, "Event_Connect": result.Event_Connect, "Event_Location": result.Event_Location, "Event_Name": result.Event_Name, "Event_Info": result.Event_Info, "Event_Limit": result.Event_Limit, "Event_Cate": result.Event_Cate, "Event_Type": result.Event_Type, "Start_Date": result.Start_Date, "End_Date": result.End_Date, "Start_Time": result.Start_Time, "End_Time": result.End_Time, "Repeat_Week": result.Repeat_Week, "Create_Date": result.Create_Date, "Create_By": result.Create_By, "Deleted": result.Deleted };
               }
-              fn(Load_Event_Name)
+              fn(Load_Event_Name);
+              break;
+              case "Load_Permission_Cate":
+              let Load_Permission_Cate: any =[];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                Load_Permission_Cate.push({"Dept": result.Dept, "Name": result.Name, "Page": result.Page});
+                
+              }
+              fn(Load_Permission_Cate);
+              break;
+              case "Load_Permission_UN_dept":
+              let Load_Permission_UN_dept: any =[];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                Load_Permission_UN_dept.push({"Dept": result.Dept, "Name": result.Name, "Page": result.Page});
+                
+              }
+              fn(Load_Permission_UN_dept);
+              
+              break;
+              case "Load_Permission_UN_user":
+              let Load_Permission_UN_user: any =[];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                Load_Permission_UN_user.push({"Dept": result.Dept, "Name": result.Name, "Page": result.Page});
+                
+              }
+              fn(Load_Permission_UN_user);
+              break;
+              case "Check_Permission":
+              let Check_Permission: any =[];
+              for (var i = 0; i < obj.info.length; i++) {
+                var result = obj.info[i];
+                Check_Permission.push({"Dept": result.Dept, "Page": result.Page});
+                
+              }
+              fn(Check_Permission);
               break;
             default:
               break;
@@ -255,18 +296,18 @@ export class AjaxCallProvider {
       }
     }
 
-    var obj = { "Passcode": "GetInfo", "Function": type, "info": info ,"info2":info2};
+    var obj = { "Passcode": "GetInfo", "Function": type, "info": info, "info2": info2 };
     this.log(this.link + "Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
   }
-  getEvents_Call(location, type, info = "",info2="") {
+  getEvents_Call(location, type, info = "", info2 = "") {
     return new Promise(resolve => {
-      this.getEvents(location, type, info, info2,resolve);
+      this.getEvents(location, type, info, info2, resolve);
     });
   }
-  setEvents(location, type, info, info2, info3,fn) {
+  setEvents(location, type, info, info2, info3, fn) {
 
     var xmlhttp = new XMLHttpRequest();
     var url = this.link + "Ajax_GetInfo.php";
@@ -287,14 +328,18 @@ export class AjaxCallProvider {
 
               this.returnInfo = obj.info;
               break;
-              case "MarkAttends":
+            case "MarkAttends":
 
               this.returnInfo = obj.info;
               break;
             case "Set_Perm_leave":
+              fn(true);
+              break;
+            case "Permission_Delete":
+            fn(true);
+            case "Permission_Add":
             fn(true);
             break;
-
             default:
               break;
           }
@@ -310,15 +355,15 @@ export class AjaxCallProvider {
       }
     }
 
-    var obj = { "Passcode": "SetInfo", "Function": type, "info": info, "info2": info2 ,"info3":info3};
+    var obj = { "Passcode": "SetInfo", "Function": type, "info": info, "info2": info2, "info3": info3 };
     this.log(this.link + "Ajax_GetInfo.php?jsonDoc=" + JSON.stringify(obj));
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
 
 
   }
-  setEvents_Call(location, type, info = "", info2 = "" ,info3="") {
+  setEvents_Call(location, type, info = "", info2 = "", info3 = "") {
     return new Promise(resolve => {
-      this.setEvents(location, type, info, info2, info3 ,resolve);
+      this.setEvents(location, type, info, info2, info3, resolve);
     });
   }
   AddEvents(type, info, info2, info3, fn) {
@@ -350,8 +395,8 @@ export class AjaxCallProvider {
             case "Delete_Event":
               this.returnInfo = true;
               break;
-              case "Apply_Event":
-              case "Apply_Events":
+            case "Apply_Event":
+            case "Apply_Events":
               this.returnInfo = true;
               break;
             case "Attened_Evnet":
@@ -512,14 +557,14 @@ export class AjaxCallProvider {
                   "ID": result.ID, "Member_ID": result.Member_ID, "Octopus": result.Octopus, "Member_Type": result.Member_Type, "Chinese_Name": result.Chinese_Name, "English_Name": result.English_Name, "Gender": result.Gender, "DOB": result.DOB, "HKID": result.HKID,
                   "Address": result.Address, "Marriage": result.Marriage, "Occupation": result.Occupation, "Year_In_HK": result.Year_In_HK, "Contact_1": result.Contact_1, "Contact_2": result.Contact_2, "Gov_CSSA": result.Gov_CSSA,
                   "Family_Income": result.Family_Income, "Elderly_Income": result.Elderly_Income, "Old_Age_Allowance": result.Old_Age_Allowance, "Disability_Allowance": result.Disability_Allowance, "Pension": result.Pension, "Family_Support": result.Family_Support, "E_Num_Son": result.E_Num_Son,
-                  "E_Life_Tgt": result.E_Life_Tgt, "Photo_Auth": result.Photo_Auth, "Declaration_1": result.Declaration_1, "Declaration_2": result.Declaration_2, "End": result.End, "P_ID": result.P_ID,"Remark": result.Remark,"Reason": result.Reason
+                  "E_Life_Tgt": result.E_Life_Tgt, "Photo_Auth": result.Photo_Auth, "Declaration_1": result.Declaration_1, "Declaration_2": result.Declaration_2, "End": result.End, "P_ID": result.P_ID, "Remark": result.Remark, "Reason": result.Reason
                 };
 
               }
               break;
             case "Get_Fam_Info_by_Octopus":
-            
-            break;
+
+              break;
             case "Get_Member_Family_Info_by_ID":
             case "Get_Member_Family_Info_by_Octopus":
               let INFO: any = [];
@@ -556,14 +601,14 @@ export class AjaxCallProvider {
               let Get_Appled_Member_Perm_Event: any = [];
               for (var i = 0; i < obj.info.length; i++) {
                 var result = obj.info[i];
-                Get_Appled_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name, "Repeat_Week":result.Repeat_Week, "EID": result.EID, "Member_ID": result.Member_ID });
+                Get_Appled_Member_Perm_Event.push({ "Event_Connect": result.Event_Connect, "Event_Name": result.Event_Name, "Repeat_Week": result.Repeat_Week, "EID": result.EID, "Member_ID": result.Member_ID });
                 fn(Get_Appled_Member_Perm_Event);
               }
               break;
             case "Apply_New_Member":
               this.returnInfo = true;
               break;
-              case "Update_Member":
+            case "Update_Member":
               fn(true);
               break;
             case "Testing":

@@ -7,9 +7,22 @@
       活動列表EventList
     </ion-title>
   </ion-navbar>
+  <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="event_list">
+          <ion-segment-button value="Perm">
+            常駐活動
+          </ion-segment-button>
+          <ion-segment-button value="Single">
+              單次活動
+          </ion-segment-button>
+          <ion-segment-button value="Outdate">
+              過去活動
+            </ion-segment-button>
+        </ion-segment>
+  </ion-toolbar>
 </ion-header>
 <ion-content padding id="page19">
-    <div padding>
+    <!-- <div padding>
         <ion-segment [(ngModel)]="event_list">
           <ion-segment-button value="Perm">
             常駐活動
@@ -21,7 +34,7 @@
               過去活動
             </ion-segment-button>
         </ion-segment>
-      </div>
+      </div> -->
       <div [ngSwitch]="event_list">
   <!-- <h1 id="EventList-heading31" style="color:#000000;">
     常駐活動

@@ -33,6 +33,11 @@ import {AjaxCallProvider} from '../../providers/ajax-call/ajax-call'
   templateUrl: 'food-angel.html'
 })
 export class FoodAngelPage {
+  //permission
+  Permission_List:any;
+  TakeAttendance=false;
+  MemberList=false;
+  ListEvent=false;
   //public Events: any[] = [];
   public Perm_Events: any;
   public Today_Events: any;
@@ -192,6 +197,7 @@ export class FoodAngelPage {
           this.Staff_ID = obj.Staff.Staff_ID;
           this.Staff_Hash = obj.Staff.Staff_Hash;
           this.Staff_Dept = obj.Staff.Staff_Dept;
+          this.Check_Permission();
           //this.getEvents(this.Staff_Dept); // should be change not get dept
           this.ajaxCall.getEvents_Call(this.Staff_Dept,"HomePerm").then(available => {
             //   console.log("available");
@@ -236,7 +242,27 @@ export class FoodAngelPage {
     //var obj = { "Username": this.Username, "Password": this.Password };
     xmlhttp.send("jsonDoc=" + JSON.stringify(obj));
   }
-
+  Check_Permission(){
+    this.ajaxCall.getEvents_Call("","Check_Permission",this.Staff_Dept.toString(),this.Staff_Hash.toString()).then(result =>{
+      this.Permission_List=result;
+      var TakeAttendance= this.Permission_List.findIndex(work => work.Page === "TakeAttendance");
+      if(TakeAttendance!=-1){
+        this.TakeAttendance=true;
+       }
+       //this.log("~"+UserAccount);
+       var MemberList = this.Permission_List.findIndex(work => work.Page === "MemberList");
+      if(MemberList!=-1){
+        this.MemberList=true;
+       }
+       //this.log("~"+UserLevel);
+       var ListEvent = this.Permission_List.findIndex(work => work.Page === "ListEvent");
+      if(ListEvent!=-1){
+        this.ListEvent=true;
+       }
+       //this.log("~"+PermissionSetting);
+       
+    });
+  }
   // getEvents(location) {
   //   var xmlhttp = new XMLHttpRequest();
   //   var url = "http://101.78.175.101:8580/foodangel/Ajax_GetInfo.php";

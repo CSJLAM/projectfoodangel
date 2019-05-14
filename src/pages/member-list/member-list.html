@@ -9,8 +9,8 @@
   </ion-navbar>
 </ion-header>
 <ion-content >
-  
-    <ion-item id="MemberList-input62">
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <!-- <ion-item id="MemberList-input62">
       <ion-label>
         會員名稱/拍八達通
       </ion-label>
@@ -18,7 +18,7 @@
     </ion-item>
     <button id="MemberList-button12" ion-button color="positive" block on-click="goToMembershipEdit()">
       尋找
-    </button>
+    </button> -->
     <ion-item>
       <ion-label>
         類別

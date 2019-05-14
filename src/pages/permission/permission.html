@@ -7,30 +7,50 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>permission</ion-title>
+    <ion-title>用戶權限permission</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <button id="CampusList-button31" ion-button color="positive" block>
-        新增
-      </button>
-        <ion-item-divider color="light">
-           會員管理權限
-          </ion-item-divider>
-     
-    <ion-item color="none" >
-     Admin1
-    </ion-item>
-    <ion-item color="none"   >
-        Staff1
-       </ion-item>
-       <ion-item color="none"   >
-          Level2
-         </ion-item>
-    
-    
-
+  <ion-item-divider color="light">
+    會員管理
+  </ion-item-divider>
+  <ion-item color="none" (click)="GoToPermission_Setting('MemberList','會員列表')">
+    會員列表
+  </ion-item>
+  <ion-item color="none" (click)="GoToPermission_Setting('NewAndEditMember','新增/更改會員')">
+    新增/更改會員
+  </ion-item>
+  <ion-item color="none" (click)="GoToPermission_Setting('SpecialInfoMember','會員敏感資料')">
+    會員敏感資料
+  </ion-item>
+  <ion-item-divider color="light">
+    活動管理
+  </ion-item-divider>
+  <ion-item color="none" (click)="GoToPermission_Setting('TakeAttendance','點名')">
+    點名
+  </ion-item>
+  <ion-item color="none" (click)="GoToPermission_Setting('ListEvent','活動列表')">
+    活動列表
+  </ion-item>
+  <ion-item color="none" (click)="GoToPermission_Setting('NewAndEditEvent','新增/更改活動')">
+    新增/更改活動
+  </ion-item>
+  <ion-item-divider color="light">
+    系統管理
+  </ion-item-divider>
+  <ion-item color="none" (click)="GoToPermission_Setting('Reports','報告')">
+    報告
+  </ion-item>
+  <ion-item color="none" (click)="GoToPermission_Setting('UserAccount','帳號管理')">
+    帳號管理
+  </ion-item>
+  <ion-item color="none" (click)="GoToPermission_Setting('UserLevel','職級設定')">
+    職級設定
+  </ion-item>
+  <ion-item color="none" (click)="GoToPermission_Setting('PermissionSetting','權限管理')">
+    權限管理
+  </ion-item>
 </ion-content>

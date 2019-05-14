@@ -6,6 +6,11 @@
     <ion-title>
       系統管理System Management
     </ion-title>
+    <ion-buttons end >
+      <button ion-button icon-only color="royal" (click)="openMenu()">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page15">
@@ -14,7 +19,7 @@
       <div style="width:100%;height:220px;margin:0px 0px;line-height:250px;background-color:#e8ebef;text-align:center;">
         <i class="icon ion-image" style="font-size:64px;color:#888;vertical-align:middle;"></i>
       </div>
-      <ion-item color="none" on-click="goToEventManagement()" id="SystemManagement-list-item22">
+      <ion-item *ngIf="NewAndEditEvent" color="none" on-click="goToEventManagement()" id="SystemManagement-list-item22">
         <ion-icon name="folder" item-left></ion-icon>
         活動管理
       </ion-item>
@@ -22,8 +27,8 @@
         <ion-icon name="people" item-left></ion-icon>
         職員管理
       </ion-item>
-      <a href="http://101.78.175.101:8580/foodangel/report.php?jsonDoc=5798d32d5f53f065cfdcc3436e2e5a50">
-      <ion-item color="none" id="SystemManagement-list-item43">
+      
+      <ion-item color="none" *ngIf="Reports"  (click)="GoToReport()" id="SystemManagement-list-item43">
         <ion-icon name="home" item-left></ion-icon>
         <!-- 會址設定
       </ion-item>
@@ -32,7 +37,7 @@
         
         報告
       </ion-item>
-    </a>
+    
     </ion-list>
   </ion-card>
 </ion-content>

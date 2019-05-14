@@ -358,12 +358,17 @@
     </ion-item-group>
     <ion-item-group *ngIf="Page==6">
       <ion-item-divider color="light">第六部份 - 其他</ion-item-divider>
-      <ion-item>
+      <ion-item *ngIf="SpecialInfoMember" >
         <ion-label>
           申請原因
         </ion-label>
         <ion-textarea [(ngModel)]="Member.Reason"></ion-textarea>
       </ion-item>
+      <ion-item *ngIf="!SpecialInfoMember" >
+          <ion-label>
+            申請原因 ***沒有閱讀權限***
+          </ion-label>
+        </ion-item>
       <ion-item>
         <ion-label>
           允許拍攝聲明
@@ -382,12 +387,17 @@
         </ion-label>
         <ion-checkbox [(ngModel)]="Member.Declaration_2"></ion-checkbox>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="SpecialInfoMember">
           <ion-label>
               備註
           </ion-label>
           <ion-textarea  [(ngModel)]="Member.Remark"></ion-textarea>
         </ion-item>
+        <ion-item *ngIf="!SpecialInfoMember">
+            <ion-label>
+                備註 ***沒有閱讀權限***
+            </ion-label>
+          </ion-item>
     </ion-item-group>
   </ion-list>
 

@@ -68,7 +68,7 @@ export class EventInfoPage {
           // console.log("SCANNED");
           this.resetScanData();
 
-          //alert(tagId);
+         // alert(tagId);
           // only testing data consider to ask web api for access
           this.granted = [
             "7d3c6179"

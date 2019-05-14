@@ -72,23 +72,30 @@ export class MemberPreferencePage {
         console.log(leave);
         
 
-        // for(var a=0;a<Object.keys(result).length;a++){
-        //   console.log(day==result[a].Attend_Date);
-        // if(day==result[a].Attend_Date && result[a].Status=="Leave"){
-        //   is=true;
-        //   check=false;
-        //   break;
-        // }else if(day==result[a].Attend_Date && result[a].Status=="Unchecked"){
-        //   is=true;
-        //   //check=true;
-        //   break;
-        // }  
-        // }
+        for(var a=0;a<Object.keys(result).length;a++){
+          console.log(day==result[a].Attend_Date);
+        if(day==result[a].Attend_Date && result[a].Status=="Leave"){
+          is=true;
+          check=false;
+          break;
+        }else if(day==result[a].Attend_Date && result[a].Status=="Unchecked"){
+          is=true;
+          //check=true;
+          break;
+        }  
+        }
         this.Week.push({"Week":temp[i],"Words":Words,"Checked":check});
       }
       console.log(this.Week);
     });
     
+  }
+  Submit(){
+    // this.ajaxCall.setEvents_Call("","Set_Perference",this.Week,this.Member,this.Event).then(result=>{
+    //   if(result){
+        this.navCtrl.pop();
+    //   }
+    // });
   }
 
   ionViewDidLoad() {

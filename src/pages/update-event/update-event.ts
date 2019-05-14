@@ -16,6 +16,8 @@ export class UpdateEventPage {
   isPerm:boolean=false;
   constructor(private controller: ControllerProvider,public navCtrl: NavController, public navParams: NavParams, private ajaxCall: AjaxCallProvider,public alertCtrl: AlertController, ) {
     this.Event = this.navParams.data.params;
+    this.Event['Repeat_Week']=this.Event['Repeat_Week'].split(",");
+    //console.log(this.Event['Repeat_Week']);
     console.log(this.Event);
     this.ajaxCall.getEvents_Call("", "Get_Campus").then(result => {
       this.Campus = result;
@@ -61,12 +63,14 @@ export class UpdateEventPage {
     //let obj = { 'ID':this.Event['ID'],'Event_Connect':this.Event['Event_Connect'],'Event_Name':this.Event['Event_Name'],'Event_Location':this.Event['Event_Location'],'Event_Info':this.Event['Event_Info'],'Event_Limit':this.Event['Event_Limit'],'Event_Cate':this.Event['Event_Type'].Type,'Event_Type':this.Event['Event_Type'].ID,'Start_Date':this.Event['Start_Date'],'End_Date':this.Event['End_Date'],'Start_Time':this.Event['Start_Time'],'End_Time':this.Event['End_Time'],'Repeat_Week':(typeof this.Event['Repeat_Week'] === "undefined" ? "" : this.Event['Repeat_Week'].toString()),'Create_By':this.Name };
     //console.log(obj);
     this.controller.showLoading();
+    this.Event['Repeat_Week']=this.Event['Repeat_Week'].toString();
     this.ajaxCall.AddEvents_Call("Update_Event",this.Event).then(available => {
       this.controller.hideLoading();
       if(available){
         this.navCtrl.pop();
        }
     });
+    this.Event['Repeat_Week']=this.Event['Repeat_Week'].split(",");
   }
   DeleteEvent(){
     let prompt = this.alertCtrl.create({

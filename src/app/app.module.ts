@@ -35,10 +35,12 @@ import { UpdateVersionPage } from '../pages/update-version/update-version';
 import { MemberPreferencePage } from '../pages/member-preference/member-preference';
 import { EventMultiApplyPage } from '../pages/event-multi-apply/event-multi-apply';
 import { PermissionPage } from '../pages/permission/permission';
+import { PermissionSettingPage } from '../pages/permission-setting/permission-setting';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NFC } from '@ionic-native/nfc';
-//import { InAppBrowser } from '@ionic-native/in-app-browser';
+
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { AjaxCallProvider } from '../providers/ajax-call/ajax-call';
 import { ControllerProvider } from '../providers/controller/controller';
@@ -78,7 +80,8 @@ import { ControllerProvider } from '../providers/controller/controller';
     UpdateVersionPage,
     MemberPreferencePage,
     EventMultiApplyPage,
-    PermissionPage
+    PermissionPage,
+    PermissionSettingPage
   ],
   imports: [
     BrowserModule,
@@ -120,13 +123,14 @@ import { ControllerProvider } from '../providers/controller/controller';
     UpdateVersionPage,
     MemberPreferencePage,
     EventMultiApplyPage,
-    PermissionPage
+    PermissionPage,
+    PermissionSettingPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     NFC,
-    
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AjaxCallProvider,
     ControllerProvider,
